@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-// import getQuestionForm from "./components/questions.jsx";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "./styles/styles.css";
 
@@ -77,7 +76,7 @@ export default function App() {
   const ShowAnswersOnFinish = () => {
     setHotspots(initialHotspotsArr);
   };
-  const handleModelClick = (event) => {
+  // const handleModelClick = (event) => {
     // const { clientX, clientY } = event;
 
     // if (modelRef.current) {
@@ -87,7 +86,7 @@ export default function App() {
     //     // console.log("hit", userSetHotspots);
     //   }
     // }
-  };
+  // };
   const getBackgroundColor = (snapshot) => {
     // Giving isDraggingOver preference
     if (snapshot.isDraggingOver) {
@@ -112,7 +111,7 @@ export default function App() {
         onDragStart={this.onDragStart}
         onDragUpdate={this.onDragUpdate}*/
         onDragEnd={(param) => {
-          // console.log(param);
+          console.log(param);
           const srcI = param.source.index;
           const desI = param.destination?.droppableId;
           if (desI && desI != "droppable-1") {
@@ -187,7 +186,7 @@ export default function App() {
                 התחל
               </button>
             ) : (
-              <Droppable droppableId="droppable-1" type="PERSON">
+              <Droppable droppableId="droppable-titles" type="HOTSPOT">
                 {(provided, _) => (
                   <div ref={provided.innerRef} {...provided.droppableProps}>
                     {draggableItems(hotspots)}
@@ -201,7 +200,7 @@ export default function App() {
 
         {modelViewer(
           modelRef,
-          handleModelClick,
+          // handleModelClick,
           hotspots,
           answers,
           getBackgroundColor,

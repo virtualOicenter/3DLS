@@ -1,8 +1,7 @@
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
+import { Droppable } from "react-beautiful-dnd";
 export default function modelViewer(
   modelRef,
-  handleModelClick,
+  // handleModelClick,
   hotspots,
   answers,
   getBackgroundColor,
@@ -10,7 +9,7 @@ export default function modelViewer(
 ) {
   return (
     <model-viewer
-      src="./assets/human_cell.glb"
+      src="https://cdn.jsdelivr.net/gh/virtualOicenter/dnd-3dmodel-quiz@dd3d4d2323424e6e94024a4adb64dff20f62d67e/src/assets/human_cell.glb"
       ar-modes="webxr scene-viewer quick-look"
       camera-controls
       interaction-prompt="none"
@@ -20,15 +19,14 @@ export default function modelViewer(
       ref={(ref) => {
         modelRef.current = ref;
       }}
-      onClick={handleModelClick}
+      // onClick={()=>{}}
     >
       {hotspots.map((hotspot, index) => {
         if (answers.indexOf(hotspot.id) === -1) {
           return (
-            <Droppable droppableId={hotspot.id} key={hotspot.id} type="PERSON">
+            <Droppable droppableId={"droppable"+hotspot.id} key={hotspot.id} type="HOTSPOT">
               {(provided, snapshot) => (
                 <button
-                  /*key={hotspot.id}*/
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                   style={{ backgroundColor: getBackgroundColor(snapshot) }}
