@@ -114,7 +114,7 @@ export default function App() {
           console.log(param);
           const srcI = param.source.index;
           const desI = param.destination?.droppableId;
-          if (desI && desI != "droppable-1") {
+          if (desI && desI != "droppable-titles") {
             // console.log("handle submit", param.destination.droppableId);
             let tempAnswer = hotspots.find(
               (f) => f.id == param.draggableId

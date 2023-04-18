@@ -5,7 +5,7 @@ export default function draggbleItems(hotspots) {
     return hotspots.map((hotspot, index) => {
       return (
         <div key={hotspot.id} className="draggableItems">
-          <Draggable draggableId={"list-"+hotspot.id} index={index}>
+          <Draggable draggableId={hotspot.id} index={index}>
             {(provided, snapshot) => (
               <div
                 ref={provided.innerRef}
