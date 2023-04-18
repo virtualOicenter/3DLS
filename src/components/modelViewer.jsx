@@ -9,7 +9,7 @@ export default function modelViewer(
 ) {
   return (
     <model-viewer
-      src="https://cdn.jsdelivr.net/gh/virtualOicenter/dnd-3dmodel-quiz@dd3d4d2323424e6e94024a4adb64dff20f62d67e/src/assets/human_cell.glb"
+      src="../assets/3dmodel.glb"
       ar-modes="webxr scene-viewer quick-look"
       camera-controls
       interaction-prompt="none"
@@ -24,7 +24,7 @@ export default function modelViewer(
       {hotspots.map((hotspot, index) => {
         if (answers.indexOf(hotspot.id) === -1) {
           return (
-            <Droppable droppableId={"droppable"+hotspot.id} key={hotspot.id} type="HOTSPOT">
+            <Droppable droppableId={hotspot.id} key={hotspot.id} type="HOTSPOT">
               {(provided, snapshot) => (
                 <button
                   ref={provided.innerRef}
