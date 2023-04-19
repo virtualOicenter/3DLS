@@ -1,4 +1,6 @@
 import { Droppable } from "react-beautiful-dnd";
+import  modelFile from "../assets/3dmodel.glb"
+
 export default function modelViewer(
   modelRef,
   // handleModelClick,
@@ -9,7 +11,7 @@ export default function modelViewer(
 ) {
   return (
     <model-viewer
-      src="../assets/3dmodel.glb"
+      src={modelFile}
       ar-modes="webxr scene-viewer quick-look"
       camera-controls
       interaction-prompt="none"
