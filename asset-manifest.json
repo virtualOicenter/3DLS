@@ -1,15 +1,16 @@
 {
   "files": {
     "main.css": "/dnd-3dmodel-quiz/static/css/main.18ebadc9.css",
-    "main.js": "/dnd-3dmodel-quiz/static/js/main.9eaa4ab4.js",
+    "main.js": "/dnd-3dmodel-quiz/static/js/main.da694adf.js",
     "static/js/787.a969b2c2.chunk.js": "/dnd-3dmodel-quiz/static/js/787.a969b2c2.chunk.js",
+    "static/media/3dmodel.glb": "/dnd-3dmodel-quiz/static/media/3dmodel.55a9b4db34b9f070b3de.glb",
     "index.html": "/dnd-3dmodel-quiz/index.html",
     "main.18ebadc9.css.map": "/dnd-3dmodel-quiz/static/css/main.18ebadc9.css.map",
-    "main.9eaa4ab4.js.map": "/dnd-3dmodel-quiz/static/js/main.9eaa4ab4.js.map",
+    "main.da694adf.js.map": "/dnd-3dmodel-quiz/static/js/main.da694adf.js.map",
     "787.a969b2c2.chunk.js.map": "/dnd-3dmodel-quiz/static/js/787.a969b2c2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.18ebadc9.css",
-    "static/js/main.9eaa4ab4.js"
+    "static/js/main.da694adf.js"
   ]
 }
