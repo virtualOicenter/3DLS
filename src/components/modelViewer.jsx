@@ -1,5 +1,5 @@
 import { Droppable } from "react-beautiful-dnd";
-import  modelFile from "../assets/3dmodel.glb"
+import modelFile from "../assets/3dmodel.glb"
 
 export default function modelViewer(
   modelRef,
@@ -7,7 +7,8 @@ export default function modelViewer(
   hotspots,
   answers,
   getBackgroundColor,
-  bottomScreenContent
+  bottomScreenContent,
+  hasFinished
 ) {
   return (
     <model-viewer
@@ -21,7 +22,7 @@ export default function modelViewer(
       ref={(ref) => {
         modelRef.current = ref;
       }}
-      // onClick={()=>{}}
+    // onClick={()=>{}}
     >
       {hotspots.map((hotspot, index) => {
         if (answers.indexOf(hotspot.id) === -1) {
@@ -36,8 +37,8 @@ export default function modelViewer(
                     bottomScreenContent == hotspot.id
                       ? "ClickedHotspot"
                       : hotspot.userAnswer == ""
-                      ? "Hotspot"
-                      : "AnsweredHotspot"
+                        ? "Hotspot"
+                        : "AnsweredHotspot"
                   }
                   slot={hotspot.id}
                   data-surface={hotspot.dataSurface}
@@ -53,14 +54,18 @@ export default function modelViewer(
                 >
                   <div className="HotspotAnnotation">
                     {
-                      hotspot.userAnswer != "" && (
-                        <div>
-                          {
-                            hotspots.find((f) => f.answer == hotspot.userAnswer)
-                              .title
-                          }
-                        </div>
-                      )
+                      hasFinished ? (
+                      <div>
+                      {index}
+                      </div>)
+                        : (hotspot.userAnswer != "" && (
+                          <div>
+                            {
+                              hotspots.find((f) => f.answer == hotspot.userAnswer)
+                                .title
+                            }
+                          </div>
+                        ))
                       /*<div className="hotspotDot">.</div>*/
                     }
                     <span style={{ display: "none" }}>

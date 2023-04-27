@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import React, { useState, useRef } from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import "./styles/styles.css";
 
 import getInitialHotspotsArr from "./components/initialHotspotsArr.jsx";
@@ -204,7 +204,8 @@ export default function App() {
           hotspots,
           answers,
           getBackgroundColor,
-          bottomScreenContent
+          bottomScreenContent,
+          hasFinished
         )}
       </DragDropContext>
     </div> //main
