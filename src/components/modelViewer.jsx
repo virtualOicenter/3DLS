@@ -56,7 +56,7 @@ export default function modelViewer(
                     {
                       hasFinished ? (
                       <div>
-                      {index}
+                      {index+1}
                       </div>)
                         : (hotspot.userAnswer != "" && (
                           <div>
