@@ -2,12 +2,14 @@ import React, { useState, useRef } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import "./styles/styles.css";
 
-import getInitialHotspotsArr from "./components/initialHotspotsArr.jsx";
+import getInitialHotspotsArr from "./components/animalCellInitialHotspotsArr.jsx";
 import instructions from "./components/instructions.jsx";
 import reviewAnswers from "./components/reviewAnswers.jsx";
 import questionsScreen from "./components/questionsScreen.jsx";
 import modelViewer from "./components/modelViewer.jsx";
 import draggableItems from './components/draggableItems.jsx'
+
+import modelFile from "../assets/animalCell.glb"
 // Home function that is reflected across the site
 
 export default function App() {
@@ -199,6 +201,7 @@ export default function App() {
         )}
 
         {modelViewer(
+          modelFile,
           modelRef,
           // handleModelClick,
           hotspots,

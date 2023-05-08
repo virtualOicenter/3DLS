@@ -1,7 +1,8 @@
 import { Droppable } from "react-beautiful-dnd";
-import modelFile from "../assets/3dmodel.glb"
+// import modelFile from "../assets/animalCell.glb"
 
 export default function modelViewer(
+  modelFile,
   modelRef,
   // handleModelClick,
   hotspots,
