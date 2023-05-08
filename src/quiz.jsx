@@ -7,7 +7,7 @@ import reviewAnswers from "./components/reviewAnswers.jsx";
 import questionsScreen from "./components/questionsScreen.jsx";
 import modelViewer from "./components/modelViewer.jsx";
 import draggableItems from './components/draggableItems.jsx'
-// Home function that is reflected across the site
+// Home function that is reflected across the site1
 
 export default function QuizPage(hotspotsArr) {
     const initialHotspotsArr = getInitialHotspotsArr("liora");
