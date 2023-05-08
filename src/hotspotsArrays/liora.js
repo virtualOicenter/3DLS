@@ -1,9 +1,4 @@
-import React, { useEffect, useState } from "react"
-export default function getInitialHotspotsArr(hotspotsArrID){ 
-  return initialHotspotsArr[hotspotsArrID];
-}  
-  const initialHotspotsArr = []
-  initialHotspotsArr["liora"]=[
+export const initialHotspotsArr = [
     {
       id: "hotspot-1",
       title: "1",

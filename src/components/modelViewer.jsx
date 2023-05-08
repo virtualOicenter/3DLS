@@ -1,7 +1,9 @@
-import { Droppable } from "react-beautiful-dnd";
-import modelFile from "../assets/3dmodel.glb"
+import React,{ useEffect, useState } from "react"
 
-export default function modelViewer(
+import { Droppable } from "react-beautiful-dnd";
+// import modelFile from "../assets/3dmodel.glb"
+
+export default function ModelViewer(
   modelRef,
   // handleModelClick,
   hotspots,
@@ -10,6 +12,19 @@ export default function modelViewer(
   bottomScreenContent,
   hasFinished
 ) {
+  const [modelFile, setModelFile] = useState('');
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const modelIDParam = searchParams.get('modelID');
+    if (modelIDParam){
+      import(`../assets/${modelIDParam}.glb`)
+      .then((res) => res.default)
+      .then((data) => setModelFile(data))
+      .catch((err) => console.error(err));
+    }
+  }, []);
+
   return (
     <model-viewer
       src={modelFile}
