@@ -1,11 +1,9 @@
 import React,{ useEffect, useState } from "react"
-
 import { Droppable } from "react-beautiful-dnd";
-import modelFile from "../assets/3dmodel.glb"
 
 export default function ModelViewer(
   modelRef,
-  // handleModelClick,
+  handleModelClick,
   hotspots,
   answers,
   getBackgroundColor,
@@ -37,7 +35,7 @@ export default function ModelViewer(
       ref={(ref) => {
         modelRef.current = ref;
       }}
-    // onClick={()=>{}}
+    onClick={(event)=>{handleModelClick&&handleModelClick(event)}}
     >
       {hotspots.map((hotspot, index) => {
         if (answers.indexOf(hotspot.id) === -1) {
@@ -71,7 +69,7 @@ export default function ModelViewer(
                     {
                       hasFinished ? (
                       <div>
-                      {index+1}
+                      {bottomScreenContent!=""? (index+1): (hotspot.title)}
                       </div>)
                         : (hotspot.userAnswer != "" && (
                           <div>
@@ -100,21 +98,3 @@ export default function ModelViewer(
     </model-viewer>
   );
 }
-/*
-<Draggable draggableId={hotspot.id} index={index}>
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.draggableProps}
-                style={{
-                  ...provided.draggableProps.style,
-                  boxShadow: snapshot.isDragging ? "0 0 0 #666" : "none",
-                }}
-              >
-                <div className="draggableHandle" {...provided.dragHandleProps}>
-                  {hotspot.title}
-                </div>
-              </div>
-            )}
-          </Draggable>
-*/

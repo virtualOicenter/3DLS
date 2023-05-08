@@ -9,8 +9,14 @@ import modelViewer from "./components/modelViewer.jsx";
 import draggableItems from './components/draggableItems.jsx'
 // Home function that is reflected across the site1
 
-export default function QuizPage(hotspotsArr) {
-    const initialHotspotsArr = getInitialHotspotsArr("liora");
+export default function QuizPage() {
+    let [initialHotspotsArr,setInitialHotspotsArr] =useState(()=>{
+        const searchParams = new URLSearchParams(window.location.search);
+        const hotspotsArrIDParam = searchParams.get('hotspotsArrID');
+        if(hotspotsArrIDParam){
+          return getInitialHotspotsArr(hotspotsArrIDParam);
+        }
+    })
     const modelRef = useRef();
     const [bottomScreenContent, setBottomScreenContent] = useState("Instructions");
     const [answers, setAnswers] = useState([]);
@@ -75,17 +81,17 @@ export default function QuizPage(hotspotsArr) {
     const ShowAnswersOnFinish = () => {
         setHotspots(initialHotspotsArr);
     };
-    // const handleModelClick = (event) => {
-    // const { clientX, clientY } = event;
+    const handleModelClick = (event) => {
+    const { clientX, clientY } = event;
 
-    // if (modelRef.current) {
-    //   let hit = modelRef.current.surfaceFromPoint(clientX, clientY);
-    //   if (hit) {
-    //     setUserSetHotspots([...userSetHotspots, hit]);
-    //     // console.log("hit", userSetHotspots);
-    //   }
-    // }
-    // };
+    if (modelRef.current) {
+      let hit = modelRef.current.surfaceFromPoint(clientX, clientY);
+      if (hit) {
+        //setUserSetHotspots([...userSetHotspots, hit]);
+        //  console.log("hit", userSetHotspots);
+      }
+    }
+    };
     const getBackgroundColor = (snapshot) => {
         // Giving isDraggingOver preference
         if (snapshot.isDraggingOver) {
@@ -199,7 +205,7 @@ export default function QuizPage(hotspotsArr) {
 
                 {modelViewer(
                     modelRef,
-                    // handleModelClick,
+                    handleModelClick,
                     hotspots,
                     answers,
                     getBackgroundColor,
