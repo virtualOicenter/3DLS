@@ -1,4 +1,6 @@
-export const initialHotspotsArr = [
+export default function initialHotspotsArr() {
+  return (
+    [
     {
       id: "hotspot-1",
       title: "1",
@@ -71,5 +73,7 @@ export const initialHotspotsArr = [
       dataSurface: "14 0 1230 1228 1229 0.270 0.553 0.178",
       userAnswer: "",
     },
-  ];
+  ]
+  )
   
+}

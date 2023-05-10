@@ -10,18 +10,26 @@ import { Dialog } from 'primereact/dialog';
 // Home function that is reflected across the site1
 
 
-export default function EditorPage() {
-    let [initialHotspotsArr, setInitialHotspotsArr] = useState(() => {
+export default function EditorPage(modelIDParam, hotspotsArrIDParam) {
+    const [initialHotspotsArr, setInitialHotspotsArr] = useState([])
+    const modelRef = useRef();  
+    const [userSetHotspots, setUserSetHotspots] = useState(initialHotspotsArr);
+    const [visible, setVisible] = useState(false);
+    const hotspotFileFound= useRef(false)
+
+    useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
         const hotspotsArrIDParam = searchParams.get('hotspotsArrID');
         if (hotspotsArrIDParam) {
-            return getInitialHotspotsArr(hotspotsArrIDParam);
+            import(`./hotspotsArrays/${hotspotsArrIDParam}.js`)
+                .then((res) => { setInitialHotspotsArr(res.default);
+                    setUserSetHotspots(res.default);
+                    hotspotFileFound.current=true;
+                  })
+                // .then((data) => { console.log('data=>', data);})
+                .catch((err) => console.error(err));
         }
-    })
-    const modelRef = useRef();
-    const [hotspots, setHotspots] = useState(initialHotspotsArr);
-    const [userSetHotspots, setUserSetHotspots] = useState(initialHotspotsArr);
-    const [visible, setVisible] = useState(false);
+    }, []);
 
     const getBackgroundColor = (snapshot) => {
         // Giving isDraggingOver preference
@@ -60,10 +68,11 @@ export default function EditorPage() {
 
     return (
         <div id="main">
-                <Button label="Show" icon="pi pi-external-link" onClick={() => window.alert(JSON.stringify(userSetHotspots))} />
+                <Button label="Show" icon="pi pi-external-link" onClick={() => {window.alert(JSON.stringify(userSetHotspots));console.log(userSetHotspots);}} />
             <DragDropContext>
                 {/* <button onClick={() => {alert(userSetHotspots)}}>הצג תשובות </button> */}
                 {modelViewer(
+                    modelIDParam,
                     modelRef,
                     handleModelClick,
                     userSetHotspots, [],
