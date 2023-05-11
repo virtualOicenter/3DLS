@@ -6,14 +6,6 @@ import { Button } from 'primereact/button';
 
 
 export default function HotspotsTable(userSetHotspots, setUserSetHotspots) {
-
-
-    useEffect(() => {
-        // ProductService.getProductsMini().then((data) => setProducts(data));
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-
-
     const onRowEditComplete = (e) => {
         let _userSetHotspots = [...userSetHotspots];
         let { newData, index } = e;

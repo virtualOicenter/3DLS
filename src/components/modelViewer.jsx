@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Droppable } from "react-beautiful-dnd";
-
+import getModel from "../assets/3dModelList";
 export default function ModelViewer(
   modelIDParam,
   modelRef,
@@ -11,19 +11,8 @@ export default function ModelViewer(
   bottomScreenContent,
   hasFinished
 ) {
-  const [modelFile, setModelFile] = useState('');
-
-  useEffect(() => {
-
-    if (modelIDParam) {
-      import(`../assets/${modelIDParam}.glb`)
-        .then((res) => res.default)
-        .then((data) => setModelFile(data))
-        .catch((err) => console.error(err));
-    }
-  }, []);
-
-  return (!modelFile ?
+const modelData= getModel(modelIDParam)
+  return (!modelData ?
     (
       <div style={{ backgroundColor: "red", color: "white", textAlign: "center" }}>
         ERROR MODEL NOT FOUND
@@ -31,17 +20,18 @@ export default function ModelViewer(
     )
     : (
       <model-viewer
-        src={modelFile}
+        src={modelData.src}
         ar-modes="webxr scene-viewer quick-look"
         camera-controls
         interaction-prompt="none"
         shadow-intensity="1"
-        camera-orbit="208.2deg 76.17deg 0.4071m"
-        field-of-view="24.31deg"
+        camera-orbit={modelData.additionalProps.cameraOrbit}
+        field-of-view={modelData.additionalProps.fieldOfView}
         ref={(ref) => {
           modelRef.current = ref;
         }}
         onClick={(event) => { handleModelClick && handleModelClick(event) }}
+        
       >
         {hotspots.map((hotspot, index) => {
           if (answers.indexOf(hotspot.id) === -1) {
