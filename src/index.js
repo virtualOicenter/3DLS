@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import './index.css';
 
@@ -13,9 +13,9 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <HashRouter>
+    <BrowserRouter basename="/dnd-3dmodel-quiz">
       <App />
-    </HashRouter>
+    </BrowserRouter>
   </React.StrictMode>
 );
 reportWebVitals();
