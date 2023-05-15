@@ -9,16 +9,17 @@ export default function App() {
   const searchParams = new URLSearchParams(window.location.search);
   const modelIDParam = searchParams.get('modelID');
   const hotspotsArrIDParam = searchParams.get('hotspotsArrID');
+  console.log(window.location);
   return (
     <div id="main">
       <Routes>
         {
           modelIDParam && hotspotsArrIDParam ? (<Route path="/" element={<><Outlet /></>}>
-            <Route path="/dnd-3dmodel-quiz/quiz" element={QuizPage(modelIDParam,hotspotsArrIDParam)} />
-            <Route path="/dnd-3dmodel-quiz/editor" element={EditorPage(modelIDParam,hotspotsArrIDParam)} />
+            <Route path="/quiz" element={QuizPage(modelIDParam,hotspotsArrIDParam)} />
+            <Route path="/editor" element={EditorPage(modelIDParam,hotspotsArrIDParam)} />
           </Route>) 
           :
-           (<Route path="/dnd-3dmodel-quiz/*" element={Error(modelIDParam,hotspotsArrIDParam)} />)
+           (<Route path="/*" element={Error(modelIDParam,hotspotsArrIDParam)} />)
         }
 
       </Routes>
