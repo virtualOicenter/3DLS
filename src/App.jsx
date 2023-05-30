@@ -2,6 +2,7 @@ import "./styles/styles.css";
 import QuizPage from "./components/quiz"
 import EditorPage from "./components/editor"
 import getModel from "./assets/3dModelList";
+import GithubFileUpload from "./components/uploadFile";
 
 export default function App() {
 
@@ -9,13 +10,14 @@ export default function App() {
   const modelIDParam = searchParams.get('modelID');
   const hotspotsArrIDParam = searchParams.get('hotspotsArrID');
   const appModeParam = searchParams.get('mode');
-  console.log(window.location);
   const getPage = () => {
     switch (appModeParam) {
       case 'editor':
         return EditorPage(modelIDParam, hotspotsArrIDParam)
       case 'quiz':
         return QuizPage(modelIDParam, hotspotsArrIDParam)
+      case 'fileUpload':
+        return <GithubFileUpload />
       default:
         return <div>
           model id = {getModel(modelIDParam)} or hotspots data = {hotspotsArrIDParam} is not right
@@ -28,4 +30,3 @@ export default function App() {
     </div> //main
   );
 }
-3605a6665b1759c818d57e33c0ab0127b087fa0c

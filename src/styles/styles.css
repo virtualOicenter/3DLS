@@ -1,185 +1,199 @@
-
 :root {
-    --color-bg: #ffffa0;
-    --color-text-main: #000000;
-    --color-primary: #afece0;
-    --questionBG: #def2f8;
-    --hotspotBGColor: #def2f8;
-    --hotspotBGColor_answered: #77bfa3;
-    --hotspotBGColor_clicked: #a6a2a2;
-    --hotspotTextColor: black;
-    --answerBGColor: #edeec9;
-    --answerBGColor_correct: #77bfa3;
-    --wrapper-height: 85vh;
-    --image-max-width: 320px;
-    /*   --font-family: "HK Grotesk";
+  --color-bg: #ffffa0;
+  --color-text-main: #000000;
+  --color-primary: #afece0;
+  --questionBG: #def2f8;
+  --hotspotBGColor: #def2f8;
+  --hotspotBGColor_answered: #77bfa3;
+  --hotspotBGColor_clicked: #a6a2a2;
+  --hotspotTextColor: black;
+  --answerBGColor: #edeec9;
+  --answerBGColor_correct: #77bfa3;
+  --wrapper-height: 85vh;
+  --image-max-width: 320px;
+  /*   --font-family: "HK Grotesk";
     --font-family-header: "HK Grotesk"; */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
-  }
-  
-  /* Basic page style resets */
-  * {
-    box-sizing: border-box;
-  }
-  [hidden] {
-    display: none !important;
-  }
-  
-  model-viewer {
-    /*   position: static; */
-    height: 30rem;
-    width: 100%;
-    /*margin-top: 10%;*/
-  }
-  model-viewer:hover {
-    border: 1px solid var(--hotspotBGColor);
-    border-radius: 15px;
-  }
-  root {
-    align-items: center;
-  }
-  
-  #main {
-    font-size: 1.2em;
-    width: 100%;
-    position: absolute;
-    right: 0px;
-    display: flex;
-    flex-direction: column;
-  }
-  #btnFinishQuiz {
-    margin: 0px 15px 15px 20px;
-    direction: rtl;
-    background-color: #1177d1;
-    border-color: #1177d1;
-    color: white;
-    font-weight: 600;
-  }
-  #btnStart {
-    margin: 0px 15px 15px 20px;
-    direction: rtl;
-    background-color: #1177d1;
-    border-color: #1177d1;
-    color: white;
-    font-weight: 600;
-    width: 200px;
-    align-self: end;
-  }
-  #btnInformation {
-    margin: 0px -15px 15px 20px;
-    direction: rtl;
-    background-color: white;
-    border-color: var(--hotspotBGColor);
-    /*   border-radius:10px; */
-    color: black;
-    font-weight: 600;
-    text-align: center;
-    position: absolute;
-    left: -100px;
-  }
-  .Hotspot {
-    direction: rtl;
-    /*   background-color: var(--hotspotBGColor); */
-    border: 0px;
-    padding: 5px;
-    border-radius: 10px;
-    --min-hotspot-opacity: 0;
-    width: 25px;
-    height: 25px;
-  }
-  
-  .AnsweredHotspot {
-    direction: rtl;
-    border: 0px;
-    background-color: var(--hotspotBGColor_answered);
-    padding: 5px;
-    border-radius: 10px;
-    --min-hotspot-opacity: 0;
-    width: 25px;
-    height: 25px;
-  }
-  
-  .ClickedHotspot {
-    direction: rtl;
-    border: 0px;
-    background-color: var(--hotspotBGColor_clicked);
-    padding: 5px;
-    border-radius: 10px;
-    --min-hotspot-opacity: 0;
-    width: 25px;
-    height: 25px;
-  }
-  .HotspotAnnotation {
-    color: var(--hotspotTextColor);
-    border-radius: 5px;
-    /*   background-color: var(--hotspotBGColor); */
-    font-size: 1.3em;
-    text-align: center;
-  }
-  .hotspotDot {
-    display: block;
-    width: 5px;
-    height: 5px;
-    border-radius: 10px;
-    border: none;
-    background-color: #000000;
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    bottom: -5px;
-    text-align: center;
-  }
-  input[type="text"] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-  }
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 3px;
-  }
-  ul {
-    list-style-type: none;
-    margin-right: 15px;
-    margin-top: 0px;
-    margin-bottom: 3px;
-    padding: 3px;
-    font-size: 16px;
-  }
-  
-  /* style={{ direction: "rtl",margin:"15px", padding: "10px", 'background-color':"#def2f8" }}*/
-  button {
-    padding: 6px 12px;
-    background-color: "#ced4da";
-  }
-  .answerList {
-    color: black;
-    background-color: var(--answerBGColor);
-  }
-  .answerListCorrect {
-    color: black;
-    background-color: var(--answerBGColor_correct);
-  }
-  .draggableItems {
-    display: flex;
-    flex-direction: row;
-    vertical-align: baseline;
-    column-gap: 15px;
-    margin-right: 15px;
-    margin-bottom: 10px;
-  }
-  .draggableHandle {
-    direction: rtl;
-    background-color: lightgreen;
-    text-align: center;
-    height: auto;
-    width: 25px;
-    border-radius: 50%;
-  }
-  
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+
+/* Basic page style resets */
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+model-viewer {
+  /*   position: static; */
+  height: 30rem;
+  width: 100%;
+  /*margin-top: 10%;*/
+}
+
+model-viewer:hover {
+  border: 1px solid var(--hotspotBGColor);
+  border-radius: 15px;
+}
+
+root {
+  align-items: center;
+}
+
+#main {
+  font-size: 1.2em;
+  width: 100%;
+  position: absolute;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+#btnFinishQuiz {
+  margin: 0px 15px 15px 20px;
+  direction: rtl;
+  background-color: #1177d1;
+  border-color: #1177d1;
+  color: white;
+  font-weight: 600;
+}
+
+#btnStart {
+  margin: 0px 15px 15px 20px;
+  direction: rtl;
+  background-color: #1177d1;
+  border-color: #1177d1;
+  color: white;
+  font-weight: 600;
+  width: 200px;
+  align-self: end;
+}
+
+#btnInformation {
+  margin: 0px -15px 15px 20px;
+  direction: rtl;
+  background-color: white;
+  border-color: var(--hotspotBGColor);
+  /*   border-radius:10px; */
+  color: black;
+  font-weight: 600;
+  text-align: center;
+  position: absolute;
+  left: -100px;
+}
+
+.Hotspot {
+  direction: rtl;
+  /*   background-color: var(--hotspotBGColor); */
+  border: 0px;
+  padding: 5px;
+  border-radius: 10px;
+  --min-hotspot-opacity: 0;
+  width: 25px;
+  height: 25px;
+}
+
+.AnsweredHotspot {
+  direction: rtl;
+  border: 0px;
+  background-color: var(--hotspotBGColor_answered);
+  padding: 5px;
+  border-radius: 10px;
+  --min-hotspot-opacity: 0;
+  width: 25px;
+  height: 25px;
+}
+
+.ClickedHotspot {
+  direction: rtl;
+  border: 0px;
+  background-color: var(--hotspotBGColor_clicked);
+  padding: 5px;
+  border-radius: 10px;
+  --min-hotspot-opacity: 0;
+  width: 25px;
+  height: 25px;
+}
+
+.HotspotAnnotation {
+  color: var(--hotspotTextColor);
+  border-radius: 5px;
+  /*   background-color: var(--hotspotBGColor); */
+  font-size: 1.3em;
+  text-align: center;
+}
+
+.hotspotDot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 10px;
+  border: none;
+  background-color: #000000;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  text-align: center;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 3px;
+}
+
+ul {
+  list-style-type: none;
+  margin-right: 15px;
+  margin-top: 0px;
+  margin-bottom: 3px;
+  padding: 3px;
+  font-size: 16px;
+}
+
+/* style={{ direction: "rtl",margin:"15px", padding: "10px", 'background-color':"#def2f8" }}*/
+button {
+  padding: 6px 12px;
+  background-color: "#ced4da";
+}
+
+.answerList {
+  color: black;
+  background-color: var(--answerBGColor);
+}
+
+.answerListCorrect {
+  color: black;
+  background-color: var(--answerBGColor_correct);
+}
+
+.draggableItems {
+  display: flex;
+  flex-direction: row;
+  vertical-align: baseline;
+  column-gap: 15px;
+  margin-right: 15px;
+  margin-bottom: 10px;
+}
+
+.draggableHandle {
+  direction: rtl;
+  background-color: lightgreen;
+  text-align: center;
+  height: auto;
+  width: 25px;
+  border-radius: 50%;
+}
