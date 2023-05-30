@@ -1,35 +1,30 @@
-import React, { useEffect, useState } from "react"
-import { Routes, Route, Outlet, Link, useParams } from "react-router-dom";
 import "./styles/styles.css";
 import QuizPage from "./components/quiz"
 import EditorPage from "./components/editor"
+import getModel from "./assets/3dModelList";
 
 export default function App() {
-  
+
   const searchParams = new URLSearchParams(window.location.search);
   const modelIDParam = searchParams.get('modelID');
   const hotspotsArrIDParam = searchParams.get('hotspotsArrID');
+  const appModeParam = searchParams.get('mode');
   console.log(window.location);
+  const getPage = () => {
+    switch (appModeParam) {
+      case 'editor':
+        return EditorPage(modelIDParam, hotspotsArrIDParam)
+      case 'quiz':
+        return QuizPage(modelIDParam, hotspotsArrIDParam)
+      default:
+        return <div>
+          model id = {getModel(modelIDParam)} or hotspots data = {hotspotsArrIDParam} is not right
+        </div>
+    }
+  }
   return (
     <div id="main">
-      <Routes>
-        {
-          modelIDParam && hotspotsArrIDParam ? (<Route path="/" element={<><Outlet /></>}>
-            <Route path="/quiz" element={QuizPage(modelIDParam,hotspotsArrIDParam)} />
-            <Route path="/editor" element={EditorPage(modelIDParam,hotspotsArrIDParam)} />
-          </Route>) 
-          :
-           (<Route path="/*" element={Error(modelIDParam,hotspotsArrIDParam)} />)
-        }
-
-      </Routes>
+      {getPage()}
     </div> //main
   );
-}
-function Error(modelFile, hotspotsArr) {
-  return (
-  <div>
-    model id = {modelFile} or hotspots data = {hotspotsArr} is not right 
-  </div>
-)
 }

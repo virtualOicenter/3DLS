@@ -26,6 +26,19 @@ export default function getModel(searchId) {
                 cameraOrbit:"0deg 75deg 4.148m",
                 fieldOfView:"30deg"
             }]
+        },
+        {
+            id: 'carrot_crossSection',
+            src:'https://cdn.jsdelivr.net/gh/virtualOicenter/3dModels@c8363e829b4dda325393499e7d9cf1b7b47faadd/carrot_collection.glb',
+            title:'Carrot Collection',
+            description:'Carrot Collection',
+            attribution:'Carrot Collection by Adam.White on Sketchfab',
+            url:'https://skfb.ly/orwUK',
+            linkedHotspotsFiles:['yael_carrot'],
+            additionalProps:[{
+                cameraOrbit:"-162.7deg 73.76deg 0.4485m",
+                fieldOfView:"20.11deg"
+            }]
         }
     ]
     return models.find(f=>f.id===searchId)?models.find(f=>f.id===searchId):false

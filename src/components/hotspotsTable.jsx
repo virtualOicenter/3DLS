@@ -34,7 +34,7 @@ export default function HotspotsTable(userSetHotspots, setUserSetHotspots) {
                 <Column field="question" header="שאלה" align={"center"} editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>
                 {/* <Column field="options" header="id" editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column> */}
                 <Column field="answer" header="תשובה" align={"center"} editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>
-                <Column field="dataSurface" header="קורדינטות" align={"center"} style={{ width: '20%' }}></Column>
+                <Column field="dataSurface" header="קורדינטות" align={"center"} editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>
                 <Column rowEditor headerStyle={{ width: '10%', minWidth: '8rem' }} bodyStyle={{ textAlign: 'center' }}></Column>
                 <Column body={removeButtonTemplate} headerStyle={{ width: '10%', minWidth: '8rem' }} bodyStyle={{ textAlign: 'center' }}></Column>
             </DataTable>

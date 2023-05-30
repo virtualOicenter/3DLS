@@ -80,6 +80,7 @@ const modelData= getModel(modelIDParam)
                       <span style={{ display: "none" }}>
                         {provided.placeholder}
                       </span>
+                      <div className="hotspotDot">.</div>
                     </div>
                   </button>
                 )}
