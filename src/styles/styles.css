@@ -50,6 +50,7 @@ root {
   right: 0px;
   display: flex;
   flex-direction: column;
+  direction: rtl;
 }
 
 #btnFinishQuiz {
@@ -196,4 +197,14 @@ button {
   height: auto;
   width: 25px;
   border-radius: 50%;
+}
+
+.contentCreatorDashboard {
+  
+}
+
+.unitCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 7px;
 }

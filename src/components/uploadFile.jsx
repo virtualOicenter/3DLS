@@ -5,7 +5,7 @@ import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { FileUpload } from 'primereact/fileupload';
 
-function GithubFileUpload() {
+function ModelFileUpload() {
     const [file, setFile] = useState(null);
     const viewerRef = useRef(null);
 
@@ -74,12 +74,12 @@ function GithubFileUpload() {
         );
     }
     return (
-        <div style={{ display: 'flex', flexDirection: 'row', gap: '5px' }}>
+        <div className='flex w-full'>
             <FileUpload mode="advanced" customUpload uploadHandler={handleFileUpload} accept='.glb'
-                maxFileSize={100000000} itemTemplate={modelPreview} multiple={false}
-                emptyTemplate={<p>Drag and drop files to here to upload.</p>} />
+                maxFileSize={100000000} itemTemplate={modelPreview} multiple={false} className='flex flex-column w-full'
+                emptyTemplate={<p>גרור קובץ להעלאה.</p>} headerStyle={{direction:'ltr'}} />
         </div>
     );
 }
 
-export default GithubFileUpload;
+export default ModelFileUpload;
