@@ -11,7 +11,7 @@ export default function ModelViewer(
   bottomScreenContent,
   hasFinished
 ) {
-const modelData= getModel(modelIDParam)
+  const modelData = getModel(modelIDParam)
   return (!modelData ?
     (
       <div style={{ backgroundColor: "red", color: "white", textAlign: "center" }}>
@@ -31,7 +31,7 @@ const modelData= getModel(modelIDParam)
           modelRef.current = ref;
         }}
         onClick={(event) => { handleModelClick && handleModelClick(event) }}
-        
+
       >
         {hotspots.map((hotspot, index) => {
           if (answers.indexOf(hotspot.id) === -1) {

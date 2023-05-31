@@ -1,9 +1,14 @@
+// const modelUrl = `https://cdn.jsdelivr.net/gh/virtualOicenter/3dModels/${modelIDParam}.glb`;
+import React, { useEffect, useState } from 'react';
+
+
 export default function getModel(searchId) {
+    const cdnPrefix='https://cdn.jsdelivr.net/gh/virtualOicenter/3dModels/'
     const models =
         [
             {
                 id: 'animal_cell',
-                src: 'https://cdn.jsdelivr.net/gh/virtualOicenter/3dModels@15a8c378fe92860478ee9142e68e7aadb8241169/animal_cell.glb',
+                src: `${cdnPrefix}animal_cell.glb`,
                 title: 'Animal Cell',
                 description: 'Human Cell',
                 attribution: 'Human Cell by markdragan on Sketchfab',

@@ -1,16 +1,19 @@
 //3605a6665b1759c818d57e33c0ab0127b087fa0c
 //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
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 import { FileUpload } from 'primereact/fileupload';
 
 function GithubFileUpload() {
     const [file, setFile] = useState(null);
+    const viewerRef = useRef(null);
 
     // Function to handle the file upload
     const handleFileUpload = (event) => {
+        setFile(event.files[0]);
         console.log('selected file', file);
-        if (event.files[0].name.endsWith('.glb')) setFile(event.files[0]);
+        uploadFileToGithub()
     };
 
     // Function to upload the file to GitHub repository
@@ -47,11 +50,34 @@ function GithubFileUpload() {
             reader.readAsDataURL(file);
         }
     };
+    const modelPreview = (previewFile) => {
+        const handleViewerLoad = () => {
+            // Do something when the model viewer has loaded
+        };
 
+        return (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <h5>{previewFile.name}</h5>
+                <model-viewer
+                    ref={viewerRef}
+                    src={URL.createObjectURL(previewFile)}
+                    alt="Model Preview"
+                    ar-modes="webxr scene-viewer quick-look"
+                    camera-controls
+                    interaction-prompt="none"
+                    shadow-intensity="1"
+                    ar
+                    autoplay
+                // ios-src={URL.createObjectURL(previewFile)}
+                ></model-viewer>
+            </div>
+        );
+    }
     return (
         <div style={{ display: 'flex', flexDirection: 'row', gap: '5px' }}>
-            <FileUpload mode="basic" auto customUpload uploadHandler={handleFileUpload} className='fileUploadButton' />
-            <Button label="Upload to GitHub" onClick={uploadFileToGithub} />
+            <FileUpload mode="advanced" customUpload uploadHandler={handleFileUpload} accept='.glb'
+                maxFileSize={100000000} itemTemplate={modelPreview} multiple={false}
+                emptyTemplate={<p>Drag and drop files to here to upload.</p>} />
         </div>
     );
 }
