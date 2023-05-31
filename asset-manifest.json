@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/dnd-3dmodel-quiz/static/css/main.451f5f39.css",
-    "main.js": "/dnd-3dmodel-quiz/static/js/main.be8ce178.js",
+    "main.css": "/dnd-3dmodel-quiz/static/css/main.a3904ca7.css",
+    "main.js": "/dnd-3dmodel-quiz/static/js/main.5a3e56e1.js",
     "static/js/767.e2fd4cb1.chunk.js": "/dnd-3dmodel-quiz/static/js/767.e2fd4cb1.chunk.js",
     "static/js/184.2b8cd805.chunk.js": "/dnd-3dmodel-quiz/static/js/184.2b8cd805.chunk.js",
     "static/js/638.eccfbba1.chunk.js": "/dnd-3dmodel-quiz/static/js/638.eccfbba1.chunk.js",
@@ -11,16 +11,17 @@
     "static/media/primeicons.woff": "/dnd-3dmodel-quiz/static/media/primeicons.10d3152104f2208ac82a.woff",
     "static/media/primeicons.ttf": "/dnd-3dmodel-quiz/static/media/primeicons.ea5358601d0a3fd6670b.ttf",
     "static/media/primeicons.woff2": "/dnd-3dmodel-quiz/static/media/primeicons.78172950b335ccdb94e2.woff2",
+    "static/media/color.png": "/dnd-3dmodel-quiz/static/media/color.6441e63a57ccc5105bad.png",
     "index.html": "/dnd-3dmodel-quiz/index.html",
-    "main.451f5f39.css.map": "/dnd-3dmodel-quiz/static/css/main.451f5f39.css.map",
-    "main.be8ce178.js.map": "/dnd-3dmodel-quiz/static/js/main.be8ce178.js.map",
+    "main.a3904ca7.css.map": "/dnd-3dmodel-quiz/static/css/main.a3904ca7.css.map",
+    "main.5a3e56e1.js.map": "/dnd-3dmodel-quiz/static/js/main.5a3e56e1.js.map",
     "767.e2fd4cb1.chunk.js.map": "/dnd-3dmodel-quiz/static/js/767.e2fd4cb1.chunk.js.map",
     "184.2b8cd805.chunk.js.map": "/dnd-3dmodel-quiz/static/js/184.2b8cd805.chunk.js.map",
     "638.eccfbba1.chunk.js.map": "/dnd-3dmodel-quiz/static/js/638.eccfbba1.chunk.js.map",
     "787.a969b2c2.chunk.js.map": "/dnd-3dmodel-quiz/static/js/787.a969b2c2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.451f5f39.css",
-    "static/js/main.be8ce178.js"
+    "static/css/main.a3904ca7.css",
+    "static/js/main.5a3e56e1.js"
   ]
 }
