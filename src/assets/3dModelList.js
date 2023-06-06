@@ -16,8 +16,8 @@ export const modelsList = [
         url: 'https://skfb.ly/6ZVHJ',
         linkedHotspotsFiles: ['liora_animalCell'],
         additionalProps: [{
-            cameraOrbit: "208.2deg 76.17deg 0.4071m",
-            fieldOfView: "24.31deg"
+            "cameraOrbit": "208.2deg 76.17deg 0.4071m",
+            "fieldOfView": "24.31deg"
         }]
     },
     {
@@ -29,8 +29,8 @@ export const modelsList = [
         url: 'https://skfb.ly/6ZPZx',
         linkedHotspotsFiles: ['osnat_digestiveSystem'],
         additionalProps: [{
-            cameraOrbit: "0deg 75deg 4.148m",
-            fieldOfView: "30deg"
+            "cameraOrbit": "0deg 75deg 4.148m",
+            "fieldOfView": "30deg"
         }]
     },
     {
@@ -42,8 +42,8 @@ export const modelsList = [
         url: 'https://skfb.ly/orwUK',
         linkedHotspotsFiles: ['yael_carrot'],
         additionalProps: [{
-            cameraOrbit: "-162.7deg 73.76deg 0.4485m",
-            fieldOfView: "20.11deg"
+            "cameraOrbit": "-162.7deg 73.76deg 0.4485m",
+            "fieldOfView": "20.11deg"
         }]
     }
 ]

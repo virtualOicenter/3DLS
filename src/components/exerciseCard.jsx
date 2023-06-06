@@ -1,9 +1,8 @@
-
 import React, { useState, useRef } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 
-function UnitCard({ titleProp, subtitleProp, isPublished }) {
+function ExerciseCard({ titleProp, subtitleProp, isPublished }) {
     const bgColor = isPublished ? 'white' : 'surface-300'
     const header = (
         <div></div>
@@ -25,4 +24,4 @@ function UnitCard({ titleProp, subtitleProp, isPublished }) {
     );
 }
 
-export default UnitCard;
+export default ExerciseCard;
