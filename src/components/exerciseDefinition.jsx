@@ -42,13 +42,24 @@ function ExcerciseDefinition(dataProps) {
     const viewerRef = useRef(null);
 
     useEffect(() => {
-        Fetch3DModelsArr()
-            .then(modelsArr => {
-                setModelSelectOptions(getModelOptions(modelsArr));
-            })
-            .catch(error => {
+        let isMounted = true;
+
+        const fetchModels = async () => {
+            try {
+                const modelsArr = await Fetch3DModelsArr();
+                if (isMounted) {
+                    setModelSelectOptions(getModelOptions(modelsArr));
+                }
+            } catch (error) {
                 console.error('Error fetching data', error);
-            });
+            }
+        };
+
+        fetchModels();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
     useEffect(() => {
         if (selectedModel && selectedModel._id != 'new') {
@@ -75,29 +86,35 @@ function ExcerciseDefinition(dataProps) {
                 shadow-intensity="1"
                 ar
                 autoplay
-            // ios-src={URL.createObjectURL(previewFile)}
-            style={{direction:'ltr'}}
+                // ios-src={URL.createObjectURL(previewFile)}
+                style={{ direction: 'ltr' }}
             >
-                {selectedHotspotsArr && selectedHotspotsArr.hotspots.map((hotspot, index) => {
+                {selectedHotspotsArr && selectedHotspotsArr.hotspots && selectedHotspotsArr.hotspots.map((hotspot, index) => {
                     return (<button
-                    className={ hotspot.userAnswer == ""
-                    ? "Hotspot w-full"
-                    : "AnsweredHotspot w-full"}
-                    slot={hotspot.id}
-                    data-surface={hotspot.dataSurface}
-                    data-visibility-attribute="visible"
-                    onClick={() => console.log(hotspot.id, "clicked")}
-                    key={hotspot.id+index}
-                  >
-                    <div className="HotspotAnnotation w-full">{hotspot.answer}
-                      <div className="hotspotDot">.</div>
-                    </div>
-                  </button>)
+                        className={hotspot.userAnswer == ""
+                            ? "Hotspot w-full"
+                            : "AnsweredHotspot w-full"}
+                        slot={hotspot.id}
+                        data-surface={hotspot.dataSurface}
+                        data-visibility-attribute="visible"
+                        onClick={() => console.log(hotspot.id, "clicked")}
+                        key={hotspot.id + index}
+                    >
+                        <div className="HotspotAnnotation w-full">{hotspot.answer}
+                            <div className="hotspotDot">.</div>
+                        </div>
+                    </button>)
                 })}
             </model-viewer>
         }
     }
+
     const NewHotspotsArrFile = () => {
+        const exerciseTypeOptions = [
+            { 'label': 'בוחן גרירה', 'value': 'DND' },
+            { 'label': 'בוחן שאלות רב-ברירה', 'value': 'MCQ' },
+            { 'label': 'צפייה', 'value': 'VIEWER' }
+        ]
         return <div className="card flex flex-column gap-2 mt-2 align-items-start">
             <div className='flex flex-row gap-3'>
                 <div className="p-inputgroup flex">
@@ -110,10 +127,10 @@ function ExcerciseDefinition(dataProps) {
                     <span className="p-inputgroup-addon">
                         <i className="pi pi-tag"></i>
                     </span>
-                    <Dropdown placeholder="סוג פעילות" value={unitData.type} />
+                    <Dropdown placeholder="סוג פעילות" value={unitData.type} options={exerciseTypeOptions} optionLabel='label' optionValue='value' />
                 </div>
             </div>
-            <Button className="w-3" severity='secondary' label='צור קובץ נקודות חדש' icon='pi pi-plus' iconPos='right' />
+            <Button className="w-max gap-3" severity='secondary' label='צור קובץ נקודות חדש' icon='pi pi-plus' iconPos='right' />
         </div>
     }
     const updateUnitDataState = () => {
@@ -129,19 +146,19 @@ function ExcerciseDefinition(dataProps) {
                     <span className="p-inputgroup-addon ">
                         <i className="pi pi-user"></i>
                     </span>
-                    <InputText placeholder="שם התרגיל" value={unitData.title} />
+                    <InputText placeholder="שם התרגיל" value={unitData.title} onChange={e => { let _unitData = ({ ...unitData, 'title': e.target.value }); setUnitData(_unitData) }}/>
                 </div>
                 <div className="p-inputgroup flex">
                     <span className="p-inputgroup-addon">
                         <i className="pi pi-info-circle"></i>
                     </span>
-                    <InputTextarea placeholder="תיאור קצר" value={unitData.info} />
+                    <InputTextarea placeholder="תיאור קצר" value={unitData.info} onChange={e => { let _unitData = ({ ...unitData, 'info': e.target.value }); setUnitData(_unitData) }}/>
                 </div>
                 <div className="p-inputgroup flex">
                     <span className="p-inputgroup-addon">
                         <i className="pi pi-tags"></i>
                     </span>
-                    <MultiSelect display='chip' placeholder="תגים" value={unitData.tags} />
+                    <MultiSelect display='chip' placeholder="תגים" value={unitData.tags} onChange={e => { let _unitData = ({ ...unitData, 'tags': e.target.value }); setUnitData(_unitData) }}/>
                 </div>
 
                 <Button label='שמור' icon="pi pi-check" iconPos='right' onClick={handleSave} />
@@ -167,7 +184,7 @@ function ExcerciseDefinition(dataProps) {
                     {selectedHotspotsArr && selectedHotspotsArr.id === 'new' ? (
                         <NewHotspotsArrFile />
                     ) : (
-                        <ModelViewer/>
+                        <ModelViewer />
                     )}
                 </TabPanel>
                 <TabPanel header="תצוגה מקדימה לתרגיל" disabled={!selectedModel || !selectedHotspotsArr || selectedHotspotsArr.id === 'new'}>
