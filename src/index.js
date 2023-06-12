@@ -14,7 +14,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter basename="/dnd-3dmodel-quiz">
+    <BrowserRouter basename="/3DLS">
       <App />
     </BrowserRouter>
   </React.StrictMode>

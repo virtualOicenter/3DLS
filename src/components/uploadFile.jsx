@@ -12,24 +12,25 @@ function ModelFileUpload() {
     const [file, setFile] = useState(null);
     const [modelUploaded, setModelUploaded] = useState(false);
     const [modelData, setModelData] = useState({
-        id: '',
+        modelId:'',
         src: '',
         title: '',
         description: '',
         attribution: '',
-        url: '',
-        linkedHotspotsFiles: [''],
-        additionalProps: [{
+        modelUrl: '',
+        pairedHotspots: [],
+        additionalProps: {
             "cameraOrbit": "",
             "fieldOfView": ""
-        }]
+        }
     },)
 
     useEffect(() => {
         if (file) {
           setModelData((prevModelData) => ({
             ...prevModelData,
-            src: `https://cdn.jsdelivr.net/gh/virtualOicenter/3dModels/${file.name}`
+            src: `https://cdn.jsdelivr.net/gh/virtualOicenter/3dModels/${file.name}`,
+            modelId: file.name.split('.glb')[0]
           }));
         }
       }, [file]);
@@ -37,10 +38,10 @@ function ModelFileUpload() {
     const handleFileUpload = async (event) => {
         setFile(event.files[0]);
         console.log('selected file', file);
-        if (checkFieldsNotEmpty()) {
+        if (checkFieldsNotEmpty() && file) {
             console.log(modelData);
             await uploadFileToGithub()
-            // await create3DModelInWix()
+            await create3DModelInWix()
             toast.current.show({ severity: 'success', summary: 'העלאה הצליחה', detail: 'העלאת הקובץ הצליחה' });
         }
         else{
@@ -50,7 +51,7 @@ function ModelFileUpload() {
     };
     const create3DModelInWix = async () => {
         if (file) {
-            Create3DModel(modelData).then(res => {
+            await Create3DModel(modelData).then(res => {
                 console.log('succesful wix database 3d model upload', res);
             }).catch((error) => {
                 console.error('Error uploading file:', error);
@@ -58,10 +59,10 @@ function ModelFileUpload() {
         }
     }
     // Function to upload the file to GitHub repository
-    const uploadFileToGithub = () => {
+    const uploadFileToGithub = async () => {
         if (file) {
             const reader = new FileReader();
-            reader.onload = (event) => {
+            reader.onload = async (event) => {
                 const content = event.target.result.split(',')[1];
 
                 const requestData = {
@@ -69,12 +70,13 @@ function ModelFileUpload() {
                     content: content,
                 };
 
-                const token = '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';
-                fetch(`https://api.github.com/repos/virtualOicenter/3dModels/contents/${file.name}`, {
+                const mainToken = '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';
+                const NUC_Token='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'
+                await fetch(`https://api.github.com/repos/virtualOicenter/3dModels/contents/${file.name}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${NUC_Token}`,
                     },
                     body: JSON.stringify(requestData),
                 })

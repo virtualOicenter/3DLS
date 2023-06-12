@@ -1,6 +1,6 @@
 {
-  "homepage": "https://virtualoicenter.github.io/dnd-3dmodel-quiz/",
-  "name": "dnd-3dmodel-quiz",
+  "homepage": "https://virtualoicenter.github.io/3DLS/",
+  "name": "3dls",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
