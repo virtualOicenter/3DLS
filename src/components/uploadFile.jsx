@@ -1,18 +1,16 @@
 //3605a6665b1759c818d57e33c0ab0127b087fa0c
 //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
-import React, { useState, useRef } from 'react';
-import { Button } from 'primereact/button';
-import { Toast } from 'primereact/toast';
+import React, { useState, useRef,useEffect } from 'react';
 import { FileUpload } from 'primereact/fileupload';
-import { InputText } from 'primereact/inputtext';
-
-
+import { Toast } from 'primereact/toast';
+import { Create3DModel } from './fetchWixData';
+import { ModelDataForm } from './modelDataForm';
+import { PreviewModel } from './previewModel';
 function ModelFileUpload() {
+    const toast = useRef(null);
     const viewerRef = useRef(null);
     const [file, setFile] = useState(null);
     const [modelUploaded, setModelUploaded] = useState(false);
-
-
     const [modelData, setModelData] = useState({
         id: '',
         src: '',
@@ -27,14 +25,38 @@ function ModelFileUpload() {
         }]
     },)
 
-
+    useEffect(() => {
+        if (file) {
+          setModelData((prevModelData) => ({
+            ...prevModelData,
+            src: `https://cdn.jsdelivr.net/gh/virtualOicenter/3dModels/${file.name}`
+          }));
+        }
+      }, [file]);
     // Function to handle the file upload
-    const handleFileUpload = (event) => {
+    const handleFileUpload = async (event) => {
         setFile(event.files[0]);
         console.log('selected file', file);
-        uploadFileToGithub()
-    };
+        if (checkFieldsNotEmpty()) {
+            console.log(modelData);
+            await uploadFileToGithub()
+            // await create3DModelInWix()
+            toast.current.show({ severity: 'success', summary: 'העלאה הצליחה', detail: 'העלאת הקובץ הצליחה' });
+        }
+        else{
+            toast.current.show({ severity: 'error', summary: 'שגיאה', detail: 'אנא מלאו כותרת ותיאור קצר לקובץ' });
+        }
 
+    };
+    const create3DModelInWix = async () => {
+        if (file) {
+            Create3DModel(modelData).then(res => {
+                console.log('succesful wix database 3d model upload', res);
+            }).catch((error) => {
+                console.error('Error uploading file:', error);
+            });
+        }
+    }
     // Function to upload the file to GitHub repository
     const uploadFileToGithub = () => {
         if (file) {
@@ -47,8 +69,7 @@ function ModelFileUpload() {
                     content: content,
                 };
 
-                const token = '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'; // Replace with your GitHub personal access token
-
+                const token = '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';
                 fetch(`https://api.github.com/repos/virtualOicenter/3dModels/contents/${file.name}`, {
                     method: 'PUT',
                     headers: {
@@ -59,7 +80,7 @@ function ModelFileUpload() {
                 })
                     .then((response) => response.json())
                     .then((data) => {
-                        console.log('File uploaded successfully:', data);
+                        console.log('File uploaded successfully to github', data);
                     })
                     .catch((error) => {
                         console.error('Error uploading file:', error);
@@ -69,83 +90,30 @@ function ModelFileUpload() {
             reader.readAsDataURL(file);
         }
     };
-    /**
- {
-        id: 'digestive_system',
-        src: 'https://cdn.jsdelivr.net/gh/virtualOicenter/3dModels@15a8c378fe92860478ee9142e68e7aadb8241169/disgestive_system.glb',
-        title: 'Digestive System',
-        description: 'Digestive System',
-        attribution: 'Disgestive system by Enas on Sketchfab',
-        url: 'https://skfb.ly/6ZPZx',
-        linkedHotspotsFiles: ['osnat_digestiveSystem'],
-        additionalProps: [{
-            "cameraOrbit": "0deg 75deg 4.148m",
-            "fieldOfView": "30deg"
-        }]
-    },
- */
-    const ModelDataForm = () => {
-        return <div className='flex flex-row gap-3'>
-            <div className='flex flex-column gap-2'>
-                <div className="p-inputgroup flex">
-                    <span className="p-inputgroup-addon">
-                        <i className="pi pi-user"></i>
-                    </span>
-                    <InputText placeholder='כותרת' value={modelData.title} onChange={e => { let _modelData = ({ ...modelData, 'title': e.target.value }); setModelData(_modelData) }} />
-                </div>
-                <div className="p-inputgroup flex">
-                    <span className="p-inputgroup-addon">
-                        <i className="pi pi-info-circle"></i>
-                    </span>
-                    <InputText placeholder='תיאור קצר' value={modelData.description} onChange={e => { let _modelData = ({ ...modelData, 'description': e.target.value }); setModelData(_modelData) }} />
-                </div>
-                {/* <div className="p-inputgroup flex">
-                    <Button className='w-full' label='שמור זווית צפייה' icon='pi pi-eye' iconPos='right' severity='secondary' onClick={e => { console.log(viewerRef.current.getCameraTarget()); }} />
-                </div> */}
-            </div>
-            <div className='flex flex-column gap-2'>
-                <div className="p-inputgroup flex">
-                    <span className="p-inputgroup-addon">
-                        <i className="pi pi-tag"></i>
-                    </span>
-                    <InputText placeholder='זכויות יוצרים (אם יש)' value={modelData.attribution} onChange={e => { let _modelData = ({ ...modelData, 'attribution': e.target.value }); setModelData(_modelData) }} />
-                </div>
-                <div className="p-inputgroup flex">
-                    <span className="p-inputgroup-addon">
-                        <i className="pi pi-tag"></i>
-                    </span>
-                    <InputText placeholder='קישור למקור (אם יש)' value={modelData.url} onChange={e => { let _modelData = ({ ...modelData, 'url': e.target.value }); setModelData(_modelData) }} />
-                </div>
-            </div>
 
-        </div>
-    }
+    const checkFieldsNotEmpty = () => {
+        const { title, description, attribution, url } = modelData;
+        const isTitleValid = title.trim() !== '';
+        const isDescriptionValid = description.trim() !== '';
+        // const isAttributionValid = attribution.trim() !== '';
+        // const isUrlValid = url.trim() !== '';
+      
+        return isTitleValid && isDescriptionValid //&& isAttributionValid && isUrlValid;
+      };
+      
+    
     const modelPreview = (previewFile) => {
-        const handleViewerLoad = () => {
-            // Do something when the model viewer has loaded
-        };
-
         return (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0px' }} className='gap-2'>
                 <h5>{previewFile.name}</h5>
-                <ModelDataForm />
-                <model-viewer
-                    ref={viewerRef}
-                    src={URL.createObjectURL(previewFile)}
-                    alt="Model Preview"
-                    ar-modes="webxr scene-viewer quick-look"
-                    camera-controls
-                    interaction-prompt="none"
-                    shadow-intensity="1"
-                    ar
-                    autoplay
-                // ios-src={URL.createObjectURL(previewFile)}
-                ></model-viewer>
+                {ModelDataForm(modelData,setModelData)}
+                {PreviewModel(viewerRef,URL.createObjectURL(previewFile))}
             </div>
         );
     }
     return (
         <div className='flex w-full'>
+            <Toast ref={toast} />
             <FileUpload mode="advanced" customUpload uploadHandler={handleFileUpload} accept='.glb'
                 maxFileSize={100000000} itemTemplate={modelPreview} multiple={false} className='flex flex-column w-full'
                 emptyTemplate={<p>גרור קובץ להעלאה.</p>} headerStyle={{ direction: 'ltr' }} />

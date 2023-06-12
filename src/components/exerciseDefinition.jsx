@@ -7,15 +7,14 @@ import { Dropdown } from 'primereact/dropdown';
 import { InputTextarea } from 'primereact/inputtextarea';
 
 import ModelFileUpload from './uploadFile';
-import { Fetch3DModelsArr, FetchHotspotsArrToModel } from './fetchWixData';
+import { Fetch3DModelsArr, FetchHotspotsArrToModel, CreateExercise,FetchTagsOptions,UpdateExercise } from './fetchWixData';
 import { modelsList } from '../assets/3dModelList';
 
 const getModelOptions = (tempArr) => {
     let arr = Array.isArray(tempArr) ? tempArr : [];
-
     if (Array.isArray(arr)) {
         let toReturn = [...arr];
-        toReturn.unshift({ title: 'חדש', id: 'new' });
+        toReturn.unshift({ title: 'חדש',_id: 'new' });
         return toReturn;
     }
 
@@ -26,19 +25,21 @@ const getHotspotsArrOptions = async (modelId) => {
     try {
         const hotspotsArr = await FetchHotspotsArrToModel(modelId);
         let tempArr = JSON.parse(JSON.stringify(hotspotsArr));
-        tempArr.unshift({ title: 'חדש', id: 'new' });
+        tempArr.unshift({ title: 'חדש',_id: 'new' });
         return tempArr;
     } catch (error) {
         console.error('Error fetching hotspots array options', error);
         return [];
     }
 };
+
 function ExcerciseDefinition(dataProps) {
-    const [unitData, setUnitData] = useState(dataProps);
-    const [selectedModel, setSelectedModel] = useState(unitData.model);
-    const [selectedHotspotsArr, setSelectedHotspotsArr] = useState(unitData.hotspotsArr);
+    const [exerciseData, setExerciseData] = useState(dataProps);
+    const [selectedModel, setSelectedModel] = useState(exerciseData.model);
+    const [selectedHotspotsArr, setSelectedHotspotsArr] = useState(exerciseData.hotspotsArr);
     const [selectModelOptions, setModelSelectOptions] = useState([]);
     const [selectHotspotsArrOptions, setHotspotsArrOptions] = useState([]);
+    const [selectTagsOptions,setSelectTags]=useState([])
     const viewerRef = useRef(null);
 
     useEffect(() => {
@@ -54,8 +55,20 @@ function ExcerciseDefinition(dataProps) {
                 console.error('Error fetching data', error);
             }
         };
+        const fetchTags =async ()=>{
+            try {
+                let tagsArr= await FetchTagsOptions()
+                tagsArr=tagsArr.map(m=>({'title':m.title,'_id':m._id}));
+                if(isMounted){
+                    setSelectTags(tagsArr)
+                }
+            }catch (error) {
+                console.error('Error fetching data', error);
+            }
+        }
 
         fetchModels();
+        fetchTags();
 
         return () => {
             isMounted = false;
@@ -127,17 +140,15 @@ function ExcerciseDefinition(dataProps) {
                     <span className="p-inputgroup-addon">
                         <i className="pi pi-tag"></i>
                     </span>
-                    <Dropdown placeholder="סוג פעילות" value={unitData.type} options={exerciseTypeOptions} optionLabel='label' optionValue='value' />
+                    <Dropdown placeholder="סוג פעילות" value={exerciseData.type} options={exerciseTypeOptions} optionLabel='label' optionValue='value' />
                 </div>
             </div>
             <Button className="w-max gap-3" severity='secondary' label='צור קובץ נקודות חדש' icon='pi pi-plus' iconPos='right' />
         </div>
     }
-    const updateUnitDataState = () => {
-
-    }
     const handleSave = () => {
-        alert('unitData: ', unitData)
+        // console.log('exerciseData',exerciseData);
+        exerciseData._id?UpdateExercise(exerciseData): CreateExercise(exerciseData)
     }
     return (
         <div className='card flex flex-row column-gap-3' style={{ direction: 'rtl' }}>
@@ -146,19 +157,19 @@ function ExcerciseDefinition(dataProps) {
                     <span className="p-inputgroup-addon ">
                         <i className="pi pi-user"></i>
                     </span>
-                    <InputText placeholder="שם התרגיל" value={unitData.title} onChange={e => { let _unitData = ({ ...unitData, 'title': e.target.value }); setUnitData(_unitData) }}/>
+                    <InputText placeholder="שם התרגיל" value={exerciseData.title} onChange={e => { let _exerciseData = ({ ...exerciseData, 'title': e.target.value }); setExerciseData(_exerciseData) }}/>
                 </div>
                 <div className="p-inputgroup flex">
                     <span className="p-inputgroup-addon">
                         <i className="pi pi-info-circle"></i>
                     </span>
-                    <InputTextarea placeholder="תיאור קצר" value={unitData.info} onChange={e => { let _unitData = ({ ...unitData, 'info': e.target.value }); setUnitData(_unitData) }}/>
+                    <InputTextarea placeholder="תיאור קצר" value={exerciseData.info} onChange={e => { let _exerciseData = ({ ...exerciseData, 'info': e.target.value }); setExerciseData(_exerciseData) }}/>
                 </div>
                 <div className="p-inputgroup flex">
                     <span className="p-inputgroup-addon">
                         <i className="pi pi-tags"></i>
                     </span>
-                    <MultiSelect display='chip' placeholder="תגים" value={unitData.tags} onChange={e => { let _unitData = ({ ...unitData, 'tags': e.target.value }); setUnitData(_unitData) }}/>
+                    <MultiSelect display='chip' placeholder="תגים" value={exerciseData.tags} options={selectTagsOptions} optionLabel='title' onChange={e => { let _exerciseData = ({ ...exerciseData, 'tags': e.target.value }); setExerciseData(_exerciseData) }}/>
                 </div>
 
                 <Button label='שמור' icon="pi pi-check" iconPos='right' onClick={handleSave} />
@@ -166,15 +177,15 @@ function ExcerciseDefinition(dataProps) {
             </div>
             <TabView className='w-full h-auto shadow-2'>
                 <TabPanel header="בחירת מודל"  >
-                    <Dropdown value={selectedModel} onChange={(e) => { setSelectedModel(e.value) }}
+                    <Dropdown value={selectModelOptions.find(f=>f._id==exerciseData.model._id)} onChange={(e) => { setSelectedModel(e.value) ;if(e.value!=='new'){let _exerciseData = ({ ...exerciseData, 'model': e.target.value._id }); setExerciseData(_exerciseData);}}}
                         placeholder='בחר מודל' className='w-full' options={selectModelOptions}
                         optionLabel='title' panelStyle={{ direction: 'rtl' }} />
-                    {selectedModel && selectedModel.id == 'new' ? <ModelFileUpload /> : <ModelViewer />}
+                    {selectedModel && selectedModel._id == 'new' ? <ModelFileUpload /> : <ModelViewer />}
                 </TabPanel>
                 <TabPanel header="בחירת קובץ נקודות" disabled={!selectedModel || selectedModel.id === 'new'}>
                     <Dropdown
-                        value={selectedHotspotsArr}
-                        onChange={(e) => { setSelectedHotspotsArr(e.value) }}
+                        value={selectHotspotsArrOptions.find(f=>f._id==exerciseData.hotspotsFile._id)}
+                        onChange={(e) => { setSelectedHotspotsArr(e.value) ;if(e.value!=='new'){let _exerciseData = ({ ...exerciseData, 'hotspotsFile': e.target.value._id }); setExerciseData(_exerciseData);} }}
                         placeholder='בחר קובץ נקודות'
                         className='w-full'
                         options={selectHotspotsArrOptions}
