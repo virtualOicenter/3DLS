@@ -53,7 +53,7 @@ function ContentCreatorDashBoard() {
 
 
     return (
-        <div className='contentCreatorDashboard flex flex-column align-items-center' >
+        <div className='contentCreatorDashboard flex flex-column align-items-center w-15' >
             <span className='flex flex-column vertical-align-baseline w-9'>
                 <h3>שלום יוני וסילבסקי</h3>
                 <div className='flex flex-row justify-content-center align-items-center w-auto gap-3 mx-5'>

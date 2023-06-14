@@ -9,7 +9,7 @@ import { Dialog } from 'primereact/dialog';
 import HotspotsArrFileEditor from './hotspotsArrFileEditor';
 
 import ModelFileUpload from './uploadFile';
-import { Fetch3DModelsArr, FetchHotspotsArrToModel, CreateExercise, FetchTagsOptions, UpdateExercise } from './fetchWixData';
+import { Fetch3DModelsArr, FetchHotspotsArrToModel, CreateExercise, FetchTagsOptions, UpdateExercise,UpdateHotspotsFile } from './fetchWixData';
 import { modelsList } from '../assets/3dModelList';
 
 const getModelOptions = (tempArr) => {
@@ -121,7 +121,7 @@ function ExcerciseDefinition(dataProps) {
                         onClick={() => console.log(hotspot.id, "clicked")}
                         key={hotspot.id + index}
                     >
-                        <div className="HotspotAnnotation w-full">{hotspot.answer}
+                        <div className="HotspotAnnotation w-full">{hotspot.title}
                             <div className="hotspotDot">.</div>
                         </div>
                     </button>)
@@ -147,6 +147,13 @@ function ExcerciseDefinition(dataProps) {
                 </div>
             </div>
         </div>
+    }
+    const hotspotsEditorFooter =()=>{
+        return (<div>
+            <Button label='שמור' icon="pi pi-check" iconPos='right'  
+            onClick={()=>{UpdateHotspotsFile(exerciseData.hotspotsFile)}}/>
+                <Button label='בטל' icon="pi pi-trash" iconPos='right' severity='danger' />
+        </div>)
     }
     const handleSave = () => {
         // console.log('exerciseData',exerciseData);
@@ -184,7 +191,7 @@ function ExcerciseDefinition(dataProps) {
                     <MultiSelect display='chip' placeholder="תגים" value={exerciseData.tags} options={selectTagsOptions} optionLabel='title' onChange={e => { let _exerciseData = ({ ...exerciseData, 'tags': e.target.value }); setExerciseData(_exerciseData) }} />
                 </div>
                 <Button label='שמור' icon="pi pi-check" iconPos='right' onClick={handleSave} />
-                <Button label='מחק' icon="pi pi-trash" iconPos='right' severity='danger' />
+                <Button label='בטל' icon="pi pi-trash" iconPos='right' severity='danger' />
             </div>
             <TabView className='w-full h-auto shadow-2'>
                 <TabPanel header="בחירת מודל"  >
@@ -217,7 +224,8 @@ function ExcerciseDefinition(dataProps) {
                                     onClick={() => setIsHotspotsEditorVisible(true)} />
                             </div>
                             <ModelViewer />
-                            <Dialog header={`עריכת נקודות בקובץ ${exerciseData.hotspotsFile.title}`} visible={isHotspotsEditorVisible} onHide={() => setIsHotspotsEditorVisible(false)}
+                            <Dialog header={`עריכת נקודות בקובץ ${exerciseData.hotspotsFile.title}`}
+                                footer={hotspotsEditorFooter()} visible={isHotspotsEditorVisible} onHide={() => setIsHotspotsEditorVisible(false)}
                                 headerStyle={{ direction: 'rtl' }} className='w-8' >
                                 <HotspotsArrFileEditor exerciseData={exerciseData} setExerciseData={setExerciseData} />
                             </Dialog>

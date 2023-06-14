@@ -59,13 +59,13 @@ export default function HotspotsArrFileEditor({ exerciseData, setExerciseData })
                         key={hotspot.id + index}
 
                     >
-                        <div className="HotspotAnnotation w-full">{hotspot.answer}
+                        <div className="HotspotAnnotation w-full">{index+1}
                             <div className="hotspotDot">.</div>
                         </div>
                     </button>)
                 })}
             </model-viewer>
-            {HotspotsTable(userSetHotspots,setUserSetHotspots)}
+            {HotspotsTable(userSetHotspots,setUserSetHotspots,exerciseData.type)}
         </div>
     );
 }

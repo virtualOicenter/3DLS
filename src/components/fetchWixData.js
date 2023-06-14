@@ -62,6 +62,20 @@ export const UpdateExercise = async (exerciseJSON) => {
       return null;
     });
 };
+export const UpdateHotspotsFile = async (hotspotsFileJSON) => {
+  console.log('excersiceJSON before post', hotspotsFileJSON);
+  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions-dev/updateHotspotsFile`,
+    {
+      method: 'POST',
+      body: JSON.stringify({ hotspotsFileJSON })
+    })
+    .then(response => response.json())
+    .then(data => { return data.message })
+    .catch(error => {
+      console.error('Error fetching data', error);
+      return null;
+    });
+};
 export const Create3DModel = async (modelJSON) => {
   console.log('excersiceJSON before post', modelJSON);
   return fetch(`https://yonivas0.editorx.io/etil3ls/_functions-dev/create3DModel`,
