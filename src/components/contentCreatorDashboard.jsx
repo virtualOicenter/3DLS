@@ -2,13 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import ExerciseCard from './exerciseCard';
 import ExcerciseDefinition from './exerciseDefinition';
-import { Divider } from 'primereact/divider';
 import { Card } from 'primereact/card';
 import { Fieldset } from 'primereact/fieldset';
 import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
 import { AutoComplete } from 'primereact/autocomplete';
-import { Panel } from 'primereact/panel';
 import { Dialog } from 'primereact/dialog';
 import { FetchExercises } from './fetchWixData';
 

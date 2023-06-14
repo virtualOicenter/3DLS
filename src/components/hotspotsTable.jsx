@@ -6,6 +6,7 @@ import { Button } from 'primereact/button';
 
 
 export default function HotspotsTable(userSetHotspots, setUserSetHotspots) {
+    console.log('userSetHotspots in datatable',userSetHotspots);
     const onRowEditComplete = (e) => {
         let _userSetHotspots = [...userSetHotspots];
         let { newData, index } = e;
@@ -29,12 +30,11 @@ export default function HotspotsTable(userSetHotspots, setUserSetHotspots) {
     return (
         <div className="card p-fluid" style={{direction:"rtl"}}>
             <DataTable value={userSetHotspots} editMode="row" stripedRows dataKey="id" onRowEditComplete={onRowEditComplete}  tableStyle={{ minWidth: '50rem' }} >
-                <Column field="id" header="id" align={"center"} style={{ width: '20%' }}></Column>
+                <Column field='index' header=''/>
                 <Column field="title" header="כותרת" align={"center"} editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>
+                <Column field="type" header="סוג" align={"center"} editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>
                 <Column field="question" header="שאלה" align={"center"} editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>
-                {/* <Column field="options" header="id" editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column> */}
                 <Column field="answer" header="תשובה" align={"center"} editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>
-                <Column field="dataSurface" header="קורדינטות" align={"center"} editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>
                 <Column rowEditor headerStyle={{ width: '10%', minWidth: '8rem' }} bodyStyle={{ textAlign: 'center' }}></Column>
                 <Column body={removeButtonTemplate} headerStyle={{ width: '10%', minWidth: '8rem' }} bodyStyle={{ textAlign: 'center' }}></Column>
             </DataTable>

@@ -11,7 +11,7 @@ function ExerciseCard({ exerciseData }) {
     );
     const footer = (
         <div className="flex flex-row justify-content-start gap-2 w-full">
-            <Button label="עריכה" icon="pi pi-external-link" iconPos='right'
+            <Button label="צפייה" icon="pi pi-external-link" iconPos='right'
                 className="p-button-secondary gap-2 " outlined onClick={() => setDialogVisible(true)} />
             {!exerciseData.isPublished && <Button label="פרסום" icon="pi pi-verified" iconPos='right' outlined
                 className="gap-2 " severity='success' />}
