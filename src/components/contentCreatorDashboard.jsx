@@ -7,6 +7,7 @@ import { Fieldset } from 'primereact/fieldset';
 import { Button } from 'primereact/button';
 import { AutoComplete } from 'primereact/autocomplete';
 import { Dialog } from 'primereact/dialog';
+
 import { FetchExercises } from './fetchWixData';
 
 const emptyExercise =
@@ -58,26 +59,26 @@ function ContentCreatorDashBoard() {
             <span className='flex flex-column vertical-align-baseline w-9'>
                 <h3>שלום יוני וסילבסקי</h3>
                 <div className='flex flex-row justify-content-center align-items-center w-auto gap-3 mx-5'>
-                    <label className='w-3'>חפש תרגיל</label>
+                    <label className='w-3'>חפש פעילות</label>
                     <AutoComplete className='w-full h-3rem' />
-                    <Button className='w-3 h-2rem' label='תרגיל חדש' onClick={() => setNewExerciseDialogVisible(true)} />
-                    <Dialog header="הגדרת תרגיל" visible={newExerciseDialogVisible} onHide={() => setNewExerciseDialogVisible(false)}
+                    <Button className='w-3 h-2rem' label='פעילות חדשה' onClick={() => setNewExerciseDialogVisible(true)} />
+                    <Dialog header="הגדרת פעילות" visible={newExerciseDialogVisible} onHide={() => setNewExerciseDialogVisible(false)}
                         headerStyle={{ direction: 'rtl' }} className='w-9' >
                         {ExcerciseDefinition(emptyExercise)}
                     </Dialog>
                 </div>
             </span>
 
-            <Card className='w-9 m-3 '>
-                <Fieldset legend='תרגילים מוכנים לפרסום' toggleable>
-                    <div className='unitCardsGrid'>
+            <Card className='min-w-7 min-h-3 p-3 m-3 '>
+                <Fieldset legend='פעילויות מוכנות לפרסום'  toggleable>
+                    <div className='unitCardsGrid overflow-y-scroll min-h-1 p-1'>
                         {exercisesArr && exercisesArr.filter(f => f.isPublished).map((exercise, index) => {
                             return <ExerciseCard key={index} exerciseData={exercise} />
                         })}
                     </div>
                 </Fieldset>
-                <Fieldset legend='תרגילים בהכנה' toggleable>
-                    <div className='unitCardsGrid'>
+                <Fieldset legend='פעילויות בהכנה'  toggleable>
+                    <div className='unitCardsGrid overflow-y-scroll min-h-1 p-1'>
                         {exercisesArr && exercisesArr.filter(f => !f.isPublished).map((exercise, index) => {
                             return <ExerciseCard key={index} exerciseData={exercise} />
                         })}

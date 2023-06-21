@@ -41,8 +41,8 @@ export const CreateExercise = async (exerciseJSON) => {
       method: 'POST',
       body: JSON.stringify({ exerciseJSON })
     })
-    .then(response => response.json())
-    .then(data => { return data.message })
+    .then(response => {response.json(); return response})
+    .then(data => { console.log('data',data.inserted); return data.inserted })
     .catch(error => {
       console.error('Error fetching data', error);
       return null;
@@ -56,7 +56,7 @@ export const UpdateExercise = async (exerciseJSON) => {
       body: JSON.stringify({ exerciseJSON })
     })
     .then(response => response.json())
-    .then(data => { return data.message })
+    .then(data => { return data.updated })
     .catch(error => {
       console.error('Error fetching data', error);
       return null;

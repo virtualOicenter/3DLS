@@ -51,7 +51,7 @@ function UnitDefinition(dataProps) {
                     <span className="p-inputgroup-addon ">
                         <i className="pi pi-user"></i>
                     </span>
-                    <InputText placeholder="שם התרגיל" value={unitData.title} />
+                    <InputText placeholder="שם הפעילות" value={unitData.title} />
                 </div>
                 <div className="p-inputgroup flex">
                     <span className="p-inputgroup-addon">

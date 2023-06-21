@@ -28,13 +28,19 @@ function ExerciseCard({ exerciseData }) {
                 className="gap-2 " onClick={copyLink} />}
         </div>
     );
+    const subTitle=(
+        <div>
+            <p className='line-height-1'>{exerciseData.lecturer}</p>
+            <p className='line-height-1'>{exerciseData.info}</p>
+        </div>
+    )
     return (
         <div className='unitCard ' >
             <Toast ref={toast} />
             <Card style={{ backgroundColor: { bgColor } }}
-                title={exerciseData.title} subTitle={exerciseData.info} footer={footer} header={header}>
+                title={exerciseData.title} subTitle={subTitle} footer={footer} header={header}>
             </Card>
-            <Dialog header="הגדרת תרגיל" visible={dialogVisible} onHide={() => setDialogVisible(false)}
+            <Dialog header="הגדרת פעילות" visible={dialogVisible} onHide={() => setDialogVisible(false)}
                 headerStyle={{ direction: 'rtl' }} className='w-9' >
                 {ExcerciseDefinition(exerciseData)}
             </Dialog>

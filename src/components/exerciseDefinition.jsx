@@ -157,7 +157,9 @@ function ExcerciseDefinition(dataProps) {
     }
     const handleSave = () => {
         // console.log('exerciseData',exerciseData);
-        exerciseData._id ? UpdateExercise(exerciseData) : CreateExercise(exerciseData)
+        exerciseData._id ? UpdateExercise(exerciseData) : CreateExercise(exerciseData).then(res=>{
+            console.log('creare exercise fetch result',res);
+        })
     }
     return (
         <div className='card flex flex-row column-gap-3' style={{ direction: 'rtl' }}>
@@ -232,7 +234,7 @@ function ExcerciseDefinition(dataProps) {
                         </div>
                     )}
                 </TabPanel>
-                <TabPanel header="תצוגה מקדימה לתרגיל" disabled={!selectedModel || !selectedHotspotsArr || selectedHotspotsArr.id === 'new'}>
+                <TabPanel header="תצוגה מקדימה לפעילות" disabled={!selectedModel || !selectedHotspotsArr || selectedHotspotsArr.id === 'new'}>
                     <ModelViewer />
                 </TabPanel>
             </TabView>
