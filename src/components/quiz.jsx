@@ -8,29 +8,18 @@ import draggableItems from './draggableItems.jsx'
 // Home function that is reflected across the site1
 
 
-export default function QuizPage(modelIDParam, hotspotsArrIDParam) {
-
+export default function QuizPage({exercise}) {
+    console.log('exercise',exercise);
     const [initialHotspotsArr, setInitialHotspotsArr] = useState([])
     const modelRef = useRef();
     const [bottomScreenContent, setBottomScreenContent] = useState("Instructions");
     const [answers, setAnswers] = useState([]);
-    const [hotspots, setHotspots] = useState([]);
+    const [hotspots, setHotspots] = useState(exercise.hotspotsFile.hotspots);
     const [score, setScore] = useState(0);
     const [hasFinished, setHasFinished] = useState(false);
     const [infoShown, setInfoShown] = useState(true);
-    const hotspotFileFound= useRef(false)
+    const hotspotFileFound= useRef(exercise.hotspotFile)
 
-    useEffect(() => {
-        if (hotspotsArrIDParam) {
-            import(`../assets/hotspotsArrays/${hotspotsArrIDParam}.js`)
-                .then((res) => { setInitialHotspotsArr(res.default);
-                     setHotspots(res.default);
-                    hotspotFileFound.current=true;
-                  })
-                // .then((data) => { console.log('data=>', data);})
-                .catch((err) => {console.error(err)});
-        }
-    }, []);
 
     const randomizeOptions = (id, answer) => {
         if (hotspots.find((hotspot) => hotspot.id == id).options.length == 4)
@@ -112,7 +101,7 @@ export default function QuizPage(modelIDParam, hotspotsArrIDParam) {
         return; // "white";
     };
     //<button onClick={handleShowAnswers}>הצג תשובות </button>
-    return (!hotspotFileFound.current ? (
+    return (hotspotFileFound.current!=undefined ? (
     <div style={{backgroundColor:"red", color:"white", textAlign:"center"}}>
     ERROR HOTSPOTS NOT FOUND
   </div>
@@ -189,7 +178,7 @@ export default function QuizPage(modelIDParam, hotspotsArrIDParam) {
                             }}
                         >
                             {bottomScreenContent === "Instructions" && infoShown
-                                ? instructions(modelIDParam)
+                                ? instructions(exercise.model)
                                 : questionsScreen(
                                     hotspots,
                                     bottomScreenContent,
@@ -214,7 +203,7 @@ export default function QuizPage(modelIDParam, hotspotsArrIDParam) {
                     )}
 
                     {ModelViewer(
-                        modelIDParam,
+                        exercise.model,
                         modelRef,
                         handleModelClick,
                         hotspots,

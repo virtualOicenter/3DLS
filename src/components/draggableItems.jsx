@@ -1,10 +1,10 @@
 import { Draggable } from "react-beautiful-dnd";
-
+import { Badge } from 'primereact/badge';
 export default function draggbleItems(hotspots) {
   {
     return hotspots.map((hotspot, index) => {
       return (
-        <div key={hotspot.id} className="draggableItems">
+        <div key={hotspot.id} className="draggableItems align-items-center">
           <Draggable draggableId={hotspot.id} index={index}>
             {(provided, snapshot) => (
               <div
@@ -15,13 +15,12 @@ export default function draggbleItems(hotspots) {
                   boxShadow: snapshot.isDragging ? "0 0 0 #666" : "none",
                 }}
               >
-                <div className="draggableHandle" {...provided.dragHandleProps}>
-                  {hotspot.title}
-                </div>
+                <Badge value={index} {...provided.dragHandleProps}
+                 pt={{ root: { className: 'bg-primary border-round-sm' } }}/>
               </div>
             )}
           </Draggable>
-          {hotspot.answer}
+          {hotspot.title}
         </div>
       );
     });

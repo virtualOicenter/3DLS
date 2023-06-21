@@ -50,7 +50,7 @@ root {
   right: 0px;
   display: flex;
   flex-direction: column;
-  direction: rtl;
+  /* direction: rtl; */
 }
 
 #btnFinishQuiz {
@@ -188,20 +188,18 @@ button {
   column-gap: 15px;
   margin-right: 15px;
   margin-bottom: 10px;
+  
 }
 
 .draggableHandle {
-  direction: rtl;
+  /* direction: rtl;
   background-color: lightgreen;
   text-align: center;
   height: auto;
   width: 25px;
-  border-radius: 50%;
+  border-radius: 50%; */
 }
 
-.contentCreatorDashboard {
-  
-}
 
 .unitCardsGrid {
   display: grid;

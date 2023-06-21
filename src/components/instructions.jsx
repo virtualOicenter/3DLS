@@ -1,6 +1,6 @@
 import getModel from "../assets/3dModelList";
-export default function instructions(modelIDParam) {
-const modelData= getModel(modelIDParam)
+export default function instructions({modelData}) {
+// const modelData= getModel(modelIDParam)
   return (
     <div id="instructions">
       <p>לפניכם מבדק לתרגול עצמי בנושא זיהוי מאפיינים בתא בעל חיים:</p>

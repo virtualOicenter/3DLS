@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Droppable } from "react-beautiful-dnd";
 import getModel from "../assets/3dModelList";
 export default function ModelViewer(
-  modelIDParam,
+  modelData,
   modelRef,
   handleModelClick,
   hotspots,
@@ -11,7 +11,8 @@ export default function ModelViewer(
   bottomScreenContent,
   hasFinished
 ) {
-  const modelData = getModel(modelIDParam)
+  // const modelData = getModel(modelIDParam)
+  console.log('hotspots',hotspots);
   return (!modelData ?
     (
       <div style={{ backgroundColor: "red", color: "white", textAlign: "center" }}>
