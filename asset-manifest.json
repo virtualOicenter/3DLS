@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/dnd-3dmodel-quiz/static/css/main.a3904ca7.css",
-    "main.js": "/dnd-3dmodel-quiz/static/js/main.5a3e56e1.js",
-    "static/js/767.e2fd4cb1.chunk.js": "/dnd-3dmodel-quiz/static/js/767.e2fd4cb1.chunk.js",
-    "static/js/184.2b8cd805.chunk.js": "/dnd-3dmodel-quiz/static/js/184.2b8cd805.chunk.js",
-    "static/js/638.eccfbba1.chunk.js": "/dnd-3dmodel-quiz/static/js/638.eccfbba1.chunk.js",
-    "static/js/787.a969b2c2.chunk.js": "/dnd-3dmodel-quiz/static/js/787.a969b2c2.chunk.js",
-    "static/media/primeicons.svg": "/dnd-3dmodel-quiz/static/media/primeicons.e1441b135b3ca9ad643c.svg",
-    "static/media/primeicons.eot": "/dnd-3dmodel-quiz/static/media/primeicons.d44157bdfa026dc877af.eot",
-    "static/media/primeicons.woff": "/dnd-3dmodel-quiz/static/media/primeicons.10d3152104f2208ac82a.woff",
-    "static/media/primeicons.ttf": "/dnd-3dmodel-quiz/static/media/primeicons.ea5358601d0a3fd6670b.ttf",
-    "static/media/primeicons.woff2": "/dnd-3dmodel-quiz/static/media/primeicons.78172950b335ccdb94e2.woff2",
-    "static/media/color.png": "/dnd-3dmodel-quiz/static/media/color.6441e63a57ccc5105bad.png",
-    "index.html": "/dnd-3dmodel-quiz/index.html",
-    "main.a3904ca7.css.map": "/dnd-3dmodel-quiz/static/css/main.a3904ca7.css.map",
-    "main.5a3e56e1.js.map": "/dnd-3dmodel-quiz/static/js/main.5a3e56e1.js.map",
-    "767.e2fd4cb1.chunk.js.map": "/dnd-3dmodel-quiz/static/js/767.e2fd4cb1.chunk.js.map",
-    "184.2b8cd805.chunk.js.map": "/dnd-3dmodel-quiz/static/js/184.2b8cd805.chunk.js.map",
-    "638.eccfbba1.chunk.js.map": "/dnd-3dmodel-quiz/static/js/638.eccfbba1.chunk.js.map",
-    "787.a969b2c2.chunk.js.map": "/dnd-3dmodel-quiz/static/js/787.a969b2c2.chunk.js.map"
+    "main.css": "/3DLS/static/css/main.534f2504.css",
+    "main.js": "/3DLS/static/js/main.79ad7760.js",
+    "static/js/767.92793011.chunk.js": "/3DLS/static/js/767.92793011.chunk.js",
+    "static/js/184.073c8c14.chunk.js": "/3DLS/static/js/184.073c8c14.chunk.js",
+    "static/js/638.e6f3db2f.chunk.js": "/3DLS/static/js/638.e6f3db2f.chunk.js",
+    "static/js/787.b1d0e716.chunk.js": "/3DLS/static/js/787.b1d0e716.chunk.js",
+    "static/media/primeicons.svg": "/3DLS/static/media/primeicons.e1441b135b3ca9ad643c.svg",
+    "static/media/primeicons.eot": "/3DLS/static/media/primeicons.d44157bdfa026dc877af.eot",
+    "static/media/primeicons.woff": "/3DLS/static/media/primeicons.10d3152104f2208ac82a.woff",
+    "static/media/primeicons.ttf": "/3DLS/static/media/primeicons.ea5358601d0a3fd6670b.ttf",
+    "static/media/primeicons.woff2": "/3DLS/static/media/primeicons.78172950b335ccdb94e2.woff2",
+    "static/media/color.png": "/3DLS/static/media/color.6441e63a57ccc5105bad.png",
+    "index.html": "/3DLS/index.html",
+    "main.534f2504.css.map": "/3DLS/static/css/main.534f2504.css.map",
+    "main.79ad7760.js.map": "/3DLS/static/js/main.79ad7760.js.map",
+    "767.92793011.chunk.js.map": "/3DLS/static/js/767.92793011.chunk.js.map",
+    "184.073c8c14.chunk.js.map": "/3DLS/static/js/184.073c8c14.chunk.js.map",
+    "638.e6f3db2f.chunk.js.map": "/3DLS/static/js/638.e6f3db2f.chunk.js.map",
+    "787.b1d0e716.chunk.js.map": "/3DLS/static/js/787.b1d0e716.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a3904ca7.css",
-    "static/js/main.5a3e56e1.js"
+    "static/css/main.534f2504.css",
+    "static/js/main.79ad7760.js"
   ]
 }
