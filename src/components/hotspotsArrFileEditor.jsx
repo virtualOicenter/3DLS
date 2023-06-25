@@ -5,10 +5,10 @@ import { Button } from 'primereact/button';
 // Home function that is reflected across the site1
 
 export default function HotspotsArrFileEditor({ exerciseData, setExerciseData }) {
-    const [userSetHotspots, setUserSetHotspots] = useState();
-    useEffect(() => {
-        setUserSetHotspots(exerciseData.hotspotsFile.hotspots)
-    }, [exerciseData])
+    const [userSetHotspots, setUserSetHotspots] = useState(exerciseData.hotspotsFile?.hotspots || []);
+    // useEffect(() => {
+    //     setUserSetHotspots(exerciseData.hotspotsFile.hotspots)
+    // }, [exerciseData])
     const modelRef = useRef();
     const handleModelClick = (event) => {
         const { clientX, clientY } = event;
@@ -35,6 +35,7 @@ export default function HotspotsArrFileEditor({ exerciseData, setExerciseData })
         <div className="w-full h-auto ">
             <model-viewer
                 ref={modelRef}
+        onClick={handleModelClick}
                 src={exerciseData.model.src}
                 alt="Model Preview"
                 ar-modes="webxr scene-viewer quick-look"
@@ -53,8 +54,8 @@ export default function HotspotsArrFileEditor({ exerciseData, setExerciseData })
                         slot={hotspot.id}
                         data-surface={hotspot.dataSurface}
                         data-visibility-attribute="visible"
-                        camera-orbit={exerciseData.model.additionalProps.cameraOrbit}
-                        field-of-view={exerciseData.model.additionalProps.fieldOfView}
+                        // camera-orbit={exerciseData.model.additionalProps.cameraOrbit}
+                        // field-of-view={exerciseData.model.additionalProps.fieldOfView}
                         onClick={() => console.log(hotspot.id, "clicked")}
                         key={hotspot.id + index}
 

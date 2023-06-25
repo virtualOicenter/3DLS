@@ -67,6 +67,25 @@ export const UpdateExercise = async (exerciseJSON) => {
       return null;
     });
 };
+export const CreateHotspotsFile = async (hotspotsFile) => {
+  console.log('hotspotsFile before post', hotspotsFile);
+  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions/createHotspotsFile`, {
+    method: 'POST',
+    body: JSON.stringify({ hotspotsFile })
+  })
+    .then(response => {
+      // console.log('response', response);
+      return response.json();
+    })
+    .then(data => {
+      // console.log('data', data);
+      return data.inserted;
+    })
+    .catch(error => {
+      console.error('Error fetching data', error);
+      return null;
+    });
+};
 export const UpdateHotspotsFile = async (hotspotsFileJSON) => {
   console.log('excersiceJSON before post', hotspotsFileJSON);
   return fetch(`https://yonivas0.editorx.io/etil3ls/_functions/updateHotspotsFile`,

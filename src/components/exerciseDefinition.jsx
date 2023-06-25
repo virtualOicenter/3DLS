@@ -9,7 +9,7 @@ import { Dialog } from 'primereact/dialog';
 import HotspotsArrFileEditor from './hotspotsArrFileEditor';
 import ExerciseViewer from './exerciseViewer'
 import ModelFileUpload from './uploadFile';
-import { Fetch3DModelsArr, FetchHotspotsArrToModel, CreateExercise, FetchTagsOptions, UpdateExercise, UpdateHotspotsFile } from './fetchWixData';
+import { Fetch3DModelsArr, FetchHotspotsArrToModel, CreateExercise, CreateHotspotsFile, FetchTagsOptions, UpdateExercise, UpdateHotspotsFile } from './fetchWixData';
 import { modelsList } from '../assets/3dModelList';
 
 const getModelOptions = (tempArr) => {
@@ -130,31 +130,6 @@ function ExcerciseDefinition(dataProps) {
         }
     }
 
-    const HotspotsArrFileForm = () => {
-        return (
-            <div className="card flex flex-column gap-2 mt-2 align-items-start">
-                <div className="flex flex-row gap-3 w-full">
-                    <div className="p-inputgroup flex">
-                        <span className="p-inputgroup-addon">
-                            <i className="pi pi-tag"></i>
-                        </span>
-                        <InputText
-                            placeholder="שם הקובץ"
-                            value={selectedHotspotsFile?.title}
-                            onChange={(e) => {
-                                console.log('changed hotspotsArr file name', e.target.value);
-                                let _hotspotsFile = { ...selectedHotspotsFile, "title": e.target.value }; // Make a copy of the object
-                                // _hotspotsFile.title = e.target.value;
-                                console.log('exercise Data after change', _hotspotsFile);
-                                // setSelectedHotspotsFile(_hotspotsFile);
-                            }}
-                        />
-                    </div>
-                    <Button className="w-5 gap-3" severity='secondary' label='צור קובץ נקודות חדש' icon='pi pi-plus' iconPos='right' />
-                </div>
-            </div>
-        );
-    };
     const hotspotsEditorFooter = () => {
         return (<div>
             <Button label='שמור' icon="pi pi-check" iconPos='right'
@@ -235,7 +210,38 @@ function ExcerciseDefinition(dataProps) {
                         panelStyle={{ direction: 'rtl' }}
                     />
                     {selectedHotspotsFile && selectedHotspotsFile._id == 'new' ? (
-                        <HotspotsArrFileForm />
+                        <div className="card flex flex-column gap-2 mt-2 align-items-start">
+                            <div className="flex flex-row gap-3 w-full">
+                                <div className="p-inputgroup flex">
+                                    <span className="p-inputgroup-addon">
+                                        <i className="pi pi-tag"></i>
+                                    </span>
+                                    <InputText
+                                        placeholder="שם הקובץ"
+                                        value={exerciseData.hotspotsFile?.title || ""}
+                                        onChange={(e) => {
+                                            let _hotspotsFile = { ...selectedHotspotsFile, "title": e.target.value }; // Make a copy of the object
+                                            setExerciseData(({ ...exerciseData, 'hotspotsFile': _hotspotsFile }))
+                                        }}
+                                    />
+                                </div>
+                                <Button className="w-5 gap-3" severity='secondary' label='צור קובץ נקודות חדש' icon='pi pi-plus' iconPos='right'
+                                    onClick={async () => {
+                                        let _updatedHotspotsFile=({'title':exerciseData.hotspotsFile.title,'3DModels':exerciseData.model._id})
+                                        await CreateHotspotsFile(_updatedHotspotsFile).then(res=>{
+                                            setExerciseData(({ ...exerciseData, 'hotspotsFile': res }))
+                                            setSelectedHotspotsFile(res)
+                                        })
+                                        await getHotspotsArrOptions(selectedModel._id)
+                                        .then(hotspotsArrOptions => {
+                                            setHotspotsArrOptions(hotspotsArrOptions);
+                                        })
+                                        .catch(error => {
+                                            console.error('Error fetching hotspots array options', error);
+                                        });
+                                    }} />
+                            </div>
+                        </div>
 
                     ) : (
                         <div className='gap-3'>
