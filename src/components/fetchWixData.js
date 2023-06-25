@@ -35,14 +35,19 @@ export const FetchTagsOptions = async () => {
     });
 };
 export const CreateExercise = async (exerciseJSON) => {
-  console.log('excersiceJSON before post', exerciseJSON);
-  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions-dev/createExercise`,
-    {
-      method: 'POST',
-      body: JSON.stringify({ exerciseJSON })
+  console.log('exerciseJSON before post', exerciseJSON);
+  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions-dev/createExercise`, {
+    method: 'POST',
+    body: JSON.stringify({ exerciseJSON })
+  })
+    .then(response => {
+      // console.log('response', response);
+      return response.json();
     })
-    .then(response => {response.json(); return response})
-    .then(data => { console.log('data',data.inserted); return data.inserted })
+    .then(data => {
+      // console.log('data', data);
+      return data.inserted;
+    })
     .catch(error => {
       console.error('Error fetching data', error);
       return null;
