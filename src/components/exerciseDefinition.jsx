@@ -7,9 +7,9 @@ import { Dropdown } from 'primereact/dropdown';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dialog } from 'primereact/dialog';
 import HotspotsArrFileEditor from './hotspotsArrFileEditor';
-
+import ExerciseViewer from './exerciseViewer'
 import ModelFileUpload from './uploadFile';
-import { Fetch3DModelsArr, FetchHotspotsArrToModel, CreateExercise, FetchTagsOptions, UpdateExercise,UpdateHotspotsFile } from './fetchWixData';
+import { Fetch3DModelsArr, FetchHotspotsArrToModel, CreateExercise, FetchTagsOptions, UpdateExercise, UpdateHotspotsFile } from './fetchWixData';
 import { modelsList } from '../assets/3dModelList';
 
 const getModelOptions = (tempArr) => {
@@ -38,7 +38,7 @@ const getHotspotsArrOptions = async (modelId) => {
 function ExcerciseDefinition(dataProps) {
     const [exerciseData, setExerciseData] = useState(dataProps);
     const [selectedModel, setSelectedModel] = useState(exerciseData.model);
-    const [selectedHotspotsArr, setSelectedHotspotsArr] = useState(exerciseData.hotspotsFile._id);
+    const [selectedHotspotsFile, setSelectedHotspotsFile] = useState(exerciseData.hotspotsFile?._id);
     const [selectModelOptions, setModelSelectOptions] = useState([]);
     const [selectHotspotsArrOptions, setHotspotsArrOptions] = useState([]);
     const [selectTagsOptions, setSelectTags] = useState([])
@@ -86,7 +86,7 @@ function ExcerciseDefinition(dataProps) {
             getHotspotsArrOptions(selectedModel._id)
                 .then(hotspotsArrOptions => {
                     setHotspotsArrOptions(hotspotsArrOptions);
-                    setSelectedHotspotsArr(hotspotsArrOptions.find(f => f._id == exerciseData.hotspotsFile._id))
+                    setSelectedHotspotsFile(hotspotsArrOptions.find(f => f._id == exerciseData.hotspotsFile?._id))
                 })
                 .catch(error => {
                     console.error('Error fetching hotspots array options', error);
@@ -110,7 +110,7 @@ function ExcerciseDefinition(dataProps) {
                 // ios-src={URL.createObjectURL(previewFile)}
                 style={{ direction: 'ltr' }}
             >
-                {selectedHotspotsArr && selectedHotspotsArr.hotspots && selectedHotspotsArr.hotspots.map((hotspot, index) => {
+                {selectedHotspotsFile && selectedHotspotsFile.hotspots && selectedHotspotsFile.hotspots.map((hotspot, index) => {
                     return (<button
                         className={hotspot.userAnswer == ""
                             ? "Hotspot w-full"
@@ -131,34 +131,42 @@ function ExcerciseDefinition(dataProps) {
     }
 
     const HotspotsArrFileForm = () => {
-        return <div className="card flex flex-column gap-2 mt-2 align-items-start">
-            <div className='flex flex-row gap-3'>
-                <div className="p-inputgroup flex">
-                    <span className="p-inputgroup-addon">
-                        <i className="pi pi-tag"></i>
-                    </span>
-                    <InputText placeholder='שם הקובץ' value={exerciseData.hotspotsFile.title}
-                        onChange={(e) => {
-                            let _hotspotsFile = exerciseData.hotspotsFile;
-                            _hotspotsFile.title = e.value;
-                            let _exerciseData = ({ ...exerciseData, 'hotspotsFile': _hotspotsFile });
-                            setExerciseData(_exerciseData)
-                        }} />
+        return (
+            <div className="card flex flex-column gap-2 mt-2 align-items-start">
+                <div className="flex flex-row gap-3 w-full">
+                    <div className="p-inputgroup flex">
+                        <span className="p-inputgroup-addon">
+                            <i className="pi pi-tag"></i>
+                        </span>
+                        <InputText
+                            placeholder="שם הקובץ"
+                            value={selectedHotspotsFile?.title}
+                            onChange={(e) => {
+                                console.log('changed hotspotsArr file name', e.target.value);
+                                let _hotspotsFile = { ...selectedHotspotsFile, "title": e.target.value }; // Make a copy of the object
+                                // _hotspotsFile.title = e.target.value;
+                                console.log('exercise Data after change', _hotspotsFile);
+                                // setSelectedHotspotsFile(_hotspotsFile);
+                            }}
+                        />
+                    </div>
+                    <Button className="w-5 gap-3" severity='secondary' label='צור קובץ נקודות חדש' icon='pi pi-plus' iconPos='right' />
                 </div>
             </div>
-        </div>
-    }
-    const hotspotsEditorFooter =()=>{
+        );
+    };
+    const hotspotsEditorFooter = () => {
         return (<div>
-            <Button label='שמור' icon="pi pi-check" iconPos='right'  
-            onClick={()=>{UpdateHotspotsFile(exerciseData.hotspotsFile)}}/>
-                <Button label='בטל' icon="pi pi-trash" iconPos='right' severity='danger' />
+            <Button label='שמור' icon="pi pi-check" iconPos='right'
+                onClick={() => { UpdateHotspotsFile(exerciseData.hotspotsFile) }} />
+            <Button label='בטל' icon="pi pi-times" iconPos='right' severity='danger' />
         </div>)
     }
     const handleSave = () => {
         // console.log('exerciseData',exerciseData);
-        exerciseData._id ? UpdateExercise(exerciseData) : CreateExercise(exerciseData).then(res=>{
-            console.log('creare exercise fetch result',res);
+        exerciseData._id ? UpdateExercise(exerciseData) : CreateExercise(exerciseData).then(res => {
+            console.log('creare exercise fetch result', res);
+            setExerciseData(res)
         })
     }
     return (
@@ -193,40 +201,50 @@ function ExcerciseDefinition(dataProps) {
                     <MultiSelect display='chip' placeholder="תגים" value={exerciseData.tags} options={selectTagsOptions} optionLabel='title' onChange={e => { let _exerciseData = ({ ...exerciseData, 'tags': e.target.value }); setExerciseData(_exerciseData) }} />
                 </div>
                 <Button label='שמור' icon="pi pi-check" iconPos='right' onClick={handleSave} />
-                <Button label='בטל' icon="pi pi-trash" iconPos='right' severity='danger' />
+                <Button label='בטל' icon="pi pi-times" iconPos='right' severity='danger' />
             </div>
             <TabView className='w-full h-auto shadow-2'>
                 <TabPanel header="בחירת מודל"  >
-                    <Dropdown value={selectModelOptions.find(f => f._id == exerciseData.model._id)} onChange={(e) => { setSelectedModel(e.value); if (e.value !== 'new') { let _exerciseData = ({ ...exerciseData, 'model': e.target.value._id }); setExerciseData(_exerciseData); } }}
+                    <Dropdown value={selectModelOptions.find(f => f._id == exerciseData.model?._id)}
+                        onChange={(e) => {
+                            setSelectedModel(e.value);
+                            if (e.value !== 'new') {
+                                let _exerciseData = ({ ...exerciseData, 'model': e.target.value });
+                                setExerciseData(_exerciseData);
+                            }
+                        }}
                         placeholder='בחר מודל' className='w-full' options={selectModelOptions}
                         optionLabel='title' panelStyle={{ direction: 'rtl' }} />
                     {selectedModel && selectedModel._id == 'new' ? <ModelFileUpload /> : <ModelViewer />}
                 </TabPanel>
                 <TabPanel header="בחירת קובץ נקודות" disabled={!selectedModel || selectedModel._id == 'new'}>
                     <Dropdown
-                        value={selectedHotspotsArr}
-                        onChange={(e) => { setSelectedHotspotsArr(e.value, selectedHotspotsArr); if (e.value !== 'new') { let _exerciseData = ({ ...exerciseData, 'hotspotsFile': e.value._id }); setExerciseData(_exerciseData); } }}
+                        value={selectedHotspotsFile}
+                        onChange={(e) => {
+                            setSelectedHotspotsFile(e.target.value, selectedHotspotsFile);
+                            if (e.value !== 'new') {
+                                let _exerciseData = ({ ...exerciseData, 'hotspotsFile': e.target.value });
+                                console.log('updated exercise data', exerciseData);
+                                setExerciseData(_exerciseData);
+                            }
+                        }}
                         placeholder='בחר קובץ נקודות'
                         className='w-full'
                         options={selectHotspotsArrOptions}
                         optionLabel='title'
                         panelStyle={{ direction: 'rtl' }}
                     />
-                    {selectedHotspotsArr && selectedHotspotsArr._id == 'new' ? (
-                        <div>
-                            <HotspotsArrFileForm />
-                            <Button className="w-max gap-3" severity='secondary' label='צור קובץ נקודות חדש' icon='pi pi-plus' iconPos='right' />
-                        </div>
+                    {selectedHotspotsFile && selectedHotspotsFile._id == 'new' ? (
+                        <HotspotsArrFileForm />
 
                     ) : (
                         <div className='gap-3'>
                             <div className='flex justify-content-between '>
-                                <HotspotsArrFileForm />
                                 <Button className="w-max gap-3 gap-2 mt-2" severity='secondary' label='ערוך נקודות' icon='pi pi-plus' iconPos='right'
                                     onClick={() => setIsHotspotsEditorVisible(true)} />
                             </div>
                             <ModelViewer />
-                            <Dialog header={`עריכת נקודות בקובץ ${exerciseData.hotspotsFile.title}`}
+                            <Dialog header={`עריכת נקודות בקובץ ${exerciseData.hotspotsFile?.title}`}
                                 footer={hotspotsEditorFooter()} visible={isHotspotsEditorVisible} onHide={() => setIsHotspotsEditorVisible(false)}
                                 headerStyle={{ direction: 'rtl' }} className='w-8' >
                                 <HotspotsArrFileEditor exerciseData={exerciseData} setExerciseData={setExerciseData} />
@@ -234,8 +252,8 @@ function ExcerciseDefinition(dataProps) {
                         </div>
                     )}
                 </TabPanel>
-                <TabPanel header="תצוגה מקדימה לפעילות" disabled={!selectedModel || !selectedHotspotsArr || selectedHotspotsArr.id === 'new'}>
-                    <ModelViewer />
+                <TabPanel header="תצוגה מקדימה לפעילות" disabled={!selectedModel || !selectedHotspotsFile || exerciseData.hotspotsFile?._id == 'new'}>
+                    <ExerciseViewer exerciseID={exerciseData._id} />
                 </TabPanel>
             </TabView>
 

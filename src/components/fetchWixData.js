@@ -1,5 +1,5 @@
 export const FetchExercises = async () => {
-  return fetch('https://yonivas0.editorx.io/etil3ls/_functions-dev/getExercises', { method: 'GET' })
+  return fetch('https://yonivas0.editorx.io/etil3ls/_functions/getExercises', { method: 'GET' })
     .then(response => response.json())
     .then(data => data.message)
     .catch(error => {
@@ -8,7 +8,7 @@ export const FetchExercises = async () => {
     });
 };
 export const Fetch3DModelsArr = async () => {
-  return fetch('https://yonivas0.editorx.io/etil3ls/_functions-dev/getModelsArr', { method: 'GET' })
+  return fetch('https://yonivas0.editorx.io/etil3ls/_functions/getModelsArr', { method: 'GET' })
     .then(response => response.json())
     .then(data => data.message)
     .catch(error => {
@@ -17,7 +17,7 @@ export const Fetch3DModelsArr = async () => {
     });
 };
 export const FetchHotspotsArrToModel = async (modelId) => {
-  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions-dev/getHotspotsArrToModel/${modelId}`, { method: 'GET' })
+  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions/getHotspotsArrToModel/${modelId}`, { method: 'GET' })
     .then(response => response.json())
     .then(data => { return data.message })
     .catch(error => {
@@ -26,7 +26,7 @@ export const FetchHotspotsArrToModel = async (modelId) => {
     });
 };
 export const FetchTagsOptions = async () => {
-  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions-dev/getTagsOptions`, { method: 'GET' })
+  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions/getTagsOptions`, { method: 'GET' })
     .then(response => response.json())
     .then(data => { return data.message })
     .catch(error => {
@@ -36,7 +36,7 @@ export const FetchTagsOptions = async () => {
 };
 export const CreateExercise = async (exerciseJSON) => {
   console.log('exerciseJSON before post', exerciseJSON);
-  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions-dev/createExercise`, {
+  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions/createExercise`, {
     method: 'POST',
     body: JSON.stringify({ exerciseJSON })
   })
@@ -55,7 +55,7 @@ export const CreateExercise = async (exerciseJSON) => {
 };
 export const UpdateExercise = async (exerciseJSON) => {
   console.log('excersiceJSON before post', exerciseJSON);
-  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions-dev/updateExercise`,
+  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions/updateExercise`,
     {
       method: 'POST',
       body: JSON.stringify({ exerciseJSON })
@@ -69,7 +69,7 @@ export const UpdateExercise = async (exerciseJSON) => {
 };
 export const UpdateHotspotsFile = async (hotspotsFileJSON) => {
   console.log('excersiceJSON before post', hotspotsFileJSON);
-  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions-dev/updateHotspotsFile`,
+  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions/updateHotspotsFile`,
     {
       method: 'POST',
       body: JSON.stringify({ hotspotsFileJSON })
@@ -83,7 +83,7 @@ export const UpdateHotspotsFile = async (hotspotsFileJSON) => {
 };
 export const Create3DModel = async (modelJSON) => {
   console.log('excersiceJSON before post', modelJSON);
-  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions-dev/create3DModel`,
+  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions/create3DModel`,
     {
       method: 'POST',
       body: JSON.stringify({ modelJSON })

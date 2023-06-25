@@ -46,8 +46,8 @@ root {
 #main {
   font-size: 1.2em;
   width: 100%;
-  position: absolute;
-  right: 0px;
+  /* position: absolute; */
+  /* right: 0px; */
   display: flex;
   flex-direction: column;
   /* direction: rtl; */

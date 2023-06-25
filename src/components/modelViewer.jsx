@@ -71,8 +71,7 @@ export default function ModelViewer(
                           : (hotspot.userAnswer != "" && (
                             <div>
                               {
-                                hotspots.find((f) => f.answer == hotspot.userAnswer)
-                                  .title
+                                hotspots.findIndex((f) => f.answer == hotspot.userAnswer)+1
                               }
                             </div>
                           ))

@@ -35,9 +35,9 @@ function ExerciseCard({ exerciseData }) {
         </div>
     )
     return (
-        <div className='unitCard ' >
+        <div className='unitCard' >
             <Toast ref={toast} />
-            <Card style={{ backgroundColor: { bgColor } }}
+            <Card className='h-full' style={{ backgroundColor: { bgColor }}}
                 title={exerciseData.title} subTitle={subTitle} footer={footer} header={header}>
             </Card>
             <Dialog header="הגדרת פעילות" visible={dialogVisible} onHide={() => setDialogVisible(false)}

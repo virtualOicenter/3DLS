@@ -20,7 +20,7 @@ export default function HotspotsArrFileEditor({ exerciseData, setExerciseData })
                 {
                     id: "hotspot-" + (userSetHotspots.length + 1),
                     title: userSetHotspots.length + 1,
-                    question: "נקודה זו היא:",
+                    question: "",
                     options: [],
                     answer: "תשובה",
                     dataSurface: hit,

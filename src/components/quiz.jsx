@@ -192,7 +192,12 @@ export default function QuizPage({exercise}) {
                             ) : (
                                 <Droppable droppableId="droppable-titles" type="HOTSPOT">
                                     {(provided, _) => (
-                                        <div ref={provided.innerRef} {...provided.droppableProps}>
+                                        <div ref={provided.innerRef} {...provided.droppableProps}
+                                        style={{
+                                            display: 'grid',
+                                            gridTemplateColumns: '1fr 1fr', // Set the columns
+                                            gap: '10px' // Add some gap between items
+                                          }}>
                                             {draggableItems(hotspots)}
                                             {provided.placeholder}
                                         </div>

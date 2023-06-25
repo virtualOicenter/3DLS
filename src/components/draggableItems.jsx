@@ -15,7 +15,7 @@ export default function draggbleItems(hotspots) {
                   boxShadow: snapshot.isDragging ? "0 0 0 #666" : "none",
                 }}
               >
-                <Badge value={index} {...provided.dragHandleProps}
+                <Badge value={index+1} {...provided.dragHandleProps}
                  pt={{ root: { className: 'bg-primary border-round-sm' } }}/>
               </div>
             )}

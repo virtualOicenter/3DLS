@@ -12,9 +12,9 @@ import { FetchExercises } from './fetchWixData';
 
 const emptyExercise =
 {
-    "model": "",
+    "model": {'_id':'new'},
     "info": "",
-    "hotspotsFile": "",
+    "hotspotsFile": {'_id':'new'},
     "title": "",
     "tags": null,
     "isPublished": false
@@ -25,32 +25,19 @@ function ContentCreatorDashBoard() {
     const [newExerciseDialogVisible, setNewExerciseDialogVisible] = useState(false)
     const [exercisesArr, setExercisesArr] = useState(null)
     const [isLoaded,setIslLoaded] = useState(false)
-    const legendTemplate = (
-        <div className="flex align-items-center">
-            <span>יחידות מוכנות לפרסום</span>
-        </div>
-    )
     useEffect(() => {
-        // let isMounted = true;
-
         const fetchExercises = async () => {
-            try {
-                const exercisesArr = await FetchExercises();
-                console.log('exercises arr', exercisesArr);
-                if (!isLoaded) {
-                    setExercisesArr(exercisesArr);
-                }
-            } catch (error) {
-                console.error('Error fetching data', error);
-            }
-        };
-
-        fetchExercises();
-
-        return () => {
+          try {
+            const fetchedExercisesArr = await FetchExercises();
+            setExercisesArr(fetchedExercisesArr);
             setIslLoaded(true)
+          } catch (error) {
+            console.error('Error fetching data', error);
+          }
         };
-    }, []);
+      
+        fetchExercises();
+      }, [newExerciseDialogVisible]);
 
 
     return (
@@ -61,7 +48,7 @@ function ContentCreatorDashBoard() {
                 <div className='flex flex-row justify-content-center align-items-center w-auto gap-3 mx-5'>
                     <label className='w-3'>חפש פעילות</label>
                     <AutoComplete className='w-full h-3rem' />
-                    <Button className='w-3 h-2rem' label='פעילות חדשה' onClick={() => setNewExerciseDialogVisible(true)} />
+                    <Button className='w-3 h-2rem' label='פעילות חדשה' onClick={() => {setNewExerciseDialogVisible(true);setIslLoaded(false)}} />
                     <Dialog header="הגדרת פעילות" visible={newExerciseDialogVisible} onHide={() => setNewExerciseDialogVisible(false)}
                         headerStyle={{ direction: 'rtl' }} className='w-9' >
                         {ExcerciseDefinition(emptyExercise)}
@@ -78,7 +65,7 @@ function ContentCreatorDashBoard() {
                     </div>
                 </Fieldset>
                 <Fieldset legend='פעילויות בהכנה'  toggleable>
-                    <div className='unitCardsGrid overflow-y-scroll min-h-1 p-1'>
+                    <div className='unitCardsGrid overflow-y-scroll min-h-1 max-h-25rem p-1'>
                         {exercisesArr && exercisesArr.filter(f => !f.isPublished).map((exercise, index) => {
                             return <ExerciseCard key={index} exerciseData={exercise} />
                         })}
