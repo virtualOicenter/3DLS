@@ -4,31 +4,38 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { Toast } from 'primereact/toast';
 import ExcerciseDefinition from './exerciseDefinition';
-function ExerciseCard({ exerciseData }) {
+import { PublishExerciseOnWix } from './fetchWixData';
+function ExerciseCard({ exerciseData,setExercisesArr }) {
     const toast = useRef(null);
 
     const copyLink = () => {
         navigator.clipboard.writeText(linkString)
         toast.current.show({ severity: 'success', summary: 'Info', detail: 'קישור הועתק בהצלחה' });
     };
-
+    const publishExercise = async () => {
+        await PublishExerciseOnWix(exerciseData._id).then(res => {
+            toast.current.show({ severity: 'success', summary: 'Info', detail: 'פעילות פורסמה בהצלחה' });
+        }).catch(error=>{
+        toast.current.show({ severity: 'error', summary: 'Info', detail: 'שגיאה בפרסום הפעילות' });
+        })
+    }
     const [dialogVisible, setDialogVisible] = useState(false)
     const bgColor = exerciseData.isPublished ? 'white' : 'surface-300'
     const header = (
         <div></div>
     );
-    const linkString=`https://virtualoicenter.github.io/3DLS/?mode=exerciseViewer&exerciseID=${exerciseData._id}`
+    const linkString = `https://virtualoicenter.github.io/3DLS/?mode=exerciseViewer&exerciseID=${exerciseData._id}`
     const footer = (
         <div className="flex flex-row justify-content-start gap-2 w-full">
             <Button label="צפייה" icon="pi pi-external-link" iconPos='right'
                 className="p-button-secondary gap-2 " outlined onClick={() => setDialogVisible(true)} />
-            {!exerciseData.isPublished?  <Button label="פרסום" icon="pi pi-verified" iconPos='right' outlined
-                className="gap-2 " severity='success' />
-                :<Button label="קישור" icon="pi pi-link" iconPos='right' outlined
-                className="gap-2 " onClick={copyLink} />}
+            {!exerciseData.isPublished ? <Button label="פרסום" icon="pi pi-verified" iconPos='right' outlined
+                className="gap-2 " severity='success' onClick={publishExercise} />
+                : <Button label="קישור" icon="pi pi-link" iconPos='right' outlined
+                    className="gap-2 " onClick={copyLink} />}
         </div>
     );
-    const subTitle=(
+    const subTitle = (
         <div>
             <p className='line-height-1'>{exerciseData.lecturer}</p>
             <p className='line-height-1'>{exerciseData.info}</p>
@@ -37,7 +44,7 @@ function ExerciseCard({ exerciseData }) {
     return (
         <div className='unitCard' >
             <Toast ref={toast} />
-            <Card className='h-full' style={{ backgroundColor: { bgColor }}}
+            <Card className='h-full' style={{ backgroundColor: { bgColor } }}
                 title={exerciseData.title} subTitle={subTitle} footer={footer} header={header}>
             </Card>
             <Dialog header="הגדרת פעילות" visible={dialogVisible} onHide={() => setDialogVisible(false)}

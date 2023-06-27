@@ -3,8 +3,8 @@ export const FetchExercises = async () => {
     .then(response => response.json())
     .then(data => data.message)
     .catch(error => {
-      console.error('Error fetching data', error);
-      return null;
+      console.error('Error fetching exercise data', error);
+      return error;
     });
 };
 export const Fetch3DModelsArr = async () => {
@@ -12,26 +12,26 @@ export const Fetch3DModelsArr = async () => {
     .then(response => response.json())
     .then(data => data.message)
     .catch(error => {
-      console.error('Error fetching data', error);
-      return null;
+      console.error('Error fetching 3d model arr data', error);
+      return error;
     });
 };
 export const FetchHotspotsArrToModel = async (modelId) => {
   return fetch(`https://yonivas0.editorx.io/etil3ls/_functions/getHotspotsArrToModel/${modelId}`, { method: 'GET' })
     .then(response => response.json())
-    .then(data => { return data.message })
+    .then(data => data.message)
     .catch(error => {
-      console.error('Error fetching data', error);
-      return null;
+      console.error('Error fetching HotspotsArrToModel data', error);
+      return error;
     });
 };
 export const FetchTagsOptions = async () => {
   return fetch(`https://yonivas0.editorx.io/etil3ls/_functions/getTagsOptions`, { method: 'GET' })
     .then(response => response.json())
-    .then(data => { return data.message })
+    .then(data => data.message)
     .catch(error => {
-      console.error('Error fetching data', error);
-      return null;
+      console.error('Error fetching tags data', error);
+      return error;
     });
 };
 export const CreateExercise = async (exerciseJSON) => {
@@ -40,17 +40,11 @@ export const CreateExercise = async (exerciseJSON) => {
     method: 'POST',
     body: JSON.stringify({ exerciseJSON })
   })
-    .then(response => {
-      // console.log('response', response);
-      return response.json();
-    })
-    .then(data => {
-      // console.log('data', data);
-      return data.inserted;
-    })
+    .then(response => response.json())
+    .then(data => data.inserted)
     .catch(error => {
-      console.error('Error fetching data', error);
-      return null;
+      console.error('Error creating exercise', error);
+      return error;
     });
 };
 export const UpdateExercise = async (exerciseJSON) => {
@@ -61,10 +55,10 @@ export const UpdateExercise = async (exerciseJSON) => {
       body: JSON.stringify({ exerciseJSON })
     })
     .then(response => response.json())
-    .then(data => { return data.updated })
+    .then(data => data.updated)
     .catch(error => {
-      console.error('Error fetching data', error);
-      return null;
+      console.error('Error updating exercise', error);
+      return error;
     });
 };
 export const CreateHotspotsFile = async (hotspotsFile) => {
@@ -73,17 +67,11 @@ export const CreateHotspotsFile = async (hotspotsFile) => {
     method: 'POST',
     body: JSON.stringify({ hotspotsFile })
   })
-    .then(response => {
-      // console.log('response', response);
-      return response.json();
-    })
-    .then(data => {
-      // console.log('data', data);
-      return data.inserted;
-    })
+  .then(response => response.json())
+  .then(data => data.inserted)
     .catch(error => {
-      console.error('Error fetching data', error);
-      return null;
+      console.error('Error creating hotspots file', error);
+      return error;
     });
 };
 export const UpdateHotspotsFile = async (hotspotsFileJSON) => {
@@ -94,23 +82,37 @@ export const UpdateHotspotsFile = async (hotspotsFileJSON) => {
       body: JSON.stringify({ hotspotsFileJSON })
     })
     .then(response => response.json())
-    .then(data => { return data.message })
+    .then(data => data.updated)
     .catch(error => {
-      console.error('Error fetching data', error);
-      return null;
+      console.error('Error updating hotspots file', error);
+      return error;
     });
 };
 export const Create3DModel = async (modelJSON) => {
-  console.log('excersiceJSON before post', modelJSON);
+  console.log('modelJSON before post', modelJSON);
   return fetch(`https://yonivas0.editorx.io/etil3ls/_functions/create3DModel`,
     {
       method: 'POST',
       body: JSON.stringify({ modelJSON })
     })
     .then(response => response.json())
-    .then(data => { return data.message })
+    .then(data => data.inserted)
     .catch(error => {
-      console.error('Error fetching data', error);
-      return null;
+      console.error('Error creating 3d model', error);
+      return error;
     });
+};
+export const PublishExerciseOnWix = async (exerciseId) => {
+  console.log('excersiceJSON before post', exerciseId);
+  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions/publishExercise`,
+  {
+    method: 'POST',
+    body: JSON.stringify({ exerciseId })
+  })
+  .then(response => response.json())
+  .then(data => data.inserted)
+  .catch(error => {
+    console.error('Error publishing exercise', error);
+    return error;
+  });
 };

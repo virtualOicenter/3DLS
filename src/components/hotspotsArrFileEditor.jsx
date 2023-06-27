@@ -4,12 +4,13 @@ import HotspotsTable from "./hotspotsTable"
 import { Button } from 'primereact/button';
 // Home function that is reflected across the site1
 
-export default function HotspotsArrFileEditor({ exerciseData, setExerciseData }) {
-    const [userSetHotspots, setUserSetHotspots] = useState(exerciseData.hotspotsFile?.hotspots || []);
-    // useEffect(() => {
-    //     setUserSetHotspots(exerciseData.hotspotsFile.hotspots)
-    // }, [exerciseData])
+export default function HotspotsArrFileEditor({exerciseData, selectedHotspotsFile, setSelectedHotspotsFile }) {
+    const [userSetHotspots, setUserSetHotspots] = useState(selectedHotspotsFile?.hotspots || []);
     const modelRef = useRef();
+    const updateHotspotsArr=(newArr)=>{
+        setUserSetHotspots(newArr);
+        setSelectedHotspotsFile(({...selectedHotspotsFile,'hotspots':newArr}))
+    }
     const handleModelClick = (event) => {
         const { clientX, clientY } = event;
 
@@ -22,12 +23,12 @@ export default function HotspotsArrFileEditor({ exerciseData, setExerciseData })
                     title: userSetHotspots.length + 1,
                     question: "",
                     options: [],
-                    answer: "תשובה",
+                    answer: `${userSetHotspots.length + 1}`,
                     dataSurface: hit,
                     userAnswer: "",
                 }
-                setUserSetHotspots([...userSetHotspots, newHotspot]);
-                console.log("hit", hit, userSetHotspots);
+                updateHotspotsArr([...userSetHotspots, newHotspot])
+                console.log("hit", hit);
             }
         }
     };
@@ -66,7 +67,7 @@ export default function HotspotsArrFileEditor({ exerciseData, setExerciseData })
                     </button>)
                 })}
             </model-viewer>
-            {HotspotsTable(userSetHotspots,setUserSetHotspots,exerciseData.type)}
+            {HotspotsTable(userSetHotspots,updateHotspotsArr,exerciseData.type)}
         </div>
     );
 }

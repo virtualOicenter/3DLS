@@ -55,19 +55,18 @@ function ContentCreatorDashBoard() {
                     </Dialog>
                 </div>
             </span>
-
             <Card className='min-w-7 min-h-3 p-3 m-3 '>
                 <Fieldset legend='פעילויות מוכנות לפרסום'  toggleable>
                     <div className='unitCardsGrid overflow-y-scroll min-h-1 p-1'>
                         {exercisesArr && exercisesArr.filter(f => f.isPublished).map((exercise, index) => {
-                            return <ExerciseCard key={index} exerciseData={exercise} />
+                            return <ExerciseCard key={index} exerciseData={exercise}  setExercisesArr={setExercisesArr} />
                         })}
                     </div>
                 </Fieldset>
                 <Fieldset legend='פעילויות בהכנה'  toggleable>
                     <div className='unitCardsGrid overflow-y-scroll min-h-1 max-h-25rem p-1'>
                         {exercisesArr && exercisesArr.filter(f => !f.isPublished).map((exercise, index) => {
-                            return <ExerciseCard key={index} exerciseData={exercise} />
+                            return <ExerciseCard key={index} exerciseData={exercise} setExercisesArr={setExercisesArr} />
                         })}
                     </div>
                 </Fieldset>

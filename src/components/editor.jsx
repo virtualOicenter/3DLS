@@ -51,7 +51,7 @@ export default function EditorPage(modelIDParam, hotspotsArrIDParam) {
                     title: userSetHotspots.length + 1,
                     question: "נקודה זו היא:",
                     options: [],
-                    answer: "תשובה",
+                    answer: "",
                     dataSurface: hit,
                     userAnswer: "",
                 }

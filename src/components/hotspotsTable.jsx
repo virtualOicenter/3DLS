@@ -8,7 +8,7 @@ import { Chips } from 'primereact/chips'
 import { Card } from 'primereact/card';
 import { InputTextarea } from 'primereact/inputtextarea';
 
-export default function HotspotsTable(userSetHotspots, setUserSetHotspots, exerciseType) {
+export default function HotspotsTable(userSetHotspots, updateHotspotsArr, exerciseType) {
     const [expandedRows, setExpandedRows] = useState(null);
     const questionTypeOptions = [{ 'label': 'מידע', 'value': 'INFO' }, { 'label': 'שאלה', 'value': 'QUESTION' }, { 'label': 'פעולה', 'value': 'ACTION' }]
     const onCellEditComplete = (e) => {
@@ -17,7 +17,7 @@ export default function HotspotsTable(userSetHotspots, setUserSetHotspots, exerc
 
         _userSetHotspots[index] = newData;
 
-        setUserSetHotspots(_userSetHotspots);
+        updateHotspotsArr(_userSetHotspots);
     };
 
     const textEditor = (options) => {
@@ -25,30 +25,63 @@ export default function HotspotsTable(userSetHotspots, setUserSetHotspots, exerc
     };
     const removeHotspot = (id) => {
         let _newArray = userSetHotspots.filter(f => f.id != id)
-        setUserSetHotspots(_newArray)
+        updateHotspotsArr(_newArray)
     }
     const removeButtonTemplate = (rowData) => {
         return <Button icon="pi pi-times" severity="danger" onClick={() => removeHotspot(rowData.id)} size='small'></Button>
     }
-    const changeHotspotType = (newTypeValue) => {
-        let _userSetHotspots = userSetHotspots.map((hotspot, index) => ({ ...hotspot, type: newTypeValue }))
-        setUserSetHotspots(_userSetHotspots)
-    }
-    const changeHotspotQuestion = (newQuestionValue) => {
-        let _userSetHotspots = userSetHotspots.map((hotspot, index) => ({ ...hotspot, question: newQuestionValue }))
-        setUserSetHotspots(_userSetHotspots)
-    }
-    const changeHotspotOptions = (newOptionsValue) => {
-        let _userSetHotspots = userSetHotspots.map((hotspot, index) => ({ ...hotspot, options: newOptionsValue }))
-        setUserSetHotspots(_userSetHotspots)
-    }
-    const changeHotspotAnswer = (newAnswerValue) => {
-        let _userSetHotspots = userSetHotspots.map((hotspot, index) => ({ ...hotspot, answer: newAnswerValue }))
-        setUserSetHotspots(_userSetHotspots)
-    }
-    const changeHotspotInfo = (newInfoValue) => {
-        let _userSetHotspots = userSetHotspots.map((hotspot, index) => ({ ...hotspot, info: newInfoValue }))
-        setUserSetHotspots(_userSetHotspots)
+    const changeHotspotType = (rowId, newTypeValue) => {
+        console.log('rowId',rowId);
+        let _userSetHotspots = userSetHotspots.map((hotspot) => {
+            if (hotspot.id === rowId) {
+                return { ...hotspot, type: newTypeValue };
+            }
+            return hotspot;
+        });
+
+        updateHotspotsArr(_userSetHotspots);
+    };
+
+    const changeHotspotQuestion = (rowId, newQuestionValue) => {
+        let _userSetHotspots = userSetHotspots.map((hotspot) => {
+            if (hotspot.id === rowId) {
+                return { ...hotspot, question: newQuestionValue };
+            }
+            return hotspot;
+        });
+
+        updateHotspotsArr(_userSetHotspots);
+    };
+
+    const changeHotspotOptions = (rowId, newOptionsValue) => {
+        let _userSetHotspots = userSetHotspots.map((hotspot) => {
+            if (hotspot.id === rowId) {
+                return { ...hotspot, options: newOptionsValue };
+            }
+            return hotspot;
+        });
+
+        updateHotspotsArr(_userSetHotspots);
+    };
+
+    const changeHotspotAnswer = (rowId, newAnswerValue) => {
+        let _userSetHotspots = userSetHotspots.map((hotspot) => {
+            if (hotspot.id === rowId) {
+                return { ...hotspot, answer: newAnswerValue };
+            }
+            return hotspot;
+        });
+
+        updateHotspotsArr(_userSetHotspots);
+    };
+    const changeHotspotInfo = (rowId, newInfoValue) => {
+        let _userSetHotspots = userSetHotspots.map((hotspot) => {
+            if (hotspot.id === rowId) {
+                return { ...hotspot, info: newInfoValue };
+            }
+            return hotspot;
+        });
+        updateHotspotsArr(_userSetHotspots)
     }
     const rowExpansionTemplate = (rowData) => {
         return (
@@ -56,7 +89,7 @@ export default function HotspotsTable(userSetHotspots, setUserSetHotspots, exerc
                 <div className="flex flex-column gap-3 h-full text-right" style={{ direction: 'rtl' }}>
                     <span className="p-float-label">
                         <label htmlFor="hotspotType" className='relative mr-3' >בחר סוג</label>
-                        <Dropdown id='hotspotType' options={questionTypeOptions} value={rowData.type} onChange={(e) => changeHotspotType(e.value)} className='text-right' />
+                        <Dropdown id='hotspotType' options={questionTypeOptions} value={rowData.type} onChange={(e) => changeHotspotType(rowData.id, e.target.value)} className='text-right' />
                     </span>
                     {rowData.type && (
                         <div className='flex flex-column gap-2' >
@@ -64,21 +97,21 @@ export default function HotspotsTable(userSetHotspots, setUserSetHotspots, exerc
                                 switch (rowData.type) {
                                     case 'INFO':
                                         return <>
-                                            <InputTextarea autoResize value={rowData.info} onChange={(e) => changeHotspotInfo(e.value)} rows={5} cols={30} />
+                                            <InputTextarea autoResize value={rowData.info} onChange={(e) => changeHotspotInfo(rowData.id, e.target.value)} rows={5} cols={30} />
                                         </>;
                                     case 'QUESTION':
                                         return <>
                                             <span className="p-float-label">
                                                 <label htmlFor="hotspotQuestion" className='relative mr-3'>כתוב שאלה</label>
-                                                <InputText id='hotspotQuestion' value={rowData.question} onChange={(e) => changeHotspotQuestion(e.value)} />
+                                                <InputText id='hotspotQuestion' value={rowData.question} onChange={(e) => changeHotspotQuestion(rowData.id, e.target.value)} />
                                             </span>
                                             <span className="p-float-label">
                                                 <label htmlFor="hotspotOptions" className='relative mr-3' >מלא תשובות אפשריות</label>
-                                                <Chips id='hotspotOptions' value={rowData.options} onChange={(e) => changeHotspotOptions(e.value)} />
+                                                <Chips id='hotspotOptions' value={rowData.options} onChange={(e) => changeHotspotOptions(rowData.id, e.target.value)} />
                                             </span>
                                             <span className="p-float-label">
                                                 <label htmlFor="hotspotAnswer" className='relative mr-3' >בחר תשובה נכונה</label>
-                                                <Dropdown id='hotspotAnswer' value={rowData.answer} options={rowData.options} onChange={(e) => changeHotspotAnswer(e.value)} className='text-right' />
+                                                <Dropdown id='hotspotAnswer' value={rowData.answer} options={rowData.options} onChange={(e) => changeHotspotAnswer(rowData.id, e.target.value)} className='text-right' />
                                             </span>
                                         </>;
                                     case 'ACTION':
