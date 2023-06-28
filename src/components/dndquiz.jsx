@@ -178,7 +178,7 @@ export default function DNDQuizPage({exercise}) {
                             }}
                         >
                             {bottomScreenContent === "Instructions" && infoShown
-                                ? instructions(exercise.model)
+                                ? instructions(exercise)
                                 : questionsScreen(
                                     hotspots,
                                     bottomScreenContent,

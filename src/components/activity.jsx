@@ -156,15 +156,13 @@ export default function ActivityPage({exercise}) {
                             }}
                         >
                             {bottomScreenContent === "Instructions" && infoShown
-                                ? instructions(exercise.model)
+                                ? instructions(exercise)
                                 : questionsScreen(
                                     hotspots,
                                     bottomScreenContent,
                                     handleSubmit
                                 )}
-                                <button id="btnStart" onClick={() => setInfoShown(false)}>
-                                    התחל
-                                </button>
+                                
                             {/* {infoShown ? (
                                 <button id="btnStart" onClick={() => setInfoShown(false)}>
                                     התחל

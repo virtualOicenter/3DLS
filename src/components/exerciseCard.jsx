@@ -4,21 +4,13 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { Toast } from 'primereact/toast';
 import ExcerciseDefinition from './exerciseDefinition';
-import { PublishExerciseOnWix } from './fetchWixData';
-function ExerciseCard({ exerciseData,setExercisesArr }) {
+function ExerciseCard({ exerciseData,publishExercise }) {
     const toast = useRef(null);
 
     const copyLink = () => {
         navigator.clipboard.writeText(linkString)
         toast.current.show({ severity: 'success', summary: 'קישור הועתק בהצלחה', detail: 'ניתן לפתוח לשונית חדשה ולהכנס לקישור שהועתק' });
     };
-    const publishExercise = async () => {
-        await PublishExerciseOnWix(exerciseData._id).then(res => {
-            toast.current.show({ severity: 'success', summary: 'Info', detail: 'פעילות פורסמה בהצלחה' });
-        }).catch(error=>{
-        toast.current.show({ severity: 'error', summary: 'Info', detail: 'שגיאה בפרסום הפעילות' });
-        })
-    }
     const [dialogVisible, setDialogVisible] = useState(false)
     const bgColor = exerciseData.isPublished ? 'white' : 'surface-300'
     const header = (
@@ -30,7 +22,7 @@ function ExerciseCard({ exerciseData,setExercisesArr }) {
             <Button label="צפייה" icon="pi pi-external-link" iconPos='right'
                 className="p-button-secondary gap-2 " outlined onClick={() => setDialogVisible(true)} />
             {!exerciseData.isPublished ? <Button label="פרסום" icon="pi pi-verified" iconPos='right' outlined
-                className="gap-2 " severity='success' onClick={publishExercise} />
+                className="gap-2 " severity='success' onClick={()=>publishExercise(exerciseData._id)} />
                 : <Button label="קישור" icon="pi pi-link" iconPos='right' outlined
                     className="gap-2 " onClick={copyLink} />}
         </div>
