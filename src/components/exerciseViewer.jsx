@@ -64,5 +64,5 @@ export default function ExerciseViewer({exerciseID}) {
             setIslLoaded(true)
         };
     }, []);
-    return (exercise && <QuizPage exercise={exercise}/>)
+    return (exercise && exercise.type=="DND" && <QuizPage exercise={exercise}/>)
 }

@@ -49,7 +49,7 @@ export default function QuizPage({exercise}) {
         hotspots.find((hotspot) => hotspot.id == id).userAnswer = input;
         // setBottomScreenContent("Instructions");
 
-        if (initialHotspotsArr.find((f) => f.id == id).answer === input) {
+        if (initialHotspotsArr.find((f) => f.id == id).title === input) {
             setScore(score + 1);
         }
     };
@@ -122,7 +122,7 @@ export default function QuizPage({exercise}) {
                             // console.log("handle submit", param.destination.droppableId);
                             let tempAnswer = hotspots.find(
                                 (f) => f.id == param.draggableId
-                            ).answer;
+                            ).title;
                             handleSubmit(tempAnswer, desI);
                         }
                     }}
