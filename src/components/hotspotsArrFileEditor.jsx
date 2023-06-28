@@ -20,7 +20,7 @@ export default function HotspotsArrFileEditor({exerciseData, selectedHotspotsFil
                 let newHotspot =
                 {
                     id: "hotspot-" + (userSetHotspots.length + 1),
-                    title: userSetHotspots.length + 1,
+                    title: `${userSetHotspots.length + 1}`,
                     question: "",
                     options: [],
                     answer: `${userSetHotspots.length + 1}`,

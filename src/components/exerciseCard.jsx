@@ -10,7 +10,7 @@ function ExerciseCard({ exerciseData,setExercisesArr }) {
 
     const copyLink = () => {
         navigator.clipboard.writeText(linkString)
-        toast.current.show({ severity: 'success', summary: 'Info', detail: 'קישור הועתק בהצלחה' });
+        toast.current.show({ severity: 'success', summary: 'קישור הועתק בהצלחה', detail: 'ניתן לפתוח לשונית חדשה ולהכנס לקישור שהועתק' });
     };
     const publishExercise = async () => {
         await PublishExerciseOnWix(exerciseData._id).then(res => {

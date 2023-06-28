@@ -1,4 +1,4 @@
-export default function questionsScreen(hotspots, bottomScreenContent, randomizeOptions, handleSubmit) {
+export default function questionsScreen(hotspots, bottomScreenContent, handleSubmit) {
   return (
     <div id="questionScreen">
       {hotspots
@@ -38,7 +38,6 @@ export default function questionsScreen(hotspots, bottomScreenContent, randomize
               >
                 {hotspot.question}
               </p>
-              {randomizeOptions(hotspot.id, hotspot.answer)}
               {hotspot.options.map((option, optionIndex) => (
                 <div>
                   <input

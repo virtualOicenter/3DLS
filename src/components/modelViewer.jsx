@@ -66,7 +66,7 @@ export default function ModelViewer(
                       {
                         hasFinished ? (
                           <div>
-                            {bottomScreenContent != "" ? (index + 1) : (hotspot.title)}
+                            {bottomScreenContent != "" ? (index + 1) : (hotspot.anser)}
                           </div>)
                           : (hotspot.userAnswer != "" && (
                             <div>

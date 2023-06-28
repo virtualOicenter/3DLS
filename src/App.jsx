@@ -1,6 +1,6 @@
 import "./styles/styles.css";
 
-import QuizPage from "./components/quiz"
+import QuizPage from "./components/dndquiz"
 import EditorPage from "./components/editor"
 import getModel from "./assets/3dModelList";
 import GithubFileUpload from "./components/uploadFile";

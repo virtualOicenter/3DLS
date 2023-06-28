@@ -8,7 +8,7 @@ import draggableItems from './draggableItems.jsx'
 // Home function that is reflected across the site1
 
 
-export default function QuizPage({exercise}) {
+export default function ActivityPage({exercise}) {
     console.log('exercise',exercise);
     const [initialHotspotsArr, setInitialHotspotsArr] = useState(exercise.hotspotsFile.hotspots)
     const modelRef = useRef();
@@ -21,35 +21,13 @@ export default function QuizPage({exercise}) {
     const hotspotFileFound= useRef(exercise.hotspotFile)
 
 
-    const randomizeOptions = (id, answer) => {
-        if (hotspots.find((hotspot) => hotspot.id == id).options.length == 4)
-            return;
-        let randomIndex = Math.floor(Math.random() * 3);
-        let returnArr = [];
-        for (let i = 0; i < 4; i++) {
-            if (i == randomIndex) {
-                returnArr[i] = answer;
-            } else {
-                let randomIncorrectIndex;
-                let tempIncorrect = hotspots.filter(
-                    (f) => f.answer != answer && !returnArr.find((h) => h == f.answer)
-                );
-                returnArr[i] =
-                    tempIncorrect[
-                        Math.floor(Math.random() * tempIncorrect.length)
-                    ].answer;
-            }
-        }
-        hotspots.find((hotspot) => hotspot.id == id).options = returnArr;
-    };
-
     const handleSubmit = (input, id) => {
         setAnswers([...answers, { id, answer: input }]);
         // setHotspots(hotspots.filter((hotspot) => hotspot.id !== id));   // answered hotspot disappears
         hotspots.find((hotspot) => hotspot.id == id).userAnswer = input;
         // setBottomScreenContent("Instructions");
 
-        if (initialHotspotsArr.find((f) => f.id == id).title === input) {
+        if (initialHotspotsArr.find((f) => f.id == id).answer === input) {
             setScore(score + 1);
         }
     };
@@ -182,10 +160,12 @@ export default function QuizPage({exercise}) {
                                 : questionsScreen(
                                     hotspots,
                                     bottomScreenContent,
-                                    randomizeOptions,
                                     handleSubmit
                                 )}
-                            {infoShown ? (
+                                <button id="btnStart" onClick={() => setInfoShown(false)}>
+                                    התחל
+                                </button>
+                            {/* {infoShown ? (
                                 <button id="btnStart" onClick={() => setInfoShown(false)}>
                                     התחל
                                 </button>
@@ -203,7 +183,7 @@ export default function QuizPage({exercise}) {
                                         </div>
                                     )}
                                 </Droppable>
-                            )}
+                            )} */}
                         </div>
                     )}
 
@@ -222,26 +202,3 @@ export default function QuizPage({exercise}) {
         )
     );
 }
-/**
- * {
-    "question": "",
-    "userAnswer": "",
-    "info": "saa",
-    "options": [],
-    "id": "hotspot-1",
-    "dataSurface": "0 0 839 841 842 0.795 0.183 0.022",
-    "answer": "תשובה",
-    "title": "1xzczx",
-    "type": "INFO"
-  },
-
-   {
-    "question": "נקודה זו היא:",
-    "userAnswer": "",
-    "options": [],
-    "id": "hotspot-1",
-    "dataSurface": "0 0 1611 1613 1614 0.073 0.621 0.306",
-    "answer": 1,
-    "title": "פרידרם"
-  },
- */
