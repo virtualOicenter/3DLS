@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FetchExercises } from './fetchWixData';
 import DNDQuizPage from "./dndquiz";
 import ActivityPage from "./activity";
@@ -28,13 +28,13 @@ export default function ExerciseViewer({exerciseID}) {
             setIslLoaded(true)
         };
     }, []);
-    if (exercise) {
-        return exercise.type === 'DND' ? (
-          <DNDQuizPage exercise={exercise} />
-        ) : (
-          <ActivityPage exercise={exercise} />
-        );
-      }
-    
-      return null;
+     if (exercise) {
+    return exercise.type === 'DND' ? (
+      <DNDQuizPage exercise={exercise} />
+    ) : (
+      <ActivityPage exercise={exercise} />
+    );
+  }
+
+  return null;
 }

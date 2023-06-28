@@ -1,4 +1,3 @@
-import getModel from "../assets/3dModelList";
 export default function instructions(exercise) {
   // const exercise.model= getModel(modelIDParam)
   console.log('instructions',exercise);

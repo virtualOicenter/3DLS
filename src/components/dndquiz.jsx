@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import instructions from "./instructions.jsx";
 import reviewAnswers from "./reviewAnswers.jsx";

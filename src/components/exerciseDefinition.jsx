@@ -11,7 +11,6 @@ import HotspotsArrFileEditor from './hotspotsArrFileEditor';
 import ExerciseViewer from './exerciseViewer'
 import ModelFileUpload from './uploadFile';
 import { Fetch3DModelsArr, FetchHotspotsArrToModel, CreateExercise, CreateHotspotsFile, FetchTagsOptions, UpdateExercise, UpdateHotspotsFile } from './fetchWixData';
-import { modelsList } from '../assets/3dModelList';
 
 const getModelOptions = (tempArr) => {
     let arr = Array.isArray(tempArr) ? tempArr : [];

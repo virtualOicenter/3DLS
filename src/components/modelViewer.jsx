@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react"
+// import React, { useEffect, useState } from "react"
 import { Droppable } from "react-beautiful-dnd";
-import getModel from "../assets/3dModelList";
 export default function ModelViewer(
   modelData,
   modelRef,
@@ -11,7 +10,6 @@ export default function ModelViewer(
   bottomScreenContent,
   hasFinished
 ) {
-  // const modelData = getModel(modelIDParam)
   console.log('hotspots',hotspots);
   return (!modelData ?
     (
