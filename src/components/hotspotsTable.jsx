@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
@@ -13,10 +13,9 @@ export default function HotspotsTable(userSetHotspots, updateHotspotsArr, exerci
     const questionTypeOptions = [{ 'label': 'מידע', 'value': 'INFO' }, { 'label': 'שאלה', 'value': 'QUESTION' }, { 'label': 'פעולה', 'value': 'ACTION' }]
     const onCellEditComplete = (e) => {
         let _userSetHotspots = [...userSetHotspots];
-        let { newData, index } = e;
-
-        _userSetHotspots[index] = newData;
-
+        let { newRowData, index } = e;
+        if (exerciseType=="DND")newRowData.answer=newRowData.title
+        _userSetHotspots[index] = newRowData;
         updateHotspotsArr(_userSetHotspots);
     };
 

@@ -11,7 +11,6 @@ import HotspotsArrFileEditor from './hotspotsArrFileEditor';
 import ExerciseViewer from './exerciseViewer'
 import ModelFileUpload from './uploadFile';
 import { Fetch3DModelsArr, FetchHotspotsArrToModel, CreateExercise, CreateHotspotsFile, FetchTagsOptions, UpdateExercise, UpdateHotspotsFile } from './fetchWixData';
-import { modelsList } from '../assets/3dModelList';
 
 const getModelOptions = (tempArr) => {
     let arr = Array.isArray(tempArr) ? tempArr : [];
@@ -89,7 +88,6 @@ function ExcerciseDefinition(dataProps) {
         if (selectedModel && selectedModel._id != 'new') {
             getHotspotsArrOptions(selectedModel._id)
                 .then(hotspotsArrOptions => {
-                    console.log('hotspotsArrOptions', hotspotsArrOptions);
                     setHotspotsArrOptions(hotspotsArrOptions);
                     setSelectedHotspotsFile(hotspotsArrOptions.find(f => f._id == exerciseData.hotspotsFile?._id))
                 })

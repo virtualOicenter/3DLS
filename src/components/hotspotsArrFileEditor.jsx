@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import HotspotsTable from "./hotspotsTable"
 
 import { Button } from 'primereact/button';
@@ -20,7 +20,7 @@ export default function HotspotsArrFileEditor({exerciseData, selectedHotspotsFil
                 let newHotspot =
                 {
                     id: "hotspot-" + (userSetHotspots.length + 1),
-                    title: userSetHotspots.length + 1,
+                    title: `${userSetHotspots.length + 1}`,
                     question: "",
                     options: [],
                     answer: `${userSetHotspots.length + 1}`,

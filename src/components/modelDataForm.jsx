@@ -1,6 +1,3 @@
-import { Button } from 'primereact/button';
-import { Toast } from 'primereact/toast';
-import { FileUpload } from 'primereact/fileupload';
 import { InputText } from 'primereact/inputtext';
 export const ModelDataForm = (modelData,setModelData) => {
     return <div className='flex flex-row gap-3'>

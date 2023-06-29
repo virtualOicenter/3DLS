@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import instructions from "./instructions.jsx";
 import reviewAnswers from "./reviewAnswers.jsx";
@@ -8,9 +8,9 @@ import draggableItems from './draggableItems.jsx'
 // Home function that is reflected across the site1
 
 
-export default function QuizPage({exercise}) {
+export default function DNDQuizPage({exercise}) {
     console.log('exercise',exercise);
-    const [initialHotspotsArr, setInitialHotspotsArr] = useState([])
+    const [initialHotspotsArr, setInitialHotspotsArr] = useState(exercise.hotspotsFile.hotspots)
     const modelRef = useRef();
     const [bottomScreenContent, setBottomScreenContent] = useState("Instructions");
     const [answers, setAnswers] = useState([]);
@@ -122,7 +122,7 @@ export default function QuizPage({exercise}) {
                             // console.log("handle submit", param.destination.droppableId);
                             let tempAnswer = hotspots.find(
                                 (f) => f.id == param.draggableId
-                            ).answer;
+                            ).title;
                             handleSubmit(tempAnswer, desI);
                         }
                     }}
@@ -178,7 +178,7 @@ export default function QuizPage({exercise}) {
                             }}
                         >
                             {bottomScreenContent === "Instructions" && infoShown
-                                ? instructions(exercise.model)
+                                ? instructions(exercise)
                                 : questionsScreen(
                                     hotspots,
                                     bottomScreenContent,
@@ -222,3 +222,26 @@ export default function QuizPage({exercise}) {
         )
     );
 }
+/**
+ * {
+    "question": "",
+    "userAnswer": "",
+    "info": "saa",
+    "options": [],
+    "id": "hotspot-1",
+    "dataSurface": "0 0 839 841 842 0.795 0.183 0.022",
+    "answer": "תשובה",
+    "title": "1xzczx",
+    "type": "INFO"
+  },
+
+   {
+    "question": "נקודה זו היא:",
+    "userAnswer": "",
+    "options": [],
+    "id": "hotspot-1",
+    "dataSurface": "0 0 1611 1613 1614 0.073 0.621 0.306",
+    "answer": 1,
+    "title": "פרידרם"
+  },
+ */
