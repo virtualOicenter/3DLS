@@ -258,11 +258,12 @@ function ExcerciseDefinition(dataProps) {
                                     onClick={() => setIsHotspotsEditorVisible(true)} />
                             </div>
                             <ModelViewer />
-                            <Dialog header={`עריכת נקודות בקובץ ${selectedHotspotsFile.title}`}
+                            {selectedHotspotsFile && <Dialog header={`עריכת נקודות בקובץ ${selectedHotspotsFile.title}`}
                                 footer={hotspotsEditorFooter()} visible={isHotspotsEditorVisible} onHide={() => setIsHotspotsEditorVisible(false)}
                                 headerStyle={{ direction: 'rtl' }} className='w-8' >
                                 <HotspotsArrFileEditor exerciseData={exerciseData} selectedHotspotsFile={selectedHotspotsFile} setSelectedHotspotsFile={setSelectedHotspotsFile} />
-                            </Dialog>
+                            </Dialog>}
+                            
                         </div>
                     )}
                 </TabPanel>

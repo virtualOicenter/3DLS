@@ -20,7 +20,9 @@ export default function ModelViewer(
     : (
       <model-viewer
         src={modelData.src}
+        ar
         ar-modes="webxr scene-viewer quick-look"
+        xr-environment
         camera-controls
         interaction-prompt="none"
         shadow-intensity="1"

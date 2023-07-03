@@ -14,7 +14,7 @@ export default function HotspotsTable(userSetHotspots, updateHotspotsArr, exerci
     const onCellEditComplete = (e) => {
         let _userSetHotspots = [...userSetHotspots];
         let { newRowData, index } = e;
-        if (exerciseType=="DND")newRowData.answer=newRowData.title
+        if (exerciseType=="DND"){newRowData.answer=newRowData.title}
         _userSetHotspots[index] = newRowData;
         updateHotspotsArr(_userSetHotspots);
     };

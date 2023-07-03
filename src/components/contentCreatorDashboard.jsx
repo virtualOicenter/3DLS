@@ -84,6 +84,7 @@ function ContentCreatorDashBoard() {
                 </Fieldset>
             </Card>
         </div>
+        </div>
     );
 }
 
