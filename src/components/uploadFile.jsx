@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { FileUpload } from 'primereact/fileupload';
 import { Toast } from 'primereact/toast';
@@ -6,6 +7,7 @@ import { Create3DModel } from './fetchWixData';
 import { ModelDataForm } from './modelDataForm';
 import { PreviewModel } from './previewModel';
 import { Button } from 'primereact/button';
+
 function ModelFileUpload() {
     const toast = useRef(null);
     const viewerRef = useRef(null);
@@ -23,10 +25,11 @@ function ModelFileUpload() {
             "cameraOrbit": "",
             "fieldOfView": ""
         }
-    },)
-    
+    });
+
     useEffect(() => {
         if (file) {
+            // When a file is uploaded, update the modelData with its information
             setModelData((prevModelData) => ({
                 ...prevModelData,
                 src: `https://cdn.jsdelivr.net/gh/virtualOicenter/3dModels/${file.name}`,
@@ -34,12 +37,13 @@ function ModelFileUpload() {
             }));
         }
     }, [file]);
+
     // Function to handle the file upload
     const handleFileUpload = async (event) => {
         setFile(event.files[0]);
         console.log('selected file', file);
         if (checkFieldsNotEmpty() && file) {
-            console.log(modelData);
+            // Upload the file to GitHub and Wix databases
             await uploadFileToGithub().then(async () => {
                 await create3DModelInWix().catch(error => {
                     console.log('error uploading 3d model to wix', error);
@@ -54,8 +58,9 @@ function ModelFileUpload() {
         else {
             toast.current.show({ severity: 'error', summary: 'שגיאה', detail: 'אנא מלאו כותרת ותיאור קצר לקובץ' });
         }
-
     };
+
+    // Function to create the 3D model in Wix database
     const create3DModelInWix = async () => {
         if (checkFieldsNotEmpty()) {
             await Create3DModel(modelData).then(res => {
@@ -69,6 +74,7 @@ function ModelFileUpload() {
             });
         }
     }
+
     // Function to upload the file to GitHub repository
     const uploadFileToGithub = async () => {
         if (file) {
@@ -104,16 +110,27 @@ function ModelFileUpload() {
         }
     };
 
+    // Function to check if required fields are not empty
     const checkFieldsNotEmpty = () => {
-        const { title, description, attribution, url } = modelData;
+        const { title, description } = modelData;
         const isTitleValid = title.trim() !== '';
         const isDescriptionValid = description.trim() !== '';
         // const isAttributionValid = attribution.trim() !== '';
         // const isUrlValid = url.trim() !== '';
 
-        return isTitleValid && isDescriptionValid //&& isAttributionValid && isUrlValid;
+        return isTitleValid && isDescriptionValid;
     };
 
+    // Function to construct the new URL after changing the GitHub permalink
+    const changeUrl = (beforeUrl) => {
+        // Extract the file name from the beforeUrl
+        const fileName = beforeUrl.split('/').pop();
+
+        // Construct the new afterUrl
+        const afterUrl = `https://cdn.jsdelivr.net/gh/virtualOicenter/3dModels/${fileName}`;
+
+        return afterUrl;
+    };
 
     const modelPreview = (previewFile) => {
         return (
@@ -124,6 +141,7 @@ function ModelFileUpload() {
             </div>
         );
     }
+
     return (
         <div className='flex w-full'>
             <Toast ref={toast} />
@@ -132,11 +150,18 @@ function ModelFileUpload() {
                 emptyTemplate={<p>גרור קובץ להעלאה.</p>} headerStyle={{ direction: 'ltr' }} /> */}
             <div className='flex flex-column w-full gap-2'>
                 <div className='w-full flex gap-2 mt-2'>
+                    {/* Input for GitHub permalink */}
                     <InputText className='w-full' value={urlInput} onChange={(e) => setUrlInput(e.target.value)} placeholder='github permalink' />
-                    <Button label='נסה' severity='secondary' onClick={e=>{setModelData({...modelData,'src':changeUrl(urlInput)})}}/>
+                    {/* Button to test new URL */}
+                    <Button label='נסה' severity='secondary' onClick={e => { setModelData({ ...modelData, 'src': changeUrl(urlInput) }) }} />
                 </div>
+                {/* Form for model data */}
                 {ModelDataForm(modelData, setModelData)}
-                {viewerRef.current && viewerRef.current.loaded && checkFieldsNotEmpty() &&<Button label='שמור' onClick={(e) => {create3DModelInWix() }} />}
+                {/* Button to save model to Wix when it's loaded and required fields are not empty */}
+                {viewerRef
+
+.current && viewerRef.current.loaded && checkFieldsNotEmpty() && <Button label='שמור' onClick={(e) => { create3DModelInWix() }} />}
+                {/* Display the model preview */}
                 {modelData.src && PreviewModel(viewerRef, modelData.src)}
             </div>
         </div>
