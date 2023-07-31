@@ -1,14 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FileUpload } from 'primereact/fileupload';
 import { Toast } from 'primereact/toast';
+import { InputText } from 'primereact/inputtext';
 import { Create3DModel } from './fetchWixData';
 import { ModelDataForm } from './modelDataForm';
 import { PreviewModel } from './previewModel';
+import { Button } from 'primereact/button';
 function ModelFileUpload() {
     const toast = useRef(null);
     const viewerRef = useRef(null);
     const [file, setFile] = useState(null);
-    const [modelUploaded, setModelUploaded] = useState(false);
+    const [urlInput, setUrlInput] = useState("");
     const [modelData, setModelData] = useState({
         modelId: '',
         src: '',
@@ -22,7 +24,7 @@ function ModelFileUpload() {
             "fieldOfView": ""
         }
     },)
-
+    
     useEffect(() => {
         if (file) {
             setModelData((prevModelData) => ({
@@ -55,11 +57,14 @@ function ModelFileUpload() {
 
     };
     const create3DModelInWix = async () => {
-        if (file) {
+        if (checkFieldsNotEmpty()) {
             await Create3DModel(modelData).then(res => {
+                toast.current.show({ severity: 'success', summary: 'העלאה הצליחה', detail: 'העלאת הקובץ הצליחה' });
                 console.log('succesful wix database 3d model upload', res);
                 return res
             }).catch((error) => {
+                console.log('error uploading 3d model to wix', error);
+                toast.current.show({ severity: 'error', summary: 'שגיאה', detail: 'שגיאה בהעלאת מודל לוויקס' });
                 return error
             });
         }
@@ -122,11 +127,28 @@ function ModelFileUpload() {
     return (
         <div className='flex w-full'>
             <Toast ref={toast} />
-            <FileUpload mode="advanced" customUpload uploadHandler={handleFileUpload} accept='.glb'
+            {/* <FileUpload mode="advanced" customUpload uploadHandler={handleFileUpload} accept='.glb'
                 maxFileSize={100000000} itemTemplate={modelPreview} multiple={false} className='flex flex-column w-full'
-                emptyTemplate={<p>גרור קובץ להעלאה.</p>} headerStyle={{ direction: 'ltr' }} />
+                emptyTemplate={<p>גרור קובץ להעלאה.</p>} headerStyle={{ direction: 'ltr' }} /> */}
+            <div className='flex flex-column w-full gap-2'>
+                <div className='w-full flex gap-2 mt-2'>
+                    <InputText className='w-full' value={urlInput} onChange={(e) => setUrlInput(e.target.value)} placeholder='github permalink' />
+                    <Button label='נסה' severity='secondary' onClick={e=>{setModelData({...modelData,'src':changeUrl(urlInput)})}}/>
+                </div>
+                {ModelDataForm(modelData, setModelData)}
+                {viewerRef.current && viewerRef.current.loaded && checkFieldsNotEmpty() &&<Button label='שמור' onClick={(e) => {create3DModelInWix() }} />}
+                {modelData.src && PreviewModel(viewerRef, modelData.src)}
+            </div>
         </div>
     );
 }
+const changeUrl = (beforeUrl) => {
+    // Extract the file name from the beforeUrl
+    const fileName = beforeUrl.split('/').pop();
 
+    // Construct the new afterUrl
+    const afterUrl = `https://cdn.jsdelivr.net/gh/virtualOicenter/3dModels/${fileName}`;
+
+    return afterUrl;
+};
 export default ModelFileUpload;
