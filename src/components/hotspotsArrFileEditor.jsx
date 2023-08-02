@@ -45,6 +45,7 @@ export default function HotspotsArrFileEditor({exerciseData, selectedHotspotsFil
                 shadow-intensity="1"
                 ar
                 autoplay
+                style={{height:"25rem"}}
             // ios-src={URL.createObjectURL(previewFile)}
             >
                 {userSetHotspots && userSetHotspots.map((hotspot, index) => {

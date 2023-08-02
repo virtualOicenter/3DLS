@@ -99,37 +99,40 @@ function ExcerciseDefinition(dataProps) {
 
     const ModelViewer = () => {
         if (selectedModel && selectedModel.src) {
-            return <model-viewer
-                ref={viewerRef}
-                src={selectedModel.src}
-                alt="Model Preview"
-                ar-modes="webxr scene-viewer quick-look"
-                loading="eager" poster='../assets/Cube-1.5s-200px.svg'
-                camera-controls
-                interaction-prompt="none"
-                shadow-intensity="1"
-                ar
-                autoplay
-                // ios-src={URL.createObjectURL(previewFile)}
-                style={{ direction: 'ltr' }}
-            >
-                {selectedHotspotsFile && selectedHotspotsFile.hotspots && selectedHotspotsFile.hotspots.map((hotspot, index) => {
-                    return (<button
-                        className={hotspot.userAnswer == ""
-                            ? "Hotspot w-full"
-                            : "AnsweredHotspot w-full"}
-                        slot={hotspot.id}
-                        data-surface={hotspot.dataSurface}
-                        data-visibility-attribute="visible"
-                        onClick={() => console.log(hotspot.id, "clicked")}
-                        key={hotspot.id + index}
-                    >
-                        <div className="HotspotAnnotation w-full">{hotspot.title}
-                            <div className="hotspotDot">.</div>
-                        </div>
-                    </button>)
-                })}
-            </model-viewer>
+            return <div style={{height:'auto'}}>
+                    <model-viewer
+                                    ref={viewerRef}
+                                    src={selectedModel.src}
+                                    alt="Model Preview"
+                                    ar-modes="webxr scene-viewer quick-look"
+                                    loading="eager" poster='../assets/Cube-1.5s-200px.svg'
+                                    camera-controls
+                                    interaction-prompt="none"
+                                    shadow-intensity="1"
+                                    ar
+                                    autoplay
+                                    // ios-src={URL.createObjectURL(previewFile)}
+                                    style={{ direction: 'ltr', height:"35rem" }}
+                                >
+                                    {selectedHotspotsFile && selectedHotspotsFile.hotspots && selectedHotspotsFile.hotspots.map((hotspot, index) => {
+                                        return (<button
+                                            className={hotspot.userAnswer == ""
+                                                ? "Hotspot w-full"
+                                                : "AnsweredHotspot w-full"}
+                                            slot={hotspot.id}
+                                            data-surface={hotspot.dataSurface}
+                                            data-visibility-attribute="visible"
+                                            onClick={() => console.log(hotspot.id, "clicked")}
+                                            key={hotspot.id + index}
+                                        >
+                                            <div className="HotspotAnnotation w-full">{hotspot.title}
+                                                <div className="hotspotDot">.</div>
+                                            </div>
+                                        </button>)
+                                    })}
+                                </model-viewer>
+            </div>
+            
         }
     }
 

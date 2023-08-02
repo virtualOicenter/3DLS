@@ -1,8 +1,6 @@
 import React, { useState, useRef } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { Card } from 'primereact/card'
 import { Button } from "primereact/button";
-import { Chip } from 'primereact/chip'
 import instructions from "./instructions.jsx";
 import reviewAnswers from "./reviewAnswers.jsx";
 import questionsScreen from "./questionsScreen.jsx";
@@ -48,17 +46,13 @@ export default function DNDQuizPage({ exercise }) {
 
     const handleSubmit = (input, id) => {
         setAnswers([...answers, { id, answer: input }]);
-        // setHotspots(hotspots.filter((hotspot) => hotspot.id !== id));   // answered hotspot disappears
         hotspots.find((hotspot) => hotspot.id == id).userAnswer = input;
-        // setBottomScreenContent("Instructions");
-
         if (initialHotspotsArr.find((f) => f.id == id).answer === input) {
             setScore(score + 1);
         }
     };
 
     const handleReset = () => {
-        // setHotspots(initialHotspotsArr);
         hotspots.forEach((hotspot) => {
             hotspot.userAnswer = "";
         });
@@ -68,16 +62,11 @@ export default function DNDQuizPage({ exercise }) {
         setBottomScreenContent("Instructions");
         setInfoShown(true);
     };
-    const handleShowAnswers = () => {
-        alert(JSON.stringify(hotspots.map((hotspot) => hotspot.userAnswer)));
-    };
+
     const handleFinish = () => {
         setHasFinished(true);
     };
 
-    const ShowAnswersOnFinish = () => {
-        setHotspots(initialHotspotsArr);
-    };
     const handleModelClick = (event) => {
         const { clientX, clientY } = event;
 
@@ -135,13 +124,6 @@ export default function DNDQuizPage({ exercise }) {
                         style={{ backgroundColor: "none" }}
                         className={`flex ${"justify-content-between"}`}
                     >
-                        {/* <button
-                                id="btnInformation"
-                                onMouseEnter={() => setInfoShown(true)}
-                                onMouseLeave={() => setInfoShown(false)}
-                            >
-                                הוראות
-                            </button> */}
                         {infoShown ?
                             (<div>
                                 הוראות
@@ -182,17 +164,11 @@ export default function DNDQuizPage({ exercise }) {
                             {infoShown && <Button label="התחל" id="btnStart" onClick={() => setInfoShown(false)} />}
                         </div>
                     )}
-                    <div className={`flex flex-${window.innerWidth < 768?"column":"row"} gap-3 h-full`}>
-                        {!infoShown && !hasFinished && <div className={`${window.innerWidth < 768?"w-12":"w-5"} mt-3 h-full  shadow-2 border-round p-1`}>
+                    <div className={`flex flex-${window.innerWidth < 768 ? "column" : "row"} gap-3 h-full`}>
+                        {!infoShown && !hasFinished && <div className={`${window.innerWidth < 768 ? "w-12" : "w-5"} mt-3 h-full  shadow-2 border-round p-1`}>
                             <Droppable droppableId="droppable-titles" type="HOTSPOT">
                                 {(provided, _) => (
-                                    <div ref={provided.innerRef} {...provided.droppableProps}
-                                    // style={{
-                                    //     display: 'grid',
-                                    //     gridTemplateColumns: '1fr 1fr', // Set the columns
-                                    //     gap: '10px' // Add some gap between items
-                                    // }}
-                                    >
+                                    <div ref={provided.innerRef} {...provided.droppableProps}>
                                         {draggableItems(hotspots)}
                                         {provided.placeholder}
                                     </div>
@@ -200,16 +176,16 @@ export default function DNDQuizPage({ exercise }) {
                             </Droppable>
                         </div>}
                         <div className="w-12 mt-3 h-full shadow-2 border-round" style={{ direction: "ltr" }}>
-                                {ModelViewer(
-                                    exercise.model,
-                                    modelRef,
-                                    handleModelClick,
-                                    hotspots,
-                                    answers,
-                                    getBackgroundColor,
-                                    bottomScreenContent,
-                                    hasFinished
-                                )}
+                            {ModelViewer(
+                                exercise.model,
+                                modelRef,
+                                handleModelClick,
+                                hotspots,
+                                answers,
+                                getBackgroundColor,
+                                bottomScreenContent,
+                                hasFinished
+                            )}
 
                         </div>
                     </div>
@@ -219,26 +195,3 @@ export default function DNDQuizPage({ exercise }) {
         )
     );
 }
-/**
- * {
-    "question": "",
-    "userAnswer": "",
-    "info": "saa",
-    "options": [],
-    "id": "hotspot-1",
-    "dataSurface": "0 0 839 841 842 0.795 0.183 0.022",
-    "answer": "תשובה",
-    "title": "1xzczx",
-    "type": "INFO"
-  },
-
-   {
-    "question": "נקודה זו היא:",
-    "userAnswer": "",
-    "options": [],
-    "id": "hotspot-1",
-    "dataSurface": "0 0 1611 1613 1614 0.073 0.621 0.306",
-    "answer": 1,
-    "title": "פרידרם"
-  },
- */

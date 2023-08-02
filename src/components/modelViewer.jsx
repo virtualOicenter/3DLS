@@ -8,9 +8,29 @@ export default function ModelViewer(
   answers,
   getBackgroundColor,
   bottomScreenContent,
-  hasFinished
+  hasFinished,
+  setBottomScreenContent
 ) {
-  console.log('hotspots',hotspots);
+  const getAnnotationContent = (hotspot,index)=>{
+    switch (hotspot.type) {
+      case "QUESTION" :
+        return <i className="pi pi-question-circle"  ></i>
+        case "INFO" :
+          return <i className="pi pi-info-circle"  ></i>
+      default:
+        return hasFinished ? (
+            <div>
+              {bottomScreenContent != "" ? (index + 1) : (hotspot.anser)}
+            </div>)
+            : (hotspot.userAnswer != "" && (
+              <div>
+                {
+                  hotspots.findIndex((f) => f.answer == hotspot.userAnswer)+1
+                }
+              </div>
+            ))
+    }
+  }
   return (!modelData ?
     (
       <div style={{ backgroundColor: "red", color: "white", textAlign: "center" }}>
@@ -51,9 +71,7 @@ export default function ModelViewer(
                     slot={hotspot.id}
                     data-surface={hotspot.dataSurface}
                     data-visibility-attribute="visible"
-                    onClick={
-                      () => console.log(hotspot.id, "clicked")
-                      //setBottomScreenContent(hotspot.id)
+                    onClick={() =>setBottomScreenContent(hotspot.id)
                       // bottomScreenContent != hotspot.id
                       //   ? hotspot.id
                       //   : "Instructions"
@@ -61,20 +79,7 @@ export default function ModelViewer(
                     }
                   >
                     <div className="HotspotAnnotation">
-                      {
-                        hasFinished ? (
-                          <div>
-                            {bottomScreenContent != "" ? (index + 1) : (hotspot.anser)}
-                          </div>)
-                          : (hotspot.userAnswer != "" && (
-                            <div>
-                              {
-                                hotspots.findIndex((f) => f.answer == hotspot.userAnswer)+1
-                              }
-                            </div>
-                          ))
-                        /*<div className="hotspotDot">.</div>*/
-                      }
+                      {getAnnotationContent(hotspot,index)}
                       <span style={{ display: "none" }}>
                         {provided.placeholder}
                       </span>
