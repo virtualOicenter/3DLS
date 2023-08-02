@@ -153,7 +153,7 @@ function ModelFileUpload() {
                     {/* Input for GitHub permalink */}
                     <InputText className='w-full' value={urlInput} onChange={(e) => setUrlInput(e.target.value)} placeholder='github permalink' />
                     {/* Button to test new URL */}
-                    <Button label='נסה' severity='secondary' onClick={e => { setModelData({ ...modelData, 'src': changeUrl(urlInput) }) }} />
+                    <Button label='נסה' severity='secondary' onClick={e => { setModelData({ ...modelData, 'src': changeUrl(urlInput),'modelId':urlInput.split('/').pop().split('.glb')[0] }) }} />
                 </div>
                 {/* Form for model data */}
                 {ModelDataForm(modelData, setModelData)}

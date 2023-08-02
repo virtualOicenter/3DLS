@@ -1,5 +1,8 @@
 import React, { useState, useRef } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { Card } from 'primereact/card'
+import { Button } from "primereact/button";
+import { Chip } from 'primereact/chip'
 import instructions from "./instructions.jsx";
 import reviewAnswers from "./reviewAnswers.jsx";
 import questionsScreen from "./questionsScreen.jsx";
@@ -8,8 +11,8 @@ import draggableItems from './draggableItems.jsx'
 // Home function that is reflected across the site1
 
 
-export default function DNDQuizPage({exercise}) {
-    console.log('exercise',exercise);
+export default function DNDQuizPage({ exercise }) {
+    console.log('DNDQuizPage', exercise);
     const [initialHotspotsArr, setInitialHotspotsArr] = useState(exercise.hotspotsFile.hotspots)
     const modelRef = useRef();
     const [bottomScreenContent, setBottomScreenContent] = useState("Instructions");
@@ -18,7 +21,7 @@ export default function DNDQuizPage({exercise}) {
     const [score, setScore] = useState(0);
     const [hasFinished, setHasFinished] = useState(false);
     const [infoShown, setInfoShown] = useState(true);
-    const hotspotFileFound= useRef(exercise.hotspotFile)
+    const hotspotFileFound = useRef(exercise.hotspotFile)
 
 
     const randomizeOptions = (id, answer) => {
@@ -101,13 +104,13 @@ export default function DNDQuizPage({exercise}) {
         return; // "white";
     };
     //<button onClick={handleShowAnswers}>הצג תשובות </button>
-    return (hotspotFileFound.current!=undefined ? (
-    <div style={{backgroundColor:"red", color:"white", textAlign:"center"}}>
-    ERROR HOTSPOTS NOT FOUND
-  </div>
-  )
+    return (hotspotFileFound.current != undefined ? (
+        <div style={{ backgroundColor: "red", color: "white", textAlign: "center" }}>
+            ERROR HOTSPOTS NOT FOUND
+        </div>
+    )
         : (
-            <div id="main">
+            <div id="main" style={{ direction: "rtl", height: "100vh" }} className="p-3">
                 <DragDropContext
                     /*
                     onBeforeCapture={this.onBeforeCapture}
@@ -129,53 +132,44 @@ export default function DNDQuizPage({exercise}) {
                 >
                     <div
                         id="upperSection"
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            height: "auto",
-                            backgroundColor: "none",
-                        }}
+                        style={{ backgroundColor: "none" }}
+                        className={`flex ${"justify-content-between"}`}
                     >
-                        <div>
-                            <button
+                        {/* <button
                                 id="btnInformation"
                                 onMouseEnter={() => setInfoShown(true)}
                                 onMouseLeave={() => setInfoShown(false)}
                             >
                                 הוראות
-                            </button>
-                            <button id="btnFinishQuiz" onClick={handleFinish}>
-                                סיום הבוחן...
-                            </button>
-                            <button
+                            </button> */}
+                        {infoShown ?
+                            (<div>
+                                הוראות
+                            </div>)
+                            : (!hasFinished ? <div>
+                                מספר שאלות שנותרו למענה:{" "}
+                                {hotspots.length -
+                                    hotspots.filter((f) => f.userAnswer !== "").length}
+                            </div> : <div>
+                                כל הכבוד, ענית נכון על {score} מתוך {initialHotspotsArr.length} שאלות
+                            </div>)}
+
+                        <div className="flex gap-2">
+                            <Button
                                 onClick={handleReset}
-                                style={{ margin: "0px 15px 15px 15px" }}
-                            >
-                                נסיון מענה חדש
-                            </button>
+                                label="נסיון מענה חדש"
+                                outlined
+                            />
+                            <Button id="btnFinishQuiz" onClick={handleFinish} label="סיום הבוחן..." />
                         </div>
-                        {!hasFinished ? (
-                            <div>
-                                <p style={{ margin: 5, direction: "rtl" }}>
-                                    מספר שאלות שנותרו למענה:{" "}
-                                    {hotspots.length -
-                                        hotspots.filter((f) => f.userAnswer !== "").length}
-                                </p>
-                            </div>
-                        ) : (
-                            <div></div>
-                        )}
+
+
                     </div>
                     {hasFinished ? (
                         reviewAnswers(initialHotspotsArr, hotspots, score)
                     ) : (
                         <div
-                            style={{
-                                color: "#343a40",
-                                height: "150px",
-                                direction: "rtl",
-                                height: "auto",
-                            }}
+                            style={{ color: "#343a40", }}
                         >
                             {bottomScreenContent === "Instructions" && infoShown
                                 ? instructions(exercise)
@@ -185,38 +179,41 @@ export default function DNDQuizPage({exercise}) {
                                     randomizeOptions,
                                     handleSubmit
                                 )}
-                            {infoShown ? (
-                                <button id="btnStart" onClick={() => setInfoShown(false)}>
-                                    התחל
-                                </button>
-                            ) : (
-                                <Droppable droppableId="droppable-titles" type="HOTSPOT">
-                                    {(provided, _) => (
-                                        <div ref={provided.innerRef} {...provided.droppableProps}
-                                        style={{
-                                            display: 'grid',
-                                            gridTemplateColumns: '1fr 1fr', // Set the columns
-                                            gap: '10px' // Add some gap between items
-                                          }}>
-                                            {draggableItems(hotspots)}
-                                            {provided.placeholder}
-                                        </div>
-                                    )}
-                                </Droppable>
-                            )}
+                            {infoShown && <Button label="התחל" id="btnStart" onClick={() => setInfoShown(false)} />}
                         </div>
                     )}
+                    <div className="flex flex-ci gap-3 h-full">
+                        {!infoShown && !hasFinished && <div className="w-5 mt-3 h-full shadow-2 border-round p-1">
+                            <Droppable droppableId="droppable-titles" type="HOTSPOT">
+                                {(provided, _) => (
+                                    <div ref={provided.innerRef} {...provided.droppableProps}
+                                    // style={{
+                                    //     display: 'grid',
+                                    //     gridTemplateColumns: '1fr 1fr', // Set the columns
+                                    //     gap: '10px' // Add some gap between items
+                                    // }}
+                                    >
+                                        {draggableItems(hotspots)}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </div>}
+                        <div className="w-12 mt-3 h-full shadow-2 border-round" style={{ direction: "ltr" }}>
+                                {ModelViewer(
+                                    exercise.model,
+                                    modelRef,
+                                    handleModelClick,
+                                    hotspots,
+                                    answers,
+                                    getBackgroundColor,
+                                    bottomScreenContent,
+                                    hasFinished
+                                )}
 
-                    {ModelViewer(
-                        exercise.model,
-                        modelRef,
-                        handleModelClick,
-                        hotspots,
-                        answers,
-                        getBackgroundColor,
-                        bottomScreenContent,
-                        hasFinished
-                    )}
+                        </div>
+                    </div>
+
                 </DragDropContext>
             </div> //main
         )

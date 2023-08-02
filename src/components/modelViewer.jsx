@@ -18,20 +18,19 @@ export default function ModelViewer(
       </div>
     )
     : (
-      <model-viewer
+      <div className="h-full"> 
+        <model-viewer
         src={modelData.src}
         ar-modes="webxr scene-viewer quick-look"
         camera-controls
         interaction-prompt="none"
         shadow-intensity="1"
-        
         camera-orbit={modelData.additionalProps.cameraOrbit}
         field-of-view={modelData.additionalProps.fieldOfView}
         ref={(ref) => {
           modelRef.current = ref;
         }}
         onClick={(event) => { handleModelClick && handleModelClick(event) }}
-
       >
         {hotspots.map((hotspot, index) => {
           if (answers.indexOf(hotspot.id) === -1) {
@@ -91,6 +90,8 @@ export default function ModelViewer(
         <div className="progress-bar hide" slot="progress-bar">
           <div className="update-bar"></div>
         </div>
-      </model-viewer>)
+      </model-viewer>
+      </div>
+      )
   );
 }
