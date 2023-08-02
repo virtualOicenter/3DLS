@@ -24,6 +24,7 @@ export default function ModelViewer(
         camera-controls
         interaction-prompt="none"
         shadow-intensity="1"
+        
         camera-orbit={modelData.additionalProps.cameraOrbit}
         field-of-view={modelData.additionalProps.fieldOfView}
         ref={(ref) => {
