@@ -182,8 +182,8 @@ export default function DNDQuizPage({ exercise }) {
                             {infoShown && <Button label="התחל" id="btnStart" onClick={() => setInfoShown(false)} />}
                         </div>
                     )}
-                    <div className="flex flex-ci gap-3 h-full">
-                        {!infoShown && !hasFinished && <div className="w-5 mt-3 h-full shadow-2 border-round p-1">
+                    <div className={`flex flex-${window.innerWidth < 768?"column":"row"} gap-3 h-full`}>
+                        {!infoShown && !hasFinished && <div className={`${window.innerWidth < 768?"w-12":"w-5"} mt-3 h-full  shadow-2 border-round p-1`}>
                             <Droppable droppableId="droppable-titles" type="HOTSPOT">
                                 {(provided, _) => (
                                     <div ref={provided.innerRef} {...provided.droppableProps}
