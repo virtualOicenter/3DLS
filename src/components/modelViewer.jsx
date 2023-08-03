@@ -11,24 +11,14 @@ export default function ModelViewer(
   hasFinished,
   setBottomScreenContent
 ) {
-  const getAnnotationContent = (hotspot,index)=>{
+  const getAnnotationContent = (hotspot, index) => {
     switch (hotspot.type) {
-      case "QUESTION" :
+      case "QUESTION":
         return <i className="pi pi-question-circle"  ></i>
-        case "INFO" :
-          return <i className="pi pi-info-circle"  ></i>
+      case "INFO":
+        return <i className="pi pi-info-circle"  ></i>
       default:
-        return hasFinished ? (
-            <div>
-              {bottomScreenContent != "" ? (index + 1) : (hotspot.anser)}
-            </div>)
-            : (hotspot.userAnswer != "" && (
-              <div>
-                {
-                  hotspots.findIndex((f) => f.answer == hotspot.userAnswer)+1
-                }
-              </div>
-            ))
+        return 
     }
   }
   return (!modelData ?
@@ -38,7 +28,7 @@ export default function ModelViewer(
       </div>
     )
     : (
-        <model-viewer
+      <model-viewer
         src={modelData.src}
         ar-modes="webxr scene-viewer quick-look"
         camera-controls
@@ -50,7 +40,7 @@ export default function ModelViewer(
           modelRef.current = ref;
         }}
         onClick={(event) => { handleModelClick && handleModelClick(event) }}
-        style={{width:"100%", height:"100%"}}
+        style={{ width: "100%", height: "100%" }}
       >
         {hotspots.map((hotspot, index) => {
           if (answers.indexOf(hotspot.id) === -1) {
@@ -71,7 +61,7 @@ export default function ModelViewer(
                     slot={hotspot.id}
                     data-surface={hotspot.dataSurface}
                     data-visibility-attribute="visible"
-                    onClick={() =>setBottomScreenContent(hotspot.id)
+                    onClick={() => setBottomScreenContent(hotspot.id)
                       // bottomScreenContent != hotspot.id
                       //   ? hotspot.id
                       //   : "Instructions"
@@ -79,7 +69,14 @@ export default function ModelViewer(
                     }
                   >
                     <div className="HotspotAnnotation">
-                      {getAnnotationContent(hotspot,index)}
+                      {hasFinished ? (
+                        <div>
+                          {bottomScreenContent != "" ? (index + 1) : (hotspot.anser)}
+                        </div>)
+                        : (
+                            getAnnotationContent(hotspot, index)
+                        )}
+                      
                       <span style={{ display: "none" }}>
                         {provided.placeholder}
                       </span>
@@ -96,6 +93,6 @@ export default function ModelViewer(
           <div className="update-bar"></div>
         </div>
       </model-viewer>
-      )
+    )
   );
 }

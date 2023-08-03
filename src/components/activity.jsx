@@ -136,7 +136,7 @@ export default function ActivityPage({ exercise }) {
 
                     </div>
                     {hasFinished ? (
-                        reviewAnswers(initialHotspotsArr, hotspots, score)
+                        reviewAnswers(hotspots.filter(f=>f.type=="QUESTION"), score)
                     ) : (
                         <div
                             style={{ color: "#343a40", }}

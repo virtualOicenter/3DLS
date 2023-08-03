@@ -10,34 +10,35 @@ export default function questionsScreen(hotspots, bottomScreenContent, randomize
           >
             <div
               id="questionTitle"
-              className="p-1 w-1"
+              className="p-2 w-1"
               style={{
                 backgroundColor: "#dee2e6",
               }}
             >
-              <p className="font-semibold">
-                {hotspot.type == "QUESTION" ? "שאלה" : "מידע"}
-              </p>
+              <div className="flex flex-column align-items-center justify-content-center  ">
+                <span className="font-semibold">{hotspot.type == "QUESTION" ? "שאלה" : "מידע"}</span>
+                <span className="font-normal">{hotspot.type != "QUESTION" && hotspot.title}</span>
+              </div>
             </div>
             <div
               id="questionInfo"
-              className="p-3 w-full"
+              className="p-2 w-full"
               style={{
                 backgroundColor: "#def2f8",
               }}
             >
 
               {/* {randomizeOptions(hotspot.id)} */}
-              {hotspot.type == "INFO" ? (hotspot.info) : (
+              {hotspot.type == "QUESTION" ? (
                 <>
-                  <p
+                  <span
                     style={{
                       padding: "0px",
                       marginBottom: "10px",
                     }}
                   >
                     {hotspot.question}
-                  </p>
+                  </span>
                   {hotspot.options.map((option, optionIndex) => (
                     <div key={`optionIndex-${optionIndex}`}>
                       <input
@@ -56,7 +57,7 @@ export default function questionsScreen(hotspots, bottomScreenContent, randomize
                     </div>
                   ))}
                 </>
-              )}
+              ):(hotspot.type == "INFO" ? hotspot.info : "")}
 
             </div>
           </div>

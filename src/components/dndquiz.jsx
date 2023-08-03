@@ -148,7 +148,7 @@ export default function DNDQuizPage({ exercise }) {
 
                     </div>
                     {hasFinished ? (
-                        reviewAnswers(initialHotspotsArr, hotspots, score)
+                        reviewAnswers(hotspots, score)
                     ) : (
                         <div
                             style={{ color: "#343a40", }}
