@@ -38,7 +38,6 @@ export default function ModelViewer(
       </div>
     )
     : (
-      <div className="h-full"> 
         <model-viewer
         src={modelData.src}
         ar-modes="webxr scene-viewer quick-look"
@@ -51,6 +50,7 @@ export default function ModelViewer(
           modelRef.current = ref;
         }}
         onClick={(event) => { handleModelClick && handleModelClick(event) }}
+        style={{width:"100%", height:"100%"}}
       >
         {hotspots.map((hotspot, index) => {
           if (answers.indexOf(hotspot.id) === -1) {
@@ -96,7 +96,6 @@ export default function ModelViewer(
           <div className="update-bar"></div>
         </div>
       </model-viewer>
-      </div>
       )
   );
 }

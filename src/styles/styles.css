@@ -27,13 +27,6 @@
   display: none !important;
 }
 
-model-viewer {
-  /*   position: static; */
-  /* height: 30rem; */
-  width: 100%;
-  /*margin-top: 10%;*/
-}
-
 model-viewer:hover {
   border: 1px solid var(--hotspotBGColor);
   border-radius: 15px;

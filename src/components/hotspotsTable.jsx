@@ -14,7 +14,7 @@ export default function HotspotsTable(userSetHotspots, updateHotspotsArr, exerci
     const onCellEditComplete = (e) => {
         let _userSetHotspots = [...userSetHotspots];
         let { newRowData, index } = e;
-        if (exerciseType=="DND"){newRowData.answer=newRowData.title}
+        if (exerciseType == "DND") { newRowData.answer = newRowData.title }
         _userSetHotspots[index] = newRowData;
         updateHotspotsArr(_userSetHotspots);
     };
@@ -30,7 +30,7 @@ export default function HotspotsTable(userSetHotspots, updateHotspotsArr, exerci
         return <Button icon="pi pi-times" severity="danger" onClick={() => removeHotspot(rowData.id)} size='small'></Button>
     }
     const changeHotspotType = (rowId, newTypeValue) => {
-        console.log('rowId',rowId);
+        console.log('rowId', rowId);
         let _userSetHotspots = userSetHotspots.map((hotspot) => {
             if (hotspot.id === rowId) {
                 return { ...hotspot, type: newTypeValue };
@@ -128,8 +128,9 @@ export default function HotspotsTable(userSetHotspots, updateHotspotsArr, exerci
     };
     return (
         <div className="card p-fluid" style={{ direction: "rtl" }}>
-            <DataTable value={userSetHotspots} editMode="cell" stripedRows dataKey="id" size='small' expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
-                rowExpansionTemplate={rowExpansionTemplate} columnResizeMode='fit' >
+            <DataTable value={userSetHotspots} editMode="cell" scrollable scrollHeight="200px" stripedRows dataKey="id" size='small'
+                expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
+                rowExpansionTemplate={rowExpansionTemplate} columnResizeMode='fit'>
                 <Column field='index' header='סידורי' body={(_, rowData) => `${rowData.rowIndex + 1}`} align={"center"} headerClassName='text-center' className='w-1' />
                 <Column field="title" header="כותרת" align={"center"} editor={(options) => textEditor(options)} onCellEditComplete={onCellEditComplete} className='w-4' ></Column>
                 {exerciseType != 'DND' && (<Column expander className='w-1 text-center' style={{ transform: 'rotate(0.5turn)' }}></Column>)}

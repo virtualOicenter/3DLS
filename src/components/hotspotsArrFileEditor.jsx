@@ -26,6 +26,7 @@ export default function HotspotsArrFileEditor({exerciseData, selectedHotspotsFil
                     answer: `${userSetHotspots.length + 1}`,
                     dataSurface: hit,
                     userAnswer: "",
+                    type:exerciseData.type=="DND"?"DND":"INFO"
                 }
                 updateHotspotsArr([...userSetHotspots, newHotspot])
                 console.log("hit", hit);
@@ -45,7 +46,8 @@ export default function HotspotsArrFileEditor({exerciseData, selectedHotspotsFil
                 shadow-intensity="1"
                 ar
                 autoplay
-                style={{height:"25rem"}}
+                style={{ direction: 'ltr', width:"100%", height:"100%", minHeight:"25rem" }}
+
             // ios-src={URL.createObjectURL(previewFile)}
             >
                 {userSetHotspots && userSetHotspots.map((hotspot, index) => {
