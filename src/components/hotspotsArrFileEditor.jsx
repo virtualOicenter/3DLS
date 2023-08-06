@@ -34,7 +34,7 @@ export default function HotspotsArrFileEditor({exerciseData, selectedHotspotsFil
         }
     };
     return (
-        <div className="w-full h-auto ">
+        <div className="w-full h-full flex">
             <model-viewer
                 ref={modelRef}
         onClick={handleModelClick}
@@ -46,7 +46,7 @@ export default function HotspotsArrFileEditor({exerciseData, selectedHotspotsFil
                 shadow-intensity="1"
                 ar
                 autoplay
-                style={{ direction: 'ltr', width:"100%", height:"100%", minHeight:"25rem" }}
+                style={{ direction: 'ltr', width:"100%", height:"70vh", minHeight:"35rem",position:"sticky",top:"0px" }}
 
             // ios-src={URL.createObjectURL(previewFile)}
             >

@@ -128,7 +128,7 @@ export default function HotspotsTable(userSetHotspots, updateHotspotsArr, exerci
     };
     return (
         <div className="card p-fluid" style={{ direction: "rtl" }}>
-            <DataTable value={userSetHotspots} editMode="cell" scrollable scrollHeight="200px" stripedRows dataKey="id" size='small'
+            <DataTable value={userSetHotspots} editMode="cell" stripedRows dataKey="id" size='small' 
                 expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
                 rowExpansionTemplate={rowExpansionTemplate} columnResizeMode='fit'>
                 <Column field='index' header='סידורי' body={(_, rowData) => `${rowData.rowIndex + 1}`} align={"center"} headerClassName='text-center' className='w-1' />
