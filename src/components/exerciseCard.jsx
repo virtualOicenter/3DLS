@@ -8,7 +8,7 @@ function ExerciseCard({ exerciseData, publishExercise }) {
     const toast = useRef(null);
 
     const copyLink = () => {
-        navigator.clipboard.writeText(linkString)
+        navigator.clipboard.writeText(embedString)
         toast.current.show({ severity: 'success', summary: 'קישור הועתק בהצלחה' });
     };
     const [dialogVisible, setDialogVisible] = useState(false)
@@ -17,6 +17,7 @@ function ExerciseCard({ exerciseData, publishExercise }) {
         <div></div>
     );
     const linkString = `https://virtualoicenter.github.io/3DLS/?mode=exerciseViewer&exerciseID=${exerciseData._id}`
+    const embedString = `<iframe src="${linkString}" style="border:0px #ffffff none;" name="carrot-quiz" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="1200px" width="100%" allowfullscreen=""></iframe>`
     const footer = (
         <div className="flex flex-row justify-content-start gap-2 w-full">
             {!exerciseData.isPublished ?
@@ -27,9 +28,9 @@ function ExerciseCard({ exerciseData, publishExercise }) {
                         className="gap-2 " severity='success' onClick={() => publishExercise(exerciseData._id)} />
                 </>)
                 : (<>
-                    <Button label="הפעל" icon="pi pi-external-link" iconPos='right' outlined 
+                    <Button label="הפעל" icon="pi pi-external-link" iconPos='right' outlined
                         className="p-button-secondary gap-2 " onClick={(() => { window.open(linkString, '_blank') })} />
-                    <Button label="קישור" icon="pi pi-link" iconPos='right' outlined
+                    <Button label="הטמעה" icon="pi pi-link" iconPos='right' outlined
                         className="gap-2 " onClick={copyLink} />
                 </>)}
         </div>

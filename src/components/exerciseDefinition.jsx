@@ -138,22 +138,25 @@ function ExcerciseDefinition(dataProps) {
 
     const hotspotsEditorFooter = () => {
         return (<div>
+            <Toast ref={toast} />
             <Button label='שמור' icon="pi pi-check" iconPos='right'
                 onClick={() => {
                     UpdateHotspotsFile(selectedHotspotsFile).then((res) => {
                         setSelectedHotspotsFile(res)
-                        toast.current.show({ severity: 'success', summary: 'Info', detail: 'succefully updated hotspots file' });
-                    })
+                        toast.current.show({ severity: 'success', summary: 'success', detail: 'succefully updated hotspots file' });
+                    }).catch(e=>toast.current.show({ severity: 'error', summary: 'error', detail: 'error updated hotspots file',e }))
                 }} />
-            <Button label='בטל' icon="pi pi-times" iconPos='right' severity='danger' />
+            <Button label='בטל' icon="pi pi-times" iconPos='right' severity='danger' onClick={()=>setIsHotspotsEditorVisible(false)} />
         </div>)
     }
     const handleSave = () => {
         // console.log('exerciseData',exerciseData);
-        exerciseData._id ? UpdateExercise(exerciseData) : CreateExercise(exerciseData).then(res => {
-            console.log('creare exercise fetch result', res);
+        exerciseData._id ? UpdateExercise(exerciseData).then(res => {
+            toast.current.show({ severity: 'success', summary: 'success', detail: 'succefully updated exercise file' });
+        }).catch(e=>toast.current.show({ severity: 'error', summary: 'error', detail: 'error updating exercise file',e })) : CreateExercise(exerciseData).then(res => {
             setExerciseData(res)
-        })
+            toast.current.show({ severity: 'success', summary: 'success', detail: 'succefully created exercise file' });
+        }).catch(e=>toast.current.show({ severity: 'error', summary: 'error', detail: 'error creating exercise file',e }))
     }
     return (
         <div className='card flex flex-row column-gap-3' style={{ direction: 'rtl' }}>
@@ -188,7 +191,7 @@ function ExcerciseDefinition(dataProps) {
                     <MultiSelect display='chip' placeholder="תגים" value={exerciseData.tags} options={selectTagsOptions} optionLabel='title' onChange={e => { let _exerciseData = ({ ...exerciseData, 'tags': e.target.value }); setExerciseData(_exerciseData) }} />
                 </div>
                 <Button label='שמור' icon="pi pi-check" iconPos='right' onClick={handleSave} />
-                <Button label='בטל' icon="pi pi-times" iconPos='right' severity='danger' />
+                {/* <Button label='בטל' icon="pi pi-times" iconPos='right' severity='danger' /> */}
             </div>
             <TabView className='w-full h-auto shadow-2'>
                 <TabPanel header="בחירת מודל"  >
