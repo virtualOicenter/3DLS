@@ -37,18 +37,18 @@ function ExerciseCard({ exerciseData, publishExercise }) {
     );
     const subTitle = (
         <div>
-            <p className='line-height-1'>{exerciseData.lecturer}</p>
-            <p className='line-height-1'>{exerciseData.info}</p>
+            <p className='line-height-1'>מרצה: {exerciseData.lecturer}</p>
+            <p className='line-height-1'>תיאור: {exerciseData.info}</p>
         </div>
     )
     return (
-        <div className='unitCard' >
+        <div className='unitCard w-20rem' >
             <Toast ref={toast} />
             <Card className='h-full' style={{ backgroundColor: { bgColor } }}
                 title={exerciseData.title} subTitle={subTitle} footer={footer} header={header}>
             </Card>
-            <Dialog header="הגדרת פעילות" visible={dialogVisible} onHide={() => setDialogVisible(false)}
-                headerStyle={{ direction: 'rtl' }} className='w-9' key={`exerciseDefinition${exerciseData._id}`} >
+            <Dialog header="הגדרת פעילות" visible={dialogVisible} onHide={() => setDialogVisible(false)} id={`exerciseDefinition${exerciseData._id}`}
+                headerStyle={{ direction: 'rtl' }} className='w-9' key={`exerciseDefinition${exerciseData._id}`}>
                 {ExcerciseDefinition(exerciseData)}
             </Dialog>
         </div>

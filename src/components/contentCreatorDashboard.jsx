@@ -15,7 +15,7 @@ const emptyExercise =
 {
     "model": { '_id': 'new' },
     "info": "",
-    "hotspotsFile": { '_id': 'new' },
+    "hotspotsFile": undefined,
     "title": "",
     "tags": null,
     "isPublished": false
@@ -34,6 +34,8 @@ function ContentCreatorDashBoard() {
             const fetchedExercisesArr = await FetchExercises();
             setExercisesArr(fetchedExercisesArr);
             setIslLoaded(true)
+            {console.log('exerciseData',fetchedExercisesArr)}
+
         } catch (error) {
             console.error('Error fetching data', error);
         }
@@ -69,16 +71,16 @@ function ContentCreatorDashBoard() {
                     </Dialog>
                 </div>
             </span>
-            <Card className='min-w-7 w-9 min-h-3 p-3 m-3 '>
+            <Card className='min-w-7 w-9 min-h-3 p-3 m-3 flex-wrap'>
                 <Fieldset legend='פעילויות מוכנות לפרסום' toggleable key="published exercises">
-                    <div className='unitCardsGrid overflow-y-scroll min-h-1 p-1'>
+                    <div className='min-h-1 p-1 flex flex-wrap gap-3 '>
                         {exercisesArr && exercisesArr.filter(f => f.isPublished && f.title.toLowerCase().includes(filterString)).map((exercise, index) => {
                             return <ExerciseCard key={`published${index}`} exerciseData={exercise} setExercisesArr={setExercisesArr} />
                         })}
                     </div>
                 </Fieldset>
                 <Fieldset legend='פעילויות בהכנה' toggleable keyy="unpublished exercises">
-                    <div className='unitCardsGrid overflow-y-scroll min-h-1 max-h-25rem p-1'>
+                    <div className='min-h-1 p-1 flex flex-wrap gap-3'>
                         {exercisesArr && exercisesArr.filter(f => !f.isPublished && f.title.toLowerCase().includes(filterString)).map((exercise, index) => {
                             return <ExerciseCard key={`unpublished${index}`} exerciseData={exercise} setExercisesArr={setExercisesArr} />
                         })}

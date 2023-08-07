@@ -6,7 +6,7 @@ import getModel from "./assets/3dModelList";
 import GithubFileUpload from "./components/uploadFile";
 import ContentCreatorDashBoard from "./components/contentCreatorDashboard";
 import ExerciseViewer from './components/exerciseViewer'
-
+import Helper from "./components/helper";
 export default function App() {
 
   const searchParams = new URLSearchParams(window.location.search);
@@ -34,6 +34,7 @@ export default function App() {
   }
   return (
     <div id="main">
+      <Helper modeId={appModeParam}/>
       {getPage()}
     </div> //main
   );
