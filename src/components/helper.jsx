@@ -7,20 +7,12 @@ const getConterCreatorDashboardHelper = () => {
   return (
     <Accordion>
       <AccordionTab header="יצירת תרגיל חדש">
-<iframe src="https://scribehow.com/embed/Creating_a_New_Activity_and_Saving_Files_in_3DLS__Ey1Nvw27SGavHSBl5_g1_g?as=scrollable&skipIntro=true" width="100%" height="640px" allowFullScreen className="border-none"></iframe>
+<iframe src="https://scribehow.com/embed/Creating_a_New_Activity_and_Saving_Files_in_3DLS__Ey1Nvw27SGavHSBl5_g1_g?as=scrollable&skipIntro=true" width="100%" height="640" allowFullScreen className="border-none"></iframe>
       </AccordionTab>
-      <AccordionTab header="Header II">
-        <p className="m-0">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit,
-          sed quia non numquam eius modi.
-        </p>
+      <AccordionTab header="שכפול או יצירת קובץ נקודות">
+      <iframe src="https://scribehow.com/embed/Create_Duplicate_and_Edit_Point_Files_in_3DLS_Content_Creator_Dashboard__UjnYp-iLRCWw7FDe9ZC6Fw?as=scrollable&skipIntro=true" width="100%" height="640" allowFullScreen className="border-none"></iframe>
       </AccordionTab>
-      <AccordionTab header="Header III">
+      <AccordionTab header="סימון נקודות על מודל">
         <p className="m-0">
           At vero eos et accusamus et iusto odio dignissimos ducimus qui
           blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
