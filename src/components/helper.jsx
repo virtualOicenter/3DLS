@@ -7,7 +7,7 @@ const getConterCreatorDashboardHelper = () => {
   return (
     <Accordion>
       <AccordionTab header="יצירת תרגיל חדש">
-<iframe src="https://scribehow.com/embed/Creating_a_New_Activity_and_Saving_Files_in_3DLS__Ey1Nvw27SGavHSBl5_g1_g?as=scrollable&skipIntro=true" width="100%" height="640" allowFullScreen frameborder="0"></iframe>
+<iframe src="https://scribehow.com/embed/Creating_a_New_Activity_and_Saving_Files_in_3DLS__Ey1Nvw27SGavHSBl5_g1_g?as=scrollable&skipIntro=true" width="100%" height="640px" allowFullScreen className="border-none"></iframe>
       </AccordionTab>
       <AccordionTab header="Header II">
         <p className="m-0">
@@ -61,6 +61,7 @@ export default function Helper({ modeId }) {
         rounded
         severity="info"
         onClick={() => setVisible(true)}
+        style={{top:"10vh"}}
       />
       <Sidebar
         visible={visible}

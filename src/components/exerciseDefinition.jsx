@@ -54,7 +54,7 @@ function ExcerciseDefinition(dataProps) {
   const [selectHotspotsArrOptions, setHotspotsArrOptions] = useState([]);
   const [selectTagsOptions, setSelectTags] = useState([]);
   const [isHotspotsEditorVisible, setIsHotspotsEditorVisible] = useState(false);
-  const [unsavedData,setUnsavedData]=useState(false)
+  const [unsavedData, setUnsavedData] = useState(false);
   const viewerRef = useRef(null);
   const toast = useRef(null);
 
@@ -62,7 +62,10 @@ function ExcerciseDefinition(dataProps) {
     { label: "בוחן גרירה", value: "DND" },
     { label: "פעילות למידה", value: "OTHER" },
   ];
-  useEffect(()=>{if(JSON.stringify(dataProps)!==JSON.stringify(exerciseData))setUnsavedData(true)},[exerciseData])
+  useEffect(() => {
+    if (JSON.stringify(dataProps) !== JSON.stringify(exerciseData) && exerciseData.title!="" && exerciseData.info!="" && exerciseData.lecturer!="")
+      setUnsavedData(true);
+  }, [exerciseData]);
 
   useEffect(() => {
     let isMounted = true;
@@ -266,7 +269,7 @@ function ExcerciseDefinition(dataProps) {
   return (
     <div
       className="card flex flex-row column-gap-3"
-      style={{ direction: "rtl" }}
+      style={{ direction: "rtl" }} 
     >
       <Toast ref={toast} />
       <div className="card flex flex-column gap-3">

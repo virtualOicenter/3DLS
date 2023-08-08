@@ -116,3 +116,17 @@ export const PublishExerciseOnWix = async (exerciseId) => {
     return error;
   });
 };
+export const DeleteExerciseOnWix = async (exerciseId) => {
+  console.log('excersiceJSON before post', exerciseId);
+  return fetch(`https://yonivas0.editorx.io/etil3ls/_functions/deleteExercise`,
+  {
+    method: 'POST',
+    body: JSON.stringify({ exerciseId })
+  })
+  .then(response => response.json())
+  .then(data => data.inserted)
+  .catch(error => {
+    console.error('Error publishing exercise', error);
+    return error;
+  });
+};
