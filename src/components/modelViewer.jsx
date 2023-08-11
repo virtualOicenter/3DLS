@@ -31,6 +31,7 @@ export default function ModelViewer(
       <model-viewer
         src={modelData.src}
         ar-modes="webxr scene-viewer quick-look"
+        ar
         camera-controls
         interaction-prompt="none"
         shadow-intensity="1"
